@@ -1,67 +1,83 @@
-import {
-  Flex,
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Checkbox,
-  Stack,
-  Link,
-  Button,
-  Heading,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import axios from "axios";
+import { useState } from "react";
+import { Center, Heading, Text, Stack, Box } from "@chakra-ui/react";
 
-export default function Login() {
+const Login = ({ setUser }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const baseURL = "https://safe-connected.onrender.com/";
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(username);
+    console.log(password);
+    axios
+      .post(`${baseURL}auth/token/login`, {
+        // toLowerCase used for better UX, user can enter username anyway
+        // left needs to match with database keypair
+        username: username.toLowerCase(),
+        password: password,
+      })
+      .then((res) => {
+        const token = res.data.auth_token;
+        setUser(token, username);
+      });
+  };
+
   return (
-    <Flex
-      minH={"100vh"}
-      align={"center"}
-      justify={"center"}
-      bg={useColorModeValue("blackAlpha.800")}
-    >
-      <Stack w={"xl"} spacing={8} py={12} px={6}>
-        <Stack justifyContent={"center"} align={"left-align"}>
-          <Heading color={"yellow.200"} fontSize={"4xl"}>
-            SIGN IN TO YOUR ACCOUNT
+    <>
+      <Center h="100vh">
+        <Stack
+          as={Box}
+          textAlign={"center"}
+          spacing={{ base: 8, md: 14 }}
+          py={{ base: 20, md: 36 }}
+        >
+          <Heading
+            fontWeight={600}
+            fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
+            lineHeight={"110%"}
+            color={"yellow.500"}
+          >
+            Safe. Connected. <br />
+            <Text as={"span"} color={"yellow.500"}>
+              Resources & Services.
+            </Text>
           </Heading>
-          <Text as={"span"} color={"yellow.200"}>
-            For Full Access to Your Resources & Services.
-          </Text>
+          <div className="login">
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="name">Username: </label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={username}
+                  // as the value in input changes, it's setting the value to setUserName
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="password">Password: </label>
+                <input
+                  type="password"
+                  name="password-name"
+                  id="password-register"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <input type="submit" value="Log In" />
+              </div>
+            </form>
+          </div>
         </Stack>
-        <Box w={"xl"} rounded={"lg"} boxShadow={"lg"} p={8}>
-          <Stack spacing={4}>
-            <FormControl id="email">
-              <FormLabel color={"yellow.200"}>Email address</FormLabel>
-              <Input type="email" />
-            </FormControl>
-            <FormControl id="password">
-              <FormLabel color={"yellow.200"}>Password</FormLabel>
-              <Input type="password" />
-            </FormControl>
-            <Stack spacing={10}>
-              <Stack
-                direction={{ base: "column", sm: "row" }}
-                align={"start"}
-                justify={"space-between"}
-              >
-                <Checkbox color={"yellow.200"}>Remember me</Checkbox>
-                <Link color={"blue.400"}>Forgot password?</Link>
-              </Stack>
-              <Button
-                bg={"yellow.200"}
-                color={"blackAlpha.800"}
-                _hover={{
-                  bg: "blue.500",
-                }}
-              >
-                Sign in
-              </Button>
-            </Stack>
-          </Stack>
-        </Box>
-      </Stack>
-    </Flex>
+      </Center>
+    </>
   );
-}
+};
+
+export default Login;

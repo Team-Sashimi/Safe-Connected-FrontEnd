@@ -15,7 +15,6 @@ import Login from "./login";
 const LandingPage = () => {
   const handleLoginPage = () => {
     console.log("hi");
-    return <Login />;
   };
 
   return (
@@ -52,6 +51,7 @@ const LandingPage = () => {
                 alignSelf={"center"}
                 position={"relative"}
               >
+                <Login setUser={setUser} />
                 <Button
                   onClick={handleLoginPage}
                   color={"blackAlpha.800"}

@@ -1,13 +1,28 @@
 // import { useState } from "react";
 // import { Route } from "react-router-dom";
 import Login from "./components/login";
-import LandingPage from "./components/landing";
+import EventsFeed from "./components/events";
+import useLocalStorageState from "use-local-storage-state";
 
 function App() {
+  const [token, setToken] = useLocalStorageState("userToken", "");
+  const [username, setUsername] = useLocalStorageState("userName", "");
+
+  const setUser = (token, username) => {
+    setToken(token);
+    setUsername(username);
+  };
+
+  console.log(token);
+  console.log(username);
+
   return (
     <>
-      {/* <LandingPage /> */}
-      <Login />
+      {token ? (
+        <EventsFeed token={token} username={username} />
+      ) : (
+        <Login setUser={setUser} />
+      )}
     </>
   );
 }
