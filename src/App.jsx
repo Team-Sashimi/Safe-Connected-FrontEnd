@@ -1,8 +1,10 @@
-// import { useState } from "react";
-// import { Route } from "react-router-dom";
-import Login from "./components/login";
-import EventsFeed from "./components/events";
+import { useState } from "react";
+import { Flex, Center } from "@chakra-ui/react";
 import useLocalStorageState from "use-local-storage-state";
+import { Footer } from "./Componentz/Footer";
+import { Main } from "./Componentz/Main";
+import { Navbar } from "./Componentz/Navbar";
+import Login from "./Componentz/Login";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
@@ -17,13 +19,23 @@ function App() {
   console.log(username);
 
   return (
-    <>
-      {token ? (
-        <EventsFeed token={token} username={username} />
-      ) : (
-        <Login setUser={setUser} />
-      )}
-    </>
+    <Flex direction="column" minHeight="100vh">
+      <Navbar />
+      <Flex direction="column" flex="1">
+        {token ? (
+          <>
+            <Main username={username} token={token} />
+          </>
+        ) : (
+          <>
+            <Center flex="1">
+              <Login setUser={setUser} />
+            </Center>
+          </>
+        )}
+      </Flex>
+      <Footer />
+    </Flex>
   );
 }
 
