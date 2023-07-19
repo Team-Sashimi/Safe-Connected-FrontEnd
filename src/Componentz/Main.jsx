@@ -11,8 +11,27 @@ import {
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export const Main = ({ username, token }) => {
+  const baseURL = "https://safe-connected.onrender.com/";
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${baseURL}event/list/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        setEvents(res.data);
+      });
+  }, [token]);
+
+  console.log(events);
+
   return (
     <Flex as="main" role="main" direction="column" flex="2" py="6">
       <Container maxW="900px" flex="1">
