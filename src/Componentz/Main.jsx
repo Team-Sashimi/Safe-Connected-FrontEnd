@@ -14,6 +14,7 @@ import {
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import dayjs from "dayjs";
 
 export const Main = ({ username, token }) => {
   const baseURL = "https://safe-connected.onrender.com/";
@@ -60,13 +61,15 @@ export const Main = ({ username, token }) => {
           </Box>
           <Center>
             <Flex direction="column">
-              <Box>
+              <Box as="event-card">
                 {events.map((event) => (
                   <>
                     <Text>{event.event_title}</Text>
                     <Text>{event.general_notes}</Text>
-                    <Text>{event.start_time}</Text>
-                    <Text>{event.end_time}</Text>
+                    <Text>
+                      {dayjs(event.start_time).format("MMMM D, YYYY h:mm A")} -
+                      {dayjs(event.end_time).format("h:mm A")}
+                    </Text>
                     <Text>{event.event_organizer}</Text>
                     <Text>{event.event_organizer}</Text>
                     <Text>{event.privacy}</Text>
