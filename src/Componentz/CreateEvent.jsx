@@ -90,7 +90,7 @@ const CreateEvent = ({ token, username }) => {
     <>
       <Flex
         as="CreateEvent"
-        role="CreateEvent"
+        role="createEvent"
         direction="column"
         flex="2"
         py="6"
@@ -100,7 +100,7 @@ const CreateEvent = ({ token, username }) => {
             <Center>
               <Flex direction="column" align="center">
                 <Heading color="yellow.200">CREATE YOUR EVENT HERE</Heading>
-                <Text color="yellow.200">{username}</Text>
+                <Text color="yellow.200">{username} ROLE, ORGANIZATION</Text>
                 <Box my="8">
                   <form onSubmit={handleSubmit}>
                     <FormControl>
@@ -140,9 +140,9 @@ const CreateEvent = ({ token, username }) => {
                         placeholder="Event Organization"
                         onChange={(e) => handleChange("eventOrganization", e)}
                       >
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                        <option value="option3">Option 3</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
                       </Select>
                       <FormLabel mt="4">Event Organizer</FormLabel>
                       <Select
@@ -150,9 +150,9 @@ const CreateEvent = ({ token, username }) => {
                         placeholder="Event Leader"
                         onChange={(e) => handleChange("eventOrganizer", e)}
                       >
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                        <option value="option3">Option 3</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
                       </Select>
                       <Input
                         cursor="pointer"

@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
 import { Center, Heading, Text, Stack, Box } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ setUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const baseURL = "https://safe-connected.onrender.com/";
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +21,7 @@ const Login = ({ setUser }) => {
       .then((res) => {
         const token = res.data.auth_token;
         setUser(token, username);
+        navigate("/");
       });
   };
 

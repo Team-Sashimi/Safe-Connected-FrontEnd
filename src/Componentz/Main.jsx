@@ -61,21 +61,23 @@ export const Main = ({ username, token }) => {
           </Box>
           <Center>
             <Flex direction="column">
-              <Box as="event-card">
-                {events.map((event) => (
-                  <>
-                    <Text>{event.event_title}</Text>
+              {events.map((event) => (
+                <>
+                  <Box maxW="400px" as="event-card" key={event.id}>
+                    <Heading as="h4" size="md">
+                      {event.event_title}
+                    </Heading>
                     <Text>{event.general_notes}</Text>
                     <Text>
                       {dayjs(event.start_time).format("MMMM D, YYYY h:mm A")} -
                       {dayjs(event.end_time).format("h:mm A")}
                     </Text>
                     <Text>{event.event_organizer}</Text>
-                    <Text>{event.event_organizer}</Text>
+                    <Text>{event.event_organization}</Text>
                     <Text>{event.privacy}</Text>
-                  </>
-                ))}
-              </Box>
+                  </Box>
+                </>
+              ))}
             </Flex>
           </Center>
         </Grid>

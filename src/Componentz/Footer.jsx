@@ -1,4 +1,5 @@
-import { Box, Container, Link, Flex, LinkBox } from "@chakra-ui/react";
+import { Box, Container, Flex, LinkBox } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
@@ -12,7 +13,7 @@ export const Footer = () => {
         <Flex justifyContent="space-between" alignItems="center" minH="20">
           <Link>Events</Link>
           <Link>Clients</Link>
-          <Link>Account</Link>
+          <Link to="/test">Account</Link>
         </Flex>
       </Container>
     </Box>
