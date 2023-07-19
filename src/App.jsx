@@ -6,6 +6,8 @@ import { Footer } from "./Componentz/Footer";
 import { Main } from "./Componentz/Main";
 import { Navbar } from "./Componentz/Navbar";
 import Login from "./Componentz/Login";
+import CreateEvent from "./Componentz/CreateEvent";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
@@ -30,7 +32,16 @@ function App() {
       <Flex direction="column" flex="1">
         {token ? (
           <>
-            <Main username={username} token={token} />
+            <Routes>
+              <Route
+                path="/"
+                element={<Main username={username} token={token} />}
+              />
+              <Route
+                path="/create-event"
+                element={<CreateEvent username={username} token={token} />}
+              />
+            </Routes>
           </>
         ) : (
           <>
