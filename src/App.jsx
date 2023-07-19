@@ -12,6 +12,7 @@ import { Routes, Route } from "react-router-dom";
 import Registration from "./Componentz/Registration";
 import SearchEvents from "./Componentz/SearchEvents";
 import OrganizationList from "./Componentz/OrganizationList";
+import OrganizationProfile from "./Componentz/OrganizationProfile";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
@@ -56,6 +57,12 @@ function App() {
                 <Route
                   path="/organizations"
                   element={<OrganizationList token={token} />}
+                />
+                <Route
+                  path="/organizations/:orgID"
+                  element={
+                    <OrganizationProfile token={token} username={username} />
+                  }
                 />
               </Routes>
             </>

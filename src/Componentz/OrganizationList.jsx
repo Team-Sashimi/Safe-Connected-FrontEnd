@@ -28,6 +28,11 @@ const OrganizationList = ({ token, username }) => {
       });
   }, [token]);
 
+  const handleOrgDetails = (orgID) => {
+    console.log(`hi this is the event id: ${orgID}`);
+    navigate(`/organizations/${orgID}`);
+  };
+
   return (
     <Flex as="all-orgs" role="all-orgs" direction="column" flex="2" py="6">
       <Container as="container-for-events" maxW="900px" flex="1">
@@ -49,11 +54,13 @@ const OrganizationList = ({ token, username }) => {
             <Box border="1px solid black" borderRadius="md" p="4" m="4">
               {allOrgs.map((org) => (
                 <Box
+                  key={org.id}
                   maxWidth="400px"
                   border="1px solid black"
                   borderRadius="md"
                   p="4"
                   m="10"
+                  onClick={() => handleOrgDetails(org.id)}
                 >
                   <Box as="event-card" key={org.id}>
                     <Heading as="h4" size="md">
