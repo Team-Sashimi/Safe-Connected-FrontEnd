@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import { Flex, Center } from "@chakra-ui/react";
 import useLocalStorageState from "use-local-storage-state";
 import { Footer } from "./Componentz/Footer";
@@ -9,6 +10,7 @@ import Login from "./Componentz/Login";
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
   const [username, setUsername] = useLocalStorageState("userName", "");
+  const baseURL = "https://safe-connected.onrender.com/";
 
   const setUser = (token, username) => {
     setToken(token);
@@ -19,7 +21,11 @@ function App() {
   console.log(username);
 
   return (
-    <Flex direction="column" minHeight="100vh">
+    <Flex
+      direction="column"
+      minHeight="100vh"
+      style={{ backgroundColor: "grey" }}
+    >
       <Navbar />
       <Flex direction="column" flex="1">
         {token ? (
