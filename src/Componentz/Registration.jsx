@@ -22,6 +22,7 @@ const Registration = ({ setUserPK }) => {
       })
       .then((res) => {
         const userID = res.data.id;
+        setUserPK(userID);
         console.log(userID);
         console.log("hi");
         navigate("/login");

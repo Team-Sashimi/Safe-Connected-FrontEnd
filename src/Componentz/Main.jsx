@@ -16,7 +16,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 
-export const Main = ({ username, token }) => {
+export const Main = ({ username, token, userID }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [events, setEvents] = useState([]);
 
@@ -32,7 +32,9 @@ export const Main = ({ username, token }) => {
       });
   }, [token]);
 
-  console.log(events);
+  console.log(userID);
+  console.log(username);
+  console.log(token);
 
   return (
     <Flex as="main" role="main" direction="column" flex="2" py="6">
@@ -41,7 +43,9 @@ export const Main = ({ username, token }) => {
           <Center>
             <Flex direction="column" align="center">
               <Heading color="yellow.200">UPCOMING EVENTS</Heading>
-              <Text color="yellow.200">{username}</Text>
+              <Text color="yellow.200">
+                {username} {userID}
+              </Text>
               <Input
                 my="8"
                 variant="filled"
