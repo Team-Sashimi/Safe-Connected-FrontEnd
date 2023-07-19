@@ -167,6 +167,8 @@ const CreateEvent = ({ token, username }) => {
                 <Box as="event-preview">
                   <Text>{eventTitle}</Text>
                   <Text>{generalNotes}</Text>
+                  <Text>{startTime}</Text>
+                  <Text>{endTime}</Text>
                 </Box>
               </Flex>
             </Center>
@@ -178,3 +180,5 @@ const CreateEvent = ({ token, username }) => {
 };
 
 export default CreateEvent;
+
+//"end_time": "2023-07-18 09:30"

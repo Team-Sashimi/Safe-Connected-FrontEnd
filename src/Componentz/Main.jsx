@@ -8,6 +8,7 @@ import {
   Input,
   Button,
   Grid,
+  Checkbox,
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
@@ -59,10 +60,18 @@ export const Main = ({ username, token }) => {
           </Box>
           <Center>
             <Flex direction="column">
-              <Heading>Event Title</Heading>
               <Box>
-                <Text>Event Details</Text>
-                <Text>Date</Text>
+                {events.map((event) => (
+                  <>
+                    <Text>{event.event_title}</Text>
+                    <Text>{event.general_notes}</Text>
+                    <Text>{event.start_time}</Text>
+                    <Text>{event.end_time}</Text>
+                    <Text>{event.event_organizer}</Text>
+                    <Text>{event.event_organizer}</Text>
+                    <Text>{event.privacy}</Text>
+                  </>
+                ))}
               </Box>
             </Flex>
           </Center>
