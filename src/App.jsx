@@ -13,6 +13,7 @@ import Registration from "./Componentz/Registration";
 import SearchEvents from "./Componentz/SearchEvents";
 import OrganizationList from "./Componentz/OrganizationList";
 import OrganizationProfile from "./Componentz/OrganizationProfile";
+import CreateOrgProfile from "./Componentz/CreateOrgProfile";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
@@ -65,6 +66,12 @@ function App() {
                 <Route
                   path="/organizations"
                   element={<OrganizationList token={token} />}
+                />
+                <Route
+                  path="/create-org"
+                  element={
+                    <CreateOrgProfile token={token} username={username} />
+                  }
                 />
                 <Route
                   path="/organizations/:orgID"

@@ -97,7 +97,9 @@ const CreateEvent = ({ token, username, userID }) => {
             <Center>
               <Flex direction="column" align="center">
                 <Heading color="blackAlpha.500">CREATE YOUR EVENT HERE</Heading>
-                <Text color="blackAlpha.500">{username}</Text>
+                <Text color="blackAlpha.500">
+                  {username}, {userID}
+                </Text>
                 <Box my="8">
                   <form onSubmit={handleSubmit}>
                     <FormControl>

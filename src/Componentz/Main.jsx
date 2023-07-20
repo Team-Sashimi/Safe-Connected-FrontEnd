@@ -63,7 +63,10 @@ export const Main = ({ username, token, userID }) => {
                   <Button m="4">CREATE AN EVENT</Button>
                 </Link>
                 <Link to="/organizations">
-                  <Button>ORGANIZATIONS</Button>
+                  <Button m="4">ORGANIZATIONS</Button>
+                </Link>
+                <Link to="/create-org">
+                  <Button m="4">Create an organization profile</Button>
                 </Link>
               </Flex>
             </Center>

@@ -29,7 +29,7 @@ const OrganizationList = ({ token, username }) => {
   }, [token]);
 
   const handleOrgDetails = (orgID) => {
-    console.log(`hi this is the event id: ${orgID}`);
+    console.log(`hi this is the org id: ${orgID}`);
     navigate(`/organizations/${orgID}`);
   };
 
