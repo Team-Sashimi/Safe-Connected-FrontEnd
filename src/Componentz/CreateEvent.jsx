@@ -22,7 +22,6 @@ const CreateEvent = ({ token, username, userID }) => {
   const [generalNotes, setGeneralNotes] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [eventOrganizer, setEventOrganizer] = useState("");
   const [eventOrganization, setEventOrganization] = useState("");
 
   const navigate = useNavigate();
@@ -53,7 +52,6 @@ const CreateEvent = ({ token, username, userID }) => {
         setEventTitle("");
         setGeneralNotes("");
         setStartTime("");
-        setEventOrganizer("");
         setEventOrganization("");
         setEndTime("");
         navigate("/");
@@ -77,9 +75,6 @@ const CreateEvent = ({ token, username, userID }) => {
     if (userInput === "startTime") {
       setStartTime(e.target.value);
       console.log(startTime);
-    }
-    if (userInput === "eventOrganizer") {
-      setEventOrganizer(e.target.value);
     }
     if (userInput === "eventOrganization") {
       setEventOrganization(e.target.value);
