@@ -43,7 +43,9 @@ function App() {
               <Routes>
                 <Route
                   path="/"
-                  element={<Main username={username} token={token} />}
+                  element={
+                    <Main username={username} token={token} userID={userID} />
+                  }
                 />
                 <Route
                   path="/search-events"
@@ -51,7 +53,13 @@ function App() {
                 />
                 <Route
                   path="/create-event"
-                  element={<CreateEvent username={username} token={token} />}
+                  element={
+                    <CreateEvent
+                      username={username}
+                      token={token}
+                      userID={userID}
+                    />
+                  }
                 />
                 <Route path="/test" element={<TestTest token={token} />} />
                 <Route

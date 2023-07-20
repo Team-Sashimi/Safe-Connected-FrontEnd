@@ -17,7 +17,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-const CreateEvent = ({ token, username }) => {
+const CreateEvent = ({ token, username, userID }) => {
   const [eventTitle, setEventTitle] = useState("");
   const [generalNotes, setGeneralNotes] = useState("");
   const [startTime, setStartTime] = useState("");
@@ -39,7 +39,7 @@ const CreateEvent = ({ token, username }) => {
           start_time: endTime,
           end_time: startTime,
           general_notes: generalNotes,
-          event_organizer: eventOrganizer,
+          event_organizer: userID,
           event_organization: eventOrganization,
         },
         {
@@ -85,6 +85,8 @@ const CreateEvent = ({ token, username }) => {
       setEventOrganization(e.target.value);
     }
   };
+
+  console.log(userID);
 
   return (
     <>
@@ -144,16 +146,6 @@ const CreateEvent = ({ token, username }) => {
                         <option value="2">2</option>
                         <option value="3">3</option>
                       </Select>
-                      <FormLabel mt="4">Event Organizer</FormLabel>
-                      <Select
-                        variant="filled"
-                        placeholder="Event Leader"
-                        onChange={(e) => handleChange("eventOrganizer", e)}
-                      >
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </Select>
                       <Input
                         cursor="pointer"
                         mt="6"
@@ -169,6 +161,7 @@ const CreateEvent = ({ token, username }) => {
                   <Text>{generalNotes}</Text>
                   <Text>{startTime}</Text>
                   <Text>{endTime}</Text>
+                  <Text>Event Leader: {userID}</Text>
                 </Box>
               </Flex>
             </Center>

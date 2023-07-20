@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  Flex,
-  Container,
-  Box,
-  Heading,
-  Input,
-  Center,
-  Text,
-} from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { Box, Heading, Center, Text } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
 

@@ -43,7 +43,9 @@ export const Main = ({ username, token, userID }) => {
           <Center>
             <Flex direction="column" align="center">
               <Heading color="yellow.500">THESE ARE EVENTS THAT</Heading>
-              <Text color="yellow.500">{username} has created.</Text>
+              <Text color="yellow.500">
+                {username} has created. With an ID of {userID}
+              </Text>
               <Input
                 my="8"
                 variant="filled"
@@ -79,7 +81,6 @@ export const Main = ({ username, token, userID }) => {
                       {dayjs(event.start_time).format("MMMM D, YYYY h:mm A")} -
                       {dayjs(event.end_time).format("h:mm A")}
                     </Text>
-                    <Text>{event.event_organizer}</Text>
                     <Text>{event.event_organization}</Text>
                     <Text>{event.privacy}</Text>
                   </Box>
