@@ -42,9 +42,9 @@ export const Main = ({ username, token, userID }) => {
         <Box>
           <Center>
             <Flex direction="column" align="center">
-              <Heading color="yellow.200">UPCOMING EVENTS</Heading>
-              <Text color="yellow.200">
-                {username} {userID}
+              <Heading color="yellow.500">THESE ARE EVENTS THAT</Heading>
+              <Text color="yellow.500">
+                {username} has created. With an ID of {userID}
               </Text>
               <Input
                 my="8"
@@ -58,9 +58,17 @@ export const Main = ({ username, token, userID }) => {
         <Grid templateColumns="1fr 1fr" gap={4}>
           <Box>
             <Center>
-              <Link to="/create-event">
-                <Button>CREATE AN EVENT</Button>
-              </Link>
+              <Flex direction="column" align="center">
+                <Link to="/create-event">
+                  <Button m="4">CREATE AN EVENT</Button>
+                </Link>
+                <Link to="/organizations">
+                  <Button m="4">ORGANIZATIONS</Button>
+                </Link>
+                <Link to="/create-org">
+                  <Button m="4">Create an organization profile</Button>
+                </Link>
+              </Flex>
             </Center>
           </Box>
           <Center>
@@ -76,7 +84,6 @@ export const Main = ({ username, token, userID }) => {
                       {dayjs(event.start_time).format("MMMM D, YYYY h:mm A")} -
                       {dayjs(event.end_time).format("h:mm A")}
                     </Text>
-                    <Text>{event.event_organizer}</Text>
                     <Text>{event.event_organization}</Text>
                     <Text>{event.privacy}</Text>
                   </Box>

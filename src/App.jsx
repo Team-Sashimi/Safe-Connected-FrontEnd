@@ -10,6 +10,10 @@ import CreateEvent from "./Componentz/CreateEvent";
 import TestTest from "./Componentz/Test";
 import { Routes, Route } from "react-router-dom";
 import Registration from "./Componentz/Registration";
+import SearchEvents from "./Componentz/SearchEvents";
+import OrganizationList from "./Componentz/OrganizationList";
+import OrganizationProfile from "./Componentz/OrganizationProfile";
+import CreateOrgProfile from "./Componentz/CreateOrgProfile";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
@@ -32,11 +36,7 @@ function App() {
 
   return (
     <>
-      <Flex
-        direction="column"
-        minHeight="100vh"
-        style={{ backgroundColor: "grey" }}
-      >
+      <Flex direction="column" minHeight="100vh">
         <Navbar />
         <Flex direction="column" flex="1">
           {token ? (
@@ -44,13 +44,41 @@ function App() {
               <Routes>
                 <Route
                   path="/"
-                  element={<Main username={username} token={token} />}
+                  element={
+                    <Main username={username} token={token} userID={userID} />
+                  }
+                />
+                <Route
+                  path="/search-events"
+                  element={<SearchEvents username={username} token={token} />}
                 />
                 <Route
                   path="/create-event"
-                  element={<CreateEvent username={username} token={token} />}
+                  element={
+                    <CreateEvent
+                      username={username}
+                      token={token}
+                      userID={userID}
+                    />
+                  }
                 />
                 <Route path="/test" element={<TestTest token={token} />} />
+                <Route
+                  path="/organizations"
+                  element={<OrganizationList token={token} />}
+                />
+                <Route
+                  path="/create-org"
+                  element={
+                    <CreateOrgProfile token={token} username={username} />
+                  }
+                />
+                <Route
+                  path="/organizations/:orgID"
+                  element={
+                    <OrganizationProfile token={token} username={username} />
+                  }
+                />
               </Routes>
             </>
           ) : (
