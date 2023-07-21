@@ -22,6 +22,9 @@ const Login = ({ setUser }) => {
         const token = res.data.auth_token;
         setUser(token, username);
         navigate("/");
+      })
+      .catch((error) => {
+        console.error(error);
       });
   };
 

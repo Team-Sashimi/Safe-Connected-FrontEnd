@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
 import { Center, Heading, Text, Stack, Box } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ setUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const baseURL = "https://safe-connected.onrender.com/";
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,20 +15,22 @@ const Login = ({ setUser }) => {
     console.log(password);
     axios
       .post(`${baseURL}auth/token/login`, {
-        // toLowerCase used for better UX, user can enter username anyway
-        // left needs to match with database keypair
         username: username.toLowerCase(),
         password: password,
       })
       .then((res) => {
         const token = res.data.auth_token;
         setUser(token, username);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error(error);
       });
   };
 
   return (
     <>
-      <Center h="100vh">
+      <Center h="80vh">
         <Stack
           as={Box}
           textAlign={"center"}
