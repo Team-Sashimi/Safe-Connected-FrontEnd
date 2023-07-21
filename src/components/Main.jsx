@@ -16,7 +16,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 
-export const Main = ({ username, token, userID }) => {
+export const Main = ({ username, token }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [events, setEvents] = useState([]);
 
@@ -32,7 +32,6 @@ export const Main = ({ username, token, userID }) => {
       });
   }, [token]);
 
-  console.log(userID);
   console.log(username);
   console.log(token);
 

@@ -9,6 +9,7 @@ import {
   Input,
   Center,
   Text,
+  Button,
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
@@ -44,6 +45,11 @@ const SearchEvents = ({ token, username }) => {
             <Heading mt="10" color="yellow.500">
               {username} Events
             </Heading>
+            <Link to="/create">
+              <Button mt="10" backgroundColor="yellow.500">
+                Create an Event
+              </Button>
+            </Link>
           </Flex>
         </Box>
         <Center>

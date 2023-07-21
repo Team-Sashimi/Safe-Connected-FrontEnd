@@ -10,6 +10,7 @@ import Login from "./Components/Login";
 import ClientList from "./Components/ClientList";
 import ClientRegistration from "./Components/ClientRegistration";
 import EventDetails from "./Components/EventDetails";
+import Create from "./Components/Create";
 
 import SearchEvents from "./Components/SearchEvents";
 import OrganizationProfile from "./Components/OrganizationProfile";
@@ -17,7 +18,6 @@ import OrganizationProfile from "./Components/OrganizationProfile";
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
   const [username, setUsername] = useLocalStorageState("userName", "");
-  const [userID, setUserID] = useLocalStorageState("userID", "");
   const baseURL = "https://safe-connected.onrender.com/";
 
   const setUser = (token, username) => {
@@ -25,13 +25,8 @@ function App() {
     setUsername(username);
   };
 
-  const setUserPK = (userID) => {
-    setUserID(userID);
-  };
-
   console.log(token);
   console.log(username);
-  console.log(userID);
 
   return (
     <>
@@ -43,9 +38,7 @@ function App() {
               <Routes>
                 <Route
                   path="/"
-                  element={
-                    <Main username={username} token={token} userID={userID} />
-                  }
+                  element={<Main username={username} token={token} />}
                 />
                 <Route
                   path="/search-events"
@@ -64,6 +57,10 @@ function App() {
                 <Route
                   path="/event/:eventID"
                   element={<EventDetails username={username} token={token} />}
+                />
+                <Route
+                  path="/create/"
+                  element={<Create username={username} token={token} />}
                 />
               </Routes>
             </>
