@@ -48,23 +48,17 @@ export const Main = ({ username, token, userID }) => {
                   <Heading mt="4" size="md" color="yellow.500">
                     Please select from options below.
                   </Heading>
-                  <Heading mt="20" size="md" color="yellow.500">
-                    Getting Started
-                  </Heading>
                 </Flex>
               </Center>
             </Box>
             <Box m="5">
               <Center>
                 <Flex align="center">
-                  <Link to="/profile">
-                    <Button m="4">Profile</Button>
+                  <Link to="/clients">
+                    <Button m="4">Clients</Button>
                   </Link>
                   <Link to="/search-events">
                     <Button m="4">Events</Button>
-                  </Link>
-                  <Link to="/sign-up">
-                    <Button m="4">Sign-Up</Button>
                   </Link>
                 </Flex>
               </Center>
@@ -90,7 +84,7 @@ export const Main = ({ username, token, userID }) => {
             <Avatar
               size="xl"
               name={username}
-              src="https://example.com/avatar.jpg"
+              // src="https://example.com/avatar.jpg"
             />
             <Heading mt={4}>{username}</Heading>
             <Box mt={2}>

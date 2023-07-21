@@ -31,18 +31,19 @@ const SearchEvents = ({ token, username }) => {
       });
   }, [token]);
 
+  const handleEventDetails = (eventID) => {
+    console.log(`hi this is the org id: ${eventID}`);
+    navigate(`/event/${eventID}`);
+  };
+
   return (
     <Flex as="search-events" role="main" direction="column" flex="2" py="6">
       <Container as="container-for-events" maxW="900px" flex="1">
         <Box>
           <Flex direction="column" align="center">
-            <Heading color="yellow.500">THIS PAGE GETS ALL EVENTS</Heading>
-            <Input
-              my="8"
-              variant="filled"
-              placeholder="Search Event"
-              size="md"
-            />
+            <Heading mt="10" color="yellow.500">
+              {username} Events
+            </Heading>
           </Flex>
         </Box>
         <Center>
@@ -55,6 +56,7 @@ const SearchEvents = ({ token, username }) => {
                   borderRadius="md"
                   p="4"
                   m="10"
+                  onClick={() => handleEventDetails(event.id)}
                 >
                   <Box as="event-card" key={event.id}>
                     <Heading as="h4" size="md">

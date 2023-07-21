@@ -7,7 +7,9 @@ import { Footer } from "./Components/Footer";
 import { Main } from "./Components/Main";
 import { Navbar } from "./Components/Navbar";
 import Login from "./Components/Login";
-import UserProfile from "./Components/UserProfile";
+import ClientList from "./Components/ClientList";
+import ClientRegistration from "./Components/ClientRegistration";
+import EventDetails from "./Components/EventDetails";
 
 import SearchEvents from "./Components/SearchEvents";
 import OrganizationProfile from "./Components/OrganizationProfile";
@@ -50,12 +52,18 @@ function App() {
                   element={<SearchEvents username={username} token={token} />}
                 />
                 <Route
-                  path="/profile"
-                  element={<UserProfile username={username} token={token} />}
+                  path="/clients"
+                  element={<ClientList username={username} token={token} />}
                 />
                 <Route
-                  path="/sign-up"
-                  element={<SearchEvents username={username} token={token} />}
+                  path="/register-client"
+                  element={
+                    <ClientRegistration username={username} token={token} />
+                  }
+                />
+                <Route
+                  path="/event/:eventID"
+                  element={<EventDetails username={username} token={token} />}
                 />
               </Routes>
             </>
@@ -63,7 +71,7 @@ function App() {
             <>
               <Center flex="1">
                 <Routes>
-                  <Route path="/login" element={<Login setUser={setUser} />} />
+                  <Route path="/" element={<Login setUser={setUser} />} />
                 </Routes>
               </Center>
             </>
