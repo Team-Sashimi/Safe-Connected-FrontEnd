@@ -13,16 +13,20 @@ import EventDetails from "./Components/EventDetails";
 import Create from "./Components/Create";
 
 import SearchEvents from "./Components/SearchEvents";
-import OrganizationProfile from "./Components/OrganizationProfile";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
   const [username, setUsername] = useLocalStorageState("userName", "");
+  const [role, setRole] = useLocalStorageState("userName", "");
   const baseURL = "https://safe-connected.onrender.com/";
 
   const setUser = (token, username) => {
     setToken(token);
     setUsername(username);
+  };
+
+  const setUserRole = (role) => {
+    setRole(role);
   };
 
   console.log(token);

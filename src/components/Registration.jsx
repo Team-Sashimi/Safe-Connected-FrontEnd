@@ -7,9 +7,10 @@ import { useNavigate } from "react-router-dom";
 // to get a token
 // form to make an account
 
-const Registration = ({ setUserPK }) => {
+const Registration = ({ setUserRole }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const baseURL = "https://safe-connected.onrender.com/";
   const navigate = useNavigate();
 
@@ -19,11 +20,12 @@ const Registration = ({ setUserPK }) => {
       .post(`${baseURL}auth/users/`, {
         username: username,
         password: password,
+        role: role,
       })
       .then((res) => {
-        const userID = res.data.id;
-        setUserPK(userID);
-        console.log(userID);
+        const role = res.data.role;
+        setUserRole(role);
+        console.log(role);
         console.log("hi");
         navigate("/login");
       });
@@ -67,6 +69,18 @@ const Registration = ({ setUserPK }) => {
               value={password}
               required
               onChange={(e) => setPassword(e.target.value)}
+            ></input>
+            <label>
+              <span>role: </span>
+            </label>
+            <input
+              type="text"
+              name="role"
+              id="role"
+              placeholder="Manager or Client"
+              value={role}
+              required
+              onChange={(e) => setRole(e.target.value)}
             ></input>
           </div>
           <div>

@@ -43,7 +43,6 @@ const CreateEvent = ({ token, username }) => {
           general_notes: generalNotes,
           start_time: endTime,
           end_time: startTime,
-
           street_number: streetNumber,
           street_name: streetName,
           city: city,
