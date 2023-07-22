@@ -5,6 +5,7 @@ import useLocalStorageState from "use-local-storage-state";
 import { Routes, Route } from "react-router-dom";
 import { Footer } from "./Components/Footer";
 import { Main } from "./Components/Main";
+import { ClientMain } from "./Components/ClientMain";
 import { Navbar } from "./Components/Navbar";
 import Login from "./Components/login";
 import ClientList from "./Components/ClientList";
@@ -44,16 +45,30 @@ function App() {
           {token ? (
             <>
               <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <Main
-                      username={username}
-                      token={token}
-                      userRole={userRole}
-                    />
-                  }
-                />
+                {userRole === "Manager" && (
+                  <Route
+                    path="/"
+                    element={
+                      <Main
+                        username={username}
+                        token={token}
+                        userRole={userRole}
+                      />
+                    }
+                  />
+                )}
+                {userRole === "Client" && (
+                  <Route
+                    path="/"
+                    element={
+                      <ClientMain
+                        username={username}
+                        token={token}
+                        userRole={userRole}
+                      />
+                    }
+                  />
+                )}
                 <Route
                   path="/search-events"
                   element={<SearchEvents username={username} token={token} />}
