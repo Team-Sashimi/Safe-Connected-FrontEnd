@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Center, Heading, Text, Stack, Box } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({ setUser }) => {
+const LoginRole = ({ setUser, setRole }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const baseURL = "https://safe-connected.onrender.com/";
@@ -20,11 +20,21 @@ const Login = ({ setUser }) => {
       })
       .then((res) => {
         const token = res.data.auth_token;
-        setUser(token, username);
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error(error);
+        axios
+          .get(`${baseURL}auth/users/me`, {
+            headers: {
+              Authorization: `Token ${token}`,
+            },
+          })
+          .then((res) => {
+            setUser(token, username, res.data.role);
+            setRole(res.data.role);
+            console.log(res.data.role);
+            navigate("/");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       });
   };
 
@@ -84,4 +94,4 @@ const Login = ({ setUser }) => {
   );
 };
 
-export default Login;
+export default LoginRole;

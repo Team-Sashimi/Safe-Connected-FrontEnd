@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import Login from "./Login";
 import { Box, Heading, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -20,12 +19,8 @@ const Registration = ({ setUserRole }) => {
       .post(`${baseURL}auth/users/`, {
         username: username,
         password: password,
-        role: role,
       })
       .then((res) => {
-        const role = res.data.role;
-        setUserRole(role);
-        console.log(role);
         console.log("hi");
         navigate("/login");
       });

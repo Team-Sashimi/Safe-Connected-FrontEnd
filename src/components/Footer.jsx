@@ -13,7 +13,7 @@ export const Footer = () => {
         <Flex justifyContent="space-between" alignItems="center" minH="20">
           <Link to="/search-events">Search</Link>
           <Link>Clients</Link>
-          <Link to="/test">Account</Link>
+          <Link to="/account">Account</Link>
         </Flex>
       </Container>
     </Box>

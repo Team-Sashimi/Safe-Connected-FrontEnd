@@ -6,31 +6,35 @@ import { Routes, Route } from "react-router-dom";
 import { Footer } from "./Components/Footer";
 import { Main } from "./Components/Main";
 import { Navbar } from "./Components/Navbar";
-import Login from "./Components/Login";
+import Login from "./Components/login";
 import ClientList from "./Components/ClientList";
 import ClientRegistration from "./Components/ClientRegistration";
 import EventDetails from "./Components/EventDetails";
 import Create from "./Components/Create";
 
 import SearchEvents from "./Components/SearchEvents";
+import UserProfile from "./Components/UserProfile";
+import LoginRole from "./Components/LoginRole";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
   const [username, setUsername] = useLocalStorageState("userName", "");
-  const [role, setRole] = useLocalStorageState("userName", "");
+  const [userRole, setUserRole] = useLocalStorageState("userRole", "");
   const baseURL = "https://safe-connected.onrender.com/";
 
-  const setUser = (token, username) => {
+  const setUser = (token, username, userRole) => {
     setToken(token);
     setUsername(username);
+    setUserRole(userRole);
   };
 
-  const setUserRole = (role) => {
-    setRole(role);
+  const setRole = (userRole) => {
+    setUserRole(userRole);
   };
 
   console.log(token);
   console.log(username);
+  console.log(userRole);
 
   return (
     <>
@@ -42,7 +46,13 @@ function App() {
               <Routes>
                 <Route
                   path="/"
-                  element={<Main username={username} token={token} />}
+                  element={
+                    <Main
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                    />
+                  }
                 />
                 <Route
                   path="/search-events"
@@ -63,8 +73,12 @@ function App() {
                   element={<EventDetails username={username} token={token} />}
                 />
                 <Route
-                  path="/create/"
+                  path="/create"
                   element={<Create username={username} token={token} />}
+                />
+                <Route
+                  path="/account"
+                  element={<UserProfile username={username} token={token} />}
                 />
               </Routes>
             </>
@@ -72,7 +86,11 @@ function App() {
             <>
               <Center flex="1">
                 <Routes>
-                  <Route path="/" element={<Login setUser={setUser} />} />
+                  {/* <Route path="/" element={<Login setUser={setUser} />} /> */}
+                  <Route
+                    path="/"
+                    element={<LoginRole setUser={setUser} setRole={setRole} />}
+                  />
                 </Routes>
               </Center>
             </>

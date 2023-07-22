@@ -16,7 +16,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 
-export const Main = ({ username, token }) => {
+export const Main = ({ username, token, userRole }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [events, setEvents] = useState([]);
 
@@ -34,18 +34,19 @@ export const Main = ({ username, token }) => {
 
   console.log(username);
   console.log(token);
+  console.log(userRole);
 
   return (
     <Center h="80vh">
-      <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={4}>
+      <Grid templateColumns={{ base: "1", md: "1fr 1fr" }} gap={4}>
         <Flex as="main" role="main" direction="column" flex="2" py="6">
           <Container maxW="900px" flex="1">
             <Box>
               <Center>
                 <Flex direction="column" align="center">
-                  <Heading color="yellow.500">Welcome! {username} </Heading>
+                  <Heading color="yellow.500">Welcome! {username}.</Heading>
                   <Heading mt="4" size="md" color="yellow.500">
-                    Please select from options below.
+                    {userRole} at *Insert Organization*
                   </Heading>
                 </Flex>
               </Center>

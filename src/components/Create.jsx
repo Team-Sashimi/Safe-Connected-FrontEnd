@@ -118,46 +118,46 @@ const CreateEvent = ({ token, username }) => {
   return (
     <>
       <Center>
-        <Flex my="8" justify="space-between">
+        <Flex my="8" maxHeight="500px" justify="space-between">
           {/* First Column */}
-          <Box m="20">
-            <form onSubmit={handleSubmit}>
-              <FormControl>
-                <FormLabel>Event Title</FormLabel>
-                <Input
-                  my="2"
-                  variant="filled"
-                  placeholder="Name of Event"
-                  size="md"
-                  onChange={(e) => handleChange("eventTitle", e)}
-                />
-                <FormLabel mt="4">General Notes</FormLabel>
-                <Textarea
-                  my="2"
-                  variant="filled"
-                  placeholder="General Notes"
-                  size="md"
-                  onChange={(e) => handleChange("generalNotes", e)}
-                />
-                <FormLabel mt="4">Select Language</FormLabel>
-                <Select
-                  variant="filled"
-                  placeholder="Languages"
-                  onChange={(e) => handleChange("language", e)}
-                >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </Select>
-                <FormLabel mt="4">Is your event private?</FormLabel>
-                <Select
-                  variant="filled"
-                  placeholder="Privacy"
-                  onChange={(e) => handleChange("privacy", e)}
-                >
-                  <option value="True">Yes</option>
-                  <option value="False">No</option>
-                </Select>
+          <form onSubmit={handleSubmit}>
+            <FormControl>
+              <FormLabel>Event Title</FormLabel>
+              <Input
+                my="2"
+                variant="filled"
+                placeholder="Name of Event"
+                size="md"
+                onChange={(e) => handleChange("eventTitle", e)}
+              />
+              <FormLabel mt="4">General Notes</FormLabel>
+              <Textarea
+                my="2"
+                variant="filled"
+                placeholder="General Notes"
+                size="md"
+                onChange={(e) => handleChange("generalNotes", e)}
+              />
+              <FormLabel mt="4">Select Language</FormLabel>
+              <Select
+                variant="filled"
+                placeholder="Languages"
+                onChange={(e) => handleChange("language", e)}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </Select>
+              <FormLabel mt="4">Is your event private?</FormLabel>
+              <Select
+                variant="filled"
+                placeholder="Privacy"
+                onChange={(e) => handleChange("privacy", e)}
+              >
+                <option value="True">Yes</option>
+                <option value="False">No</option>
+              </Select>
+              <Box>
                 <FormLabel mt="4">Start Date & Time:</FormLabel>
                 <Input
                   size="md"
@@ -196,16 +196,16 @@ const CreateEvent = ({ token, username }) => {
                   variant="filled"
                   onChange={(e) => handleChange("zip", e)}
                 />
-                <Input
-                  cursor="pointer"
-                  mt="6"
-                  size="md"
-                  type="submit"
-                  variant="filled"
-                />
-              </FormControl>
-            </form>
-          </Box>
+              </Box>
+              <Input
+                cursor="pointer"
+                mt="6"
+                size="md"
+                type="submit"
+                variant="filled"
+              />
+            </FormControl>
+          </form>
 
           {/* Second Column - Event Card */}
           <Box m="20" bg="gray.200" p="4" borderRadius="md" minWidth="300px">
