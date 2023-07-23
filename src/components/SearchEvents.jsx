@@ -23,7 +23,7 @@ const SearchEvents = ({ token, username, userRole }) => {
 
   useEffect(() => {
     axios
-      .get(`${baseURL}event/search/`, {
+      .get(`${baseURL}event/all/`, {
         headers: {
           Authorization: `Token ${token}`,
         },
