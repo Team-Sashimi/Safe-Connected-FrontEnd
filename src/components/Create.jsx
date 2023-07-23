@@ -196,6 +196,12 @@ const CreateEvent = ({ token, username }) => {
                   variant="filled"
                   onChange={(e) => handleChange("zip", e)}
                 />
+                <FormLabel mt="4">Capacity</FormLabel>
+                <Input
+                  size="md"
+                  variant="filled"
+                  onChange={(e) => handleChange("capacity", e)}
+                />
               </Box>
               <Input
                 cursor="pointer"

@@ -20,17 +20,17 @@ export const ClientMain = ({ username, token, userRole }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [events, setEvents] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(`${baseURL}event/list/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        setEvents(res.data);
-      });
-  }, [token]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${baseURL}event/list/`, {
+  //       headers: {
+  //         Authorization: `Token ${token}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setEvents(res.data);
+  //     });
+  // }, [token]);
 
   console.log(username);
   console.log(token);
@@ -44,8 +44,8 @@ export const ClientMain = ({ username, token, userRole }) => {
             <Box>
               <Center>
                 <Flex direction="column" align="center">
-                  <Heading color="yellow.500">Welcome! {username}.</Heading>
-                  <Heading mt="4" size="md" color="yellow.500">
+                  <Heading color="blue.500">Welcome! {username}.</Heading>
+                  <Heading mt="4" size="md" color="blue.500">
                     {userRole} at *Insert Organization*
                   </Heading>
                 </Flex>

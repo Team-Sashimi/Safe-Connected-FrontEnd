@@ -1,8 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
-import { Flex, Center } from "@chakra-ui/react";
+import { Flex, Center, Button } from "@chakra-ui/react";
 import useLocalStorageState from "use-local-storage-state";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import { Footer } from "./Components/Footer";
 import { Main } from "./Components/Main";
 import { ClientMain } from "./Components/ClientMain";
@@ -29,18 +29,30 @@ function App() {
     setUserRole(userRole);
   };
 
-  const setRole = (userRole) => {
-    setUserRole(userRole);
+  const handleLogout = () => {
+    axios
+      .post(
+        `${baseURL}auth/token/logout/`,
+        {},
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        setUser("", null);
+        // navigate("/");
+      });
   };
-
-  console.log(token);
-  console.log(username);
-  console.log(userRole);
 
   return (
     <>
       <Flex direction="column" minHeight="100vh">
-        <Navbar />
+        <Navbar handleLogout={handleLogout} />
+        {/* <Link to="/">
+          <Button onClick={handleLogout}>Log Out</Button>
+        </Link> */}
         <Flex direction="column" flex="1">
           {token ? (
             <>
@@ -69,9 +81,20 @@ function App() {
                     }
                   />
                 )}
+
+                <Route
+                  path="/create/"
+                  element={<Create username={username} token={token} />}
+                />
                 <Route
                   path="/search-events"
-                  element={<SearchEvents username={username} token={token} />}
+                  element={
+                    <SearchEvents
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                    />
+                  }
                 />
                 <Route
                   path="/clients"
@@ -88,10 +111,6 @@ function App() {
                   element={<EventDetails username={username} token={token} />}
                 />
                 <Route
-                  path="/create"
-                  element={<Create username={username} token={token} />}
-                />
-                <Route
                   path="/account"
                   element={<UserProfile username={username} token={token} />}
                 />
@@ -102,10 +121,7 @@ function App() {
               <Center flex="1">
                 <Routes>
                   {/* <Route path="/" element={<Login setUser={setUser} />} /> */}
-                  <Route
-                    path="/"
-                    element={<LoginRole setUser={setUser} setRole={setRole} />}
-                  />
+                  <Route path="/" element={<LoginRole setUser={setUser} />} />
                 </Routes>
               </Center>
             </>

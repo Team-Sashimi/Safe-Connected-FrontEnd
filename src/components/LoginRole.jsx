@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Center, Heading, Text, Stack, Box } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-const LoginRole = ({ setUser, setRole }) => {
+const LoginRole = ({ setUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const baseURL = "https://safe-connected.onrender.com/";
@@ -27,9 +27,9 @@ const LoginRole = ({ setUser, setRole }) => {
             },
           })
           .then((res) => {
-            setUser(token, username, res.data.role);
-            setRole(res.data.role);
-            console.log(res.data.role);
+            const role = res.data.role;
+            setUser(token, username, role);
+            console.log(`hi my role is ${role}`);
             navigate("/");
           })
           .catch((error) => {

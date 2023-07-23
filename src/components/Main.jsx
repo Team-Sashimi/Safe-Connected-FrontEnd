@@ -20,17 +20,17 @@ export const Main = ({ username, token, userRole }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [events, setEvents] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(`${baseURL}event/list/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        setEvents(res.data);
-      });
-  }, [token]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${baseURL}event/list/`, {
+  //       headers: {
+  //         Authorization: `Token ${token}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setEvents(res.data);
+  //     });
+  // }, [token]);
 
   console.log(username);
   console.log(token);
