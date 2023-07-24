@@ -37,7 +37,7 @@ export const Main = ({ username, token, userRole }) => {
   console.log(userRole);
 
   return (
-    <Center h="80vh">
+    <Center bgColor="gray.100" h="88vh">
       <Grid templateColumns={{ base: "1", md: "1fr 1fr" }} gap={4}>
         <Flex as="main" role="main" direction="column" flex="2" py="6">
           <Container maxW="900px" flex="1">

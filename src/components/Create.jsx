@@ -118,7 +118,7 @@ const CreateEvent = ({ token, username }) => {
   return (
     <>
       <Center>
-        <Flex my="8" maxHeight="500px" justify="space-between">
+        <Flex my="8" maxWidth="800px">
           {/* First Column */}
           <form onSubmit={handleSubmit}>
             <FormControl>
@@ -157,67 +157,66 @@ const CreateEvent = ({ token, username }) => {
                 <option value="True">Yes</option>
                 <option value="False">No</option>
               </Select>
-              <Box>
-                <FormLabel mt="4">Start Date & Time:</FormLabel>
-                <Input
-                  size="md"
-                  type="datetime-local"
-                  variant="filled"
-                  onChange={(e) => handleChange("startTime", e)}
-                />
-                <FormLabel mt="4">End Date & Time:</FormLabel>
-                <Input
-                  size="md"
-                  type="datetime-local"
-                  variant="filled"
-                  onChange={(e) => handleChange("endTime", e)}
-                />
-                <FormLabel mt="4">Street Number</FormLabel>
-                <Input
-                  size="md"
-                  variant="filled"
-                  onChange={(e) => handleChange("streetNumber", e)}
-                />
-                <FormLabel mt="4">Street Name</FormLabel>
-                <Input
-                  size="md"
-                  variant="filled"
-                  onChange={(e) => handleChange("streetName", e)}
-                />
-                <FormLabel mt="4">City</FormLabel>
-                <Input
-                  size="md"
-                  variant="filled"
-                  onChange={(e) => handleChange("city", e)}
-                />
-                <FormLabel mt="4">Zipcode</FormLabel>
-                <Input
-                  size="md"
-                  variant="filled"
-                  onChange={(e) => handleChange("zip", e)}
-                />
-                <FormLabel mt="4">Capacity</FormLabel>
-                <Input
-                  size="md"
-                  variant="filled"
-                  onChange={(e) => handleChange("capacity", e)}
-                />
-              </Box>
+              <FormLabel mt="4">Start Date & Time:</FormLabel>
               <Input
-                cursor="pointer"
-                mt="6"
                 size="md"
-                type="submit"
+                type="datetime-local"
                 variant="filled"
+                onChange={(e) => handleChange("startTime", e)}
+              />
+              <FormLabel mt="4">End Date & Time:</FormLabel>
+              <Input
+                size="md"
+                type="datetime-local"
+                variant="filled"
+                onChange={(e) => handleChange("endTime", e)}
               />
             </FormControl>
           </form>
 
-          {/* Second Column - Event Card */}
-          <Box m="20" bg="gray.200" p="4" borderRadius="md" minWidth="300px">
-            <Text fontSize="xl" fontWeight="bold">
-              Event Display
-            </Text>
+          {/* Second Column */}
+          <Box ml="4">
+            <FormControl>
+              <FormLabel mt="4">Street Number</FormLabel>
+              <Input
+                size="md"
+                variant="filled"
+                onChange={(e) => handleChange("streetNumber", e)}
+              />
+              <FormLabel mt="4">Street Name</FormLabel>
+              <Input
+                size="md"
+                variant="filled"
+                onChange={(e) => handleChange("streetName", e)}
+              />
+              <FormLabel mt="4">City</FormLabel>
+              <Input
+                size="md"
+                variant="filled"
+                onChange={(e) => handleChange("city", e)}
+              />
+              <FormLabel mt="4">Zipcode</FormLabel>
+              <Input
+                size="md"
+                variant="filled"
+                onChange={(e) => handleChange("zip", e)}
+              />
+              <FormLabel mt="4">Capacity</FormLabel>
+              <Input
+                size="md"
+                variant="filled"
+                onChange={(e) => handleChange("capacity", e)}
+              />
+            </FormControl>
+            <Button
+              mt="6"
+              size="md"
+              type="submit"
+              onClick={handleSubmit}
+              cursor="pointer"
+            >
+              Submit
+            </Button>
           </Box>
         </Flex>
       </Center>

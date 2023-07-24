@@ -31,25 +31,33 @@ const EventDetails = ({ token, username }) => {
   return (
     <>
       <Center m="10">
-        <Box>
-          <Heading as="h4" size="md">
-            Details for event with an id of: {eventID}
+        <Box
+          width="400px"
+          height="500px"
+          border="1px solid #ccc"
+          p="4"
+          borderRadius="md"
+        >
+          <Center>
+            <Box border="1px solid" width="300px" height="150px"></Box>
+          </Center>
+          <Heading as="h4" size="md" mt="10">
+            {eventDetails.event_title}
           </Heading>
-          <Text>{eventDetails.event_title}</Text>
           <Text>{eventDetails.general_notes}</Text>
           <Text>
             {dayjs(eventDetails.start_time).format("MMMM D, YYYY h:mm A")} -
             {dayjs(eventDetails.end_time).format("h:mm A")}
           </Text>
-          <Text>{eventDetails.event_type}</Text>
+          <Text>Event type of: {eventDetails.event_type}</Text>
           <Text>
             {eventDetails.street_number} {eventDetails.street_name}
           </Text>
           <Text>
-            {eventDetails.city}, {eventDetails.zipcode}
+            {eventDetails.city} {eventDetails.zipcode}
           </Text>
+          <ClientSignUp token={token} eventID={eventID} />
         </Box>
-        <ClientSignUp token={token} eventID={eventID} />
       </Center>
     </>
   );

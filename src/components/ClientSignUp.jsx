@@ -51,7 +51,9 @@ const ClientSignUp = ({ token, eventID }) => {
           <Button>SIGN UP</Button>
         </Tooltip>
       ) : (
-        <Button onClick={handleSignUp}>SIGN UP</Button>
+        <Button my="10" onClick={handleSignUp}>
+          SIGN UP
+        </Button>
       )}
     </>
   );

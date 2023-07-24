@@ -23,7 +23,7 @@ const SearchEvents = ({ token, username, userRole }) => {
 
   useEffect(() => {
     axios
-      .get(`${baseURL}event/all/`, {
+      .get(`${baseURL}event/search/`, {
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -37,6 +37,8 @@ const SearchEvents = ({ token, username, userRole }) => {
     console.log(`hi this is the event id: ${eventID}`);
     navigate(`/event/${eventID}`);
   };
+
+  console.log(allEvents);
 
   return (
     <Container as="container-for-events" maxW="900px">
