@@ -1,41 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
-import {
-  Box,
-  Heading,
-  Center,
-  Text,
-  Button,
-  Tooltip,
-  Input,
-} from "@chakra-ui/react";
+import { Center, InputGroup, Avatar } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
 
 import { Link } from "react-router-dom";
 
-const UploadFile = ({ token, eventID }) => {
+const UploadFile = ({ token, username }) => {
   const baseURL = "https://safe-connected.onrender.com/";
-  const [fileUpload, setFileUpload] = useState("");
+  const fileInputRef = useRef(null);
+  const [fileUpload, setFileUpload] = useState(null);
 
-  const navigate = useNavigate();
-
-  //   useEffect(() => {
-  //   axios
-  //     .get(`${baseURL}event/list/`, {
-  //       headers: {
-  //         Authorization: `Token ${token}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setEvents(res.data);
-  //     });
-  // }, [token]);
-
-  const handleUploadFile = () => {
+  const handleFileInputChange = () => {
+    const file = fileInputRef.current.files[0];
     axios
       .post(
         `${baseURL}uploads/`,
-        { file: fileUpload },
+        { file: file },
         {
           headers: {
             Authorization: `Token ${token}`,
@@ -50,19 +30,37 @@ const UploadFile = ({ token, eventID }) => {
       .catch((error) => {
         console.log("error");
       });
+
+    console.log(file);
+  };
+
+  const handleAddIconClick = () => {
+    fileInputRef.current.click();
   };
 
   return (
     <>
-      <Input
-        type="file"
-        id="avatar"
-        name="avatar"
-        // accept="image/png, image/jpeg"
-      ></Input>
-      <Button type="submit" my="10" onClick={handleUploadFile}>
-        Upload Image
-      </Button>
+      <Center>
+        <Avatar
+          size="xl"
+          name={username}
+          mb="10"
+          // src="https://example.com/avatar.jpg"
+        />
+        <InputGroup>
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileInputChange}
+          />
+          <AddIcon
+            color="gray.300"
+            cursor="pointer"
+            onClick={handleAddIconClick}
+          />
+        </InputGroup>
+      </Center>
     </>
   );
 };

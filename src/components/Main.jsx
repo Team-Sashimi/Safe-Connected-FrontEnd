@@ -39,26 +39,26 @@ export const Main = ({ username, token, userRole }) => {
       });
   }, [token]);
 
-  const handleUploadFile = () => {
-    axios
-      .post(
-        `${baseURL}uploads/`,
-        { file: fileUpload },
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log("you uploaded an file!");
-        setFileUpload("");
-        // navigate("/");
-      })
-      .catch((error) => {
-        console.log("error");
-      });
-  };
+  // const handleUploadFile = () => {
+  //   axios
+  //     .post(
+  //       `${baseURL}uploads/`,
+  //       { file: fileUpload },
+  //       {
+  //         headers: {
+  //           Authorization: `Token ${token}`,
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       console.log("you uploaded an file!");
+  //       setFileUpload("");
+  //       // navigate("/");
+  //     })
+  //     .catch((error) => {
+  //       console.log("error");
+  //     });
+  // };
 
   return (
     <Center bgColor="gray.800" h="100vh">
@@ -66,17 +66,18 @@ export const Main = ({ username, token, userRole }) => {
         <Container maxW="900px" flex="1">
           <Box>
             <Center>
-              <Avatar
+              {/* <Avatar
                 size="xl"
                 name={username}
                 mb="10"
                 // src="https://example.com/avatar.jpg"
-              />
-              <Center>
+              /> */}
+              <UploadFile token={token} username={username} />
+              {/* <Center>
                 <InputGroup>
-                  <AddIcon type="file" color="gray.300" />
+                  <AddIcon type="file" color="gray.300" cursor="pointer" />
                 </InputGroup>
-              </Center>
+              </Center> */}
             </Center>
             <Center>
               <Flex direction="column" align="center">

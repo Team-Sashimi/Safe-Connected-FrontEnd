@@ -54,8 +54,6 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
 
   console.log(eventRoster);
 
-  console.log(orgDetails);
-
   return (
     <>
       <Center bgColor="gray.800" h="100vh">
@@ -92,13 +90,17 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
             {eventDetails.event_title}
           </Heading>
           <Text color="yellow.200">{eventDetails.general_notes}</Text>
+          <br></br>
           <Text color="yellow.200">
-            {dayjs(eventDetails.start_time).format("MMMM D, YYYY h:mm A")} -
+            {dayjs(eventDetails.start_time).format("MMMM D, YYYY")}
+            <br></br>
+            {dayjs(eventDetails.start_time).format("h:mm")}-
             {dayjs(eventDetails.end_time).format("h:mm A")}
           </Text>
           <Text color="yellow.200">
             Event type of: {eventDetails.event_type}
           </Text>
+          <br></br>
           <Text color="yellow.200">
             {eventDetails.street_number} {eventDetails.street_name}
           </Text>
@@ -120,23 +122,17 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
         <Box
           width="600px"
           height="500px"
-          border="2px solid #000"
+          border="2px solid #eee"
           borderRadius="md"
           ml="4" // Adjust the margin as per your requirement
         ></Box>
-      </Center>
-
-      <Center>
-        <Heading as="h4" size="md" mt="10">
-          People Signed Up
-        </Heading>
       </Center>
 
       <Flex
         direction="column"
         justify="center"
         p={4}
-        // bgColor="gray.100"
+        bgColor="gray.800"
         w="100%"
         h="100%"
       >
@@ -147,18 +143,23 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           flexDirection="column"
           alignItems="center"
         >
+          <Heading size="md" color="yellow.200">
+            People Who Signed Up
+          </Heading>
           <Avatar
+            mt="5"
             size="md"
             // name={attendee}
             // src="https://example.com/avatar.jpg"
           />
+          <Box>
+            <Text color="yellow.200" mt="5">
+              {eventRoster.event_attendees}
+            </Text>
+          </Box>
         </Box>
       </Flex>
-      <Center>
-        <Box>
-          <Text mt="5">{eventRoster.event_attendees}</Text>
-        </Box>
-      </Center>
+      <Center></Center>
     </>
   );
 };
