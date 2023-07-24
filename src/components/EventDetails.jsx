@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Box, Heading, Center, Text, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Center,
+  Text,
+  Button,
+  Flex,
+  Avatar,
+} from "@chakra-ui/react";
 import dayjs from "dayjs";
 import ClientSignUp from "./ClientSignUp";
 
@@ -9,6 +17,7 @@ import { Link } from "react-router-dom";
 
 const EventDetails = ({ token, username }) => {
   const [eventDetails, setEventDetails] = useState([]);
+  const [eventRoster, setEventRoster] = useState([]);
 
   const baseURL = "https://safe-connected.onrender.com/";
   const { eventID } = useParams();
@@ -27,6 +36,20 @@ const EventDetails = ({ token, username }) => {
         setEventDetails(res.data);
       });
   }, [token]);
+
+  useEffect(() => {
+    axios
+      .get(`${baseURL}event/roster/${eventID}`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        setEventRoster(res.data);
+      });
+  }, [token]);
+
+  console.log(eventRoster);
 
   return (
     <>
@@ -58,6 +81,47 @@ const EventDetails = ({ token, username }) => {
           </Text>
           <ClientSignUp token={token} eventID={eventID} />
         </Box>
+
+        {/* Adding the rectangle with a border */}
+        <Box
+          width="600px"
+          height="500px"
+          border="2px solid #000"
+          borderRadius="md"
+          ml="4" // Adjust the margin as per your requirement
+        ></Box>
+      </Center>
+
+      <Center>
+        <Heading as="h4" size="md" mt="10">
+          Clients Signed Up
+        </Heading>
+      </Center>
+
+      <Flex
+        direction="column"
+        justify="center"
+        p={4}
+        // bgColor="gray.100"
+        w="100%"
+        h="100%"
+      >
+        <Box
+          w="100%"
+          h="100%"
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+        >
+          <Avatar
+            size="md"
+            // name={attendee}
+            // src="https://example.com/avatar.jpg"
+          />
+        </Box>
+      </Flex>
+      <Center>
+        <Text mt="5">{eventRoster.event_attendees}</Text>
       </Center>
     </>
   );

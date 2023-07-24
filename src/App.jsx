@@ -50,14 +50,11 @@ function App() {
     <>
       <Flex direction="column" minHeight="100vh">
         <Navbar handleLogout={handleLogout} />
-        {/* <Link to="/">
-          <Button onClick={handleLogout}>Log Out</Button>
-        </Link> */}
         <Flex direction="column" flex="1">
           {token ? (
             <>
               <Routes>
-                {userRole === "Manager" && (
+                {/* {userRole === "Manager" && (
                   <Route
                     path="/"
                     element={
@@ -80,8 +77,18 @@ function App() {
                       />
                     }
                   />
-                )}
+                )} */}
 
+                <Route
+                  path="/"
+                  element={
+                    <Main
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                    />
+                  }
+                />
                 <Route
                   path="/create/"
                   element={<Create username={username} token={token} />}
