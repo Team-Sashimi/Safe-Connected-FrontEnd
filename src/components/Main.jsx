@@ -51,7 +51,7 @@ export const Main = ({ username, token, userRole }) => {
             </Center>
             <Center>
               <Flex direction="column" align="center">
-                <Heading color="yellow.200">Welcome! {username}.</Heading>
+                <Heading color="yellow.200">Welcome! {username}</Heading>
                 <Heading mt="4" size="md" color="yellow.200">
                   {userRole} at *Insert Organization*
                 </Heading>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import axios from "axios";
 import { Flex, Center, Button } from "@chakra-ui/react";
 import useLocalStorageState from "use-local-storage-state";
@@ -16,6 +17,8 @@ import Create from "./Components/Create";
 import SearchEvents from "./Components/SearchEvents";
 import UserProfile from "./Components/UserProfile";
 import LoginRole from "./Components/LoginRole";
+import EditUserProfile from "./Components/EditUserProfile";
+import UploadFile from "./Components/UploadFile";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
@@ -54,31 +57,6 @@ function App() {
           {token ? (
             <>
               <Routes>
-                {/* {userRole === "Manager" && (
-                  <Route
-                    path="/"
-                    element={
-                      <Main
-                        username={username}
-                        token={token}
-                        userRole={userRole}
-                      />
-                    }
-                  />
-                )}
-                {userRole === "Client" && (
-                  <Route
-                    path="/"
-                    element={
-                      <ClientMain
-                        username={username}
-                        token={token}
-                        userRole={userRole}
-                      />
-                    }
-                  />
-                )} */}
-
                 <Route
                   path="/"
                   element={
@@ -119,7 +97,33 @@ function App() {
                 />
                 <Route
                   path="/account"
-                  element={<UserProfile username={username} token={token} />}
+                  element={
+                    <UserProfile
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                    />
+                  }
+                />
+                <Route
+                  path="/edit-account"
+                  element={
+                    <EditUserProfile
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                    />
+                  }
+                />
+                <Route
+                  path="/upload-image"
+                  element={
+                    <UploadFile
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                    />
+                  }
                 />
               </Routes>
             </>
@@ -158,4 +162,31 @@ element={
   <OrganizationProfile token={token} username={username} />
 }
 /> */
+}
+
+{
+  /* {userRole === "Manager" && (
+                  <Route
+                    path="/"
+                    element={
+                      <Main
+                        username={username}
+                        token={token}
+                        userRole={userRole}
+                      />
+                    }
+                  />
+                )}
+                {userRole === "Client" && (
+                  <Route
+                    path="/"
+                    element={
+                      <ClientMain
+                        username={username}
+                        token={token}
+                        userRole={userRole}
+                      />
+                    }
+                  />
+                )} */
 }

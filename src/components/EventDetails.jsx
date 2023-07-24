@@ -94,7 +94,7 @@ const EventDetails = ({ token, username }) => {
 
       <Center>
         <Heading as="h4" size="md" mt="10">
-          Clients Signed Up
+          People Signed Up
         </Heading>
       </Center>
 
@@ -121,10 +121,37 @@ const EventDetails = ({ token, username }) => {
         </Box>
       </Flex>
       <Center>
-        <Text mt="5">{eventRoster.event_attendees}</Text>
+        <Box>
+          <Text mt="5">{eventRoster.event_attendees}</Text>
+        </Box>
       </Center>
     </>
   );
 };
 
 export default EventDetails;
+
+// {
+//   allEvents.map((event) => (
+//     <Box
+//       key={event.id}
+//       border="1px solid black"
+//       borderRadius="md"
+//       p="4"
+//       onClick={() => handleEventDetails(event.id)}
+//       cursor="pointer"
+//     >
+//       <Box as="event-card" key={event.id}>
+//         <Heading as="h4" size="md">
+//           {event.event_title}
+//         </Heading>
+//         <Text>{event.general_notes}</Text>
+//         <Text>
+//           {dayjs(event.start_time).format("MMMM D, YYYY h:mm A")}-
+//           {dayjs(event.end_time).format("h:mm A")}
+//         </Text>
+//         <Text>{event.privacy}</Text>
+//       </Box>
+//     </Box>
+//   ));
+// }

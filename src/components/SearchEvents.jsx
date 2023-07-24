@@ -23,7 +23,7 @@ const SearchEvents = ({ token, username, userRole }) => {
 
   useEffect(() => {
     axios
-      .get(`${baseURL}event/search/`, {
+      .get(`${baseURL}event/all/`, {
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -74,7 +74,7 @@ const SearchEvents = ({ token, username, userRole }) => {
                   </Heading>
                   <Text>{event.general_notes}</Text>
                   <Text>
-                    {dayjs(event.start_time).format("MMMM D, YYYY h:mm A")} -
+                    {dayjs(event.start_time).format("MMMM D, YYYY h:mm A")}-
                     {dayjs(event.end_time).format("h:mm A")}
                   </Text>
                   <Text>{event.privacy}</Text>
