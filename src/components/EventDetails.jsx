@@ -15,7 +15,7 @@ import ClientSignUp from "./ClientSignUp";
 
 import { Link } from "react-router-dom";
 
-const EventDetails = ({ token, username }) => {
+const EventDetails = ({ token, username, userRole }) => {
   const [eventDetails, setEventDetails] = useState([]);
   const [eventRoster, setEventRoster] = useState([]);
 
@@ -79,7 +79,9 @@ const EventDetails = ({ token, username }) => {
           <Text>
             {eventDetails.city} {eventDetails.zipcode}
           </Text>
-          <ClientSignUp token={token} eventID={eventID} />
+          {userRole === "Client" && (
+            <ClientSignUp token={token} eventID={eventID} />
+          )}
         </Box>
 
         {/* Adding the rectangle with a border */}

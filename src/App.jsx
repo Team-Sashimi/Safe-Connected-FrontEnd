@@ -93,7 +93,13 @@ function App() {
                 />
                 <Route
                   path="/event/:eventID"
-                  element={<EventDetails username={username} token={token} />}
+                  element={
+                    <EventDetails
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                    />
+                  }
                 />
                 <Route
                   path="/account"
