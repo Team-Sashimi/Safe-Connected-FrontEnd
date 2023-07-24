@@ -11,7 +11,17 @@ import {
   Text,
   Button,
   SimpleGrid,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
 } from "@chakra-ui/react";
+
+import { PhoneIcon, AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
@@ -23,7 +33,7 @@ const SearchEvents = ({ token, username, userRole }) => {
 
   useEffect(() => {
     axios
-      .get(`${baseURL}event/all/`, {
+      .get(`${baseURL}event/all`, {
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -41,16 +51,40 @@ const SearchEvents = ({ token, username, userRole }) => {
   console.log(allEvents);
 
   return (
-    <Center>
+    <Center bgColor="gray.800" h="100vh">
       <Container as="container-for-events" maxW="900px">
         <Box>
           <Flex direction="column" align="center">
-            <Heading mt="10" color="yellow.500">
+            <Heading mt="5" color="yellow.200">
               {username} Events
             </Heading>
+            <Flex mt="5">
+              <Box mr="2">
+                <Menu>
+                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                    Date
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem>Most Recent</MenuItem>
+                    <MenuItem>Most Recently Added</MenuItem>
+                  </MenuList>
+                </Menu>
+              </Box>
+              <Box>
+                <Menu>
+                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                    Language
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem>Most Recent</MenuItem>
+                    <MenuItem>Most Recently Added</MenuItem>
+                  </MenuList>
+                </Menu>
+              </Box>
+            </Flex>
             {userRole === "Manager" && (
               <Link to="/create">
-                <Button mt="10" backgroundColor="yellow.500">
+                <Button mt="5" backgroundColor="yellow.200">
                   Create an Event
                 </Button>
               </Link>
@@ -58,26 +92,26 @@ const SearchEvents = ({ token, username, userRole }) => {
           </Flex>
         </Box>
         <Center>
-          <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="4" mt="4">
+          <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="10" mt="10">
             {allEvents.map((event) => (
               <Box
                 key={event.id}
-                border="1px solid black"
+                border="1px solid white"
                 borderRadius="md"
                 p="4"
                 onClick={() => handleEventDetails(event.id)}
                 cursor="pointer"
               >
                 <Box as="event-card" key={event.id}>
-                  <Heading as="h4" size="md">
+                  <Heading color="whiteAlpha.800" as="h4" size="md">
                     {event.event_title}
                   </Heading>
-                  <Text>{event.general_notes}</Text>
-                  <Text>
+                  <Text color="whiteAlpha.800">{event.general_notes}</Text>
+                  <Text color="whiteAlpha.800">
                     {dayjs(event.start_time).format("MMMM D, YYYY h:mm A")}-
                     {dayjs(event.end_time).format("h:mm A")}
                   </Text>
-                  <Text>{event.privacy}</Text>
+                  <Text color="whiteAlpha.800">{event.privacy}</Text>
                 </Box>
               </Box>
             ))}

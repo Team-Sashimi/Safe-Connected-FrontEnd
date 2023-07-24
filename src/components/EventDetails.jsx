@@ -9,13 +9,16 @@ import {
   Button,
   Flex,
   Avatar,
+  InputGroup,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import ClientSignUp from "./ClientSignUp";
+import EditEventDetails from "./EditEventDetails";
+import DeleteEvent from "./DeleteEvent";
 
 import { Link } from "react-router-dom";
 
-const EventDetails = ({ token, username, userRole }) => {
+const EventDetails = ({ token, username, userRole, orgDetails }) => {
   const [eventDetails, setEventDetails] = useState([]);
   const [eventRoster, setEventRoster] = useState([]);
 
@@ -51,36 +54,65 @@ const EventDetails = ({ token, username, userRole }) => {
 
   console.log(eventRoster);
 
+  console.log(orgDetails);
+
   return (
     <>
-      <Center m="10">
+      <Center bgColor="gray.800" h="100vh">
         <Box
           width="400px"
           height="500px"
-          border="1px solid #ccc"
+          // border="1px solid #ccc"
           p="4"
           borderRadius="md"
         >
           <Center>
-            <Box border="1px solid" width="300px" height="150px"></Box>
+            <Box>
+              <Center>
+                <Avatar
+                  size="xl"
+                  name={username}
+                  mb="5"
+                  // src="https://example.com/avatar.jpg"
+                />
+              </Center>
+              <Center>
+                <Flex direction="column" align="center">
+                  <Heading size="md" color="yellow.200">
+                    {orgDetails.org_name}
+                  </Heading>
+                  <Heading size="md" color="yellow.200">
+                    {orgDetails.phone}
+                  </Heading>
+                </Flex>
+              </Center>
+            </Box>
           </Center>
-          <Heading as="h4" size="md" mt="10">
+          <Heading color="yellow.200" as="h4" size="md" mt="10">
             {eventDetails.event_title}
           </Heading>
-          <Text>{eventDetails.general_notes}</Text>
-          <Text>
+          <Text color="yellow.200">{eventDetails.general_notes}</Text>
+          <Text color="yellow.200">
             {dayjs(eventDetails.start_time).format("MMMM D, YYYY h:mm A")} -
             {dayjs(eventDetails.end_time).format("h:mm A")}
           </Text>
-          <Text>Event type of: {eventDetails.event_type}</Text>
-          <Text>
+          <Text color="yellow.200">
+            Event type of: {eventDetails.event_type}
+          </Text>
+          <Text color="yellow.200">
             {eventDetails.street_number} {eventDetails.street_name}
           </Text>
-          <Text>
+          <Text color="yellow.200">
             {eventDetails.city} {eventDetails.zipcode}
           </Text>
           {userRole === "Client" && (
             <ClientSignUp token={token} eventID={eventID} />
+          )}
+          {userRole === "Manager" && (
+            <>
+              <EditEventDetails token={token} eventID={eventID} />
+              <DeleteEvent token={token} eventID={eventID} />
+            </>
           )}
         </Box>
 

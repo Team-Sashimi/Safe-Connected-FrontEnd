@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import axios from "axios";
 import { Flex, Center, Button } from "@chakra-ui/react";
@@ -6,7 +6,6 @@ import useLocalStorageState from "use-local-storage-state";
 import { Routes, Route, Link } from "react-router-dom";
 // import { Footer } from "./Components/Footer";
 import { Main } from "./Components/Main";
-import { ClientMain } from "./Components/ClientMain";
 import { Navbar } from "./Components/Navbar";
 import Login from "./Components/login";
 import ClientList from "./Components/ClientList";
@@ -24,6 +23,7 @@ function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
   const [username, setUsername] = useLocalStorageState("userName", "");
   const [userRole, setUserRole] = useLocalStorageState("userRole", "");
+  const [orgDetails, setOrgDetails] = useState([]);
   const baseURL = "https://safe-connected.onrender.com/";
 
   const setUser = (token, username, userRole) => {
@@ -48,6 +48,18 @@ function App() {
         // navigate("/");
       });
   };
+
+  useEffect(() => {
+    axios
+      .get(`${baseURL}organization/1/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        setOrgDetails(res.data);
+      });
+  }, [token]);
 
   return (
     <>
@@ -98,6 +110,7 @@ function App() {
                       username={username}
                       token={token}
                       userRole={userRole}
+                      orgDetails={orgDetails}
                     />
                   }
                 />

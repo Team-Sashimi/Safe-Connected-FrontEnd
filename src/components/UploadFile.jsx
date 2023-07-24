@@ -31,7 +31,7 @@ const UploadFile = ({ token, eventID }) => {
   //     });
   // }, [token]);
 
-  const handleFile = () => {
+  const handleUploadFile = () => {
     axios
       .post(
         `${baseURL}uploads/`,
@@ -60,7 +60,7 @@ const UploadFile = ({ token, eventID }) => {
         name="avatar"
         // accept="image/png, image/jpeg"
       ></Input>
-      <Button type="submit" my="10" onClick={handleFile}>
+      <Button type="submit" my="10" onClick={handleUploadFile}>
         Upload Image
       </Button>
     </>

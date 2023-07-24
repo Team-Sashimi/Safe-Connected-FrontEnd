@@ -9,32 +9,56 @@ import {
   Button,
   Grid,
   Avatar,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
+
+import { PhoneIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
 
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
+import UploadFile from "./UploadFile";
 
 export const Main = ({ username, token, userRole }) => {
   const baseURL = "https://safe-connected.onrender.com/";
-  const [events, setEvents] = useState([]);
+  const [orgDetails, setOrgDetails] = useState([]);
+  const [fileUpload, setFileUpload] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${baseURL}event/list/`, {
-  //       headers: {
-  //         Authorization: `Token ${token}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setEvents(res.data);
-  //     });
-  // }, [token]);
+  useEffect(() => {
+    axios
+      .get(`${baseURL}organization/1/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        setOrgDetails(res.data);
+      });
+  }, [token]);
 
-  console.log(username);
-  console.log(token);
-  console.log(userRole);
+  const handleUploadFile = () => {
+    axios
+      .post(
+        `${baseURL}uploads/`,
+        { file: fileUpload },
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("you uploaded an file!");
+        setFileUpload("");
+        // navigate("/");
+      })
+      .catch((error) => {
+        console.log("error");
+      });
+  };
 
   return (
     <Center bgColor="gray.800" h="100vh">
@@ -48,12 +72,17 @@ export const Main = ({ username, token, userRole }) => {
                 mb="10"
                 // src="https://example.com/avatar.jpg"
               />
+              <Center>
+                <InputGroup>
+                  <AddIcon type="file" color="gray.300" />
+                </InputGroup>
+              </Center>
             </Center>
             <Center>
               <Flex direction="column" align="center">
                 <Heading color="yellow.200">Welcome! {username}</Heading>
                 <Heading mt="4" size="md" color="yellow.200">
-                  {userRole} at *Insert Organization*
+                  {userRole} at {orgDetails.org_name}
                 </Heading>
               </Flex>
             </Center>
