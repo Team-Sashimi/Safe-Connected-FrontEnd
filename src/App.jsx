@@ -3,7 +3,7 @@ import axios from "axios";
 import { Flex, Center, Button } from "@chakra-ui/react";
 import useLocalStorageState from "use-local-storage-state";
 import { Routes, Route, Link } from "react-router-dom";
-import { Footer } from "./Components/Footer";
+// import { Footer } from "./Components/Footer";
 import { Main } from "./Components/Main";
 import { ClientMain } from "./Components/ClientMain";
 import { Navbar } from "./Components/Navbar";
@@ -127,7 +127,7 @@ function App() {
             </>
           )}
         </Flex>
-        <Footer />
+        {/* <Footer /> */}
       </Flex>
     </>
   );
