@@ -1,9 +1,19 @@
 import axios from "axios";
 import { useState } from "react";
-import { Center, Heading, Text, Stack, Box } from "@chakra-ui/react";
+import {
+  Center,
+  Heading,
+  Text,
+  Stack,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+} from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({ setUser }) => {
+const LoginRole = ({ setUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const baseURL = "https://safe-connected.onrender.com/";
@@ -20,17 +30,27 @@ const Login = ({ setUser }) => {
       })
       .then((res) => {
         const token = res.data.auth_token;
-        setUser(token, username);
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error(error);
+        axios
+          .get(`${baseURL}auth/users/me`, {
+            headers: {
+              Authorization: `Token ${token}`,
+            },
+          })
+          .then((res) => {
+            const role = res.data.role;
+            setUser(token, username, role);
+            console.log(`hi my role is ${role}`);
+            navigate("/");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       });
   };
 
   return (
     <>
-      <Center h="80vh">
+      <Center w="100%" h="100vh" bgColor="gray.800">
         <Stack
           as={Box}
           textAlign={"center"}
@@ -41,41 +61,54 @@ const Login = ({ setUser }) => {
             fontWeight={600}
             fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
             lineHeight={"110%"}
-            color={"yellow.500"}
+            color={"yellow.200"}
           >
             Safe. Connected. <br />
-            <Text as={"span"} color={"yellow.500"}>
+            <Text as={"span"} color={"yellow.200"}>
               Resources & Services.
             </Text>
           </Heading>
           <div className="login">
             <form onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="name">Username: </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={username}
-                  // as the value in input changes, it's setting the value to setUserName
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="password">Password: </label>
-                <input
-                  type="password"
-                  name="password-name"
-                  id="password-register"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <input type="submit" value="Log In" />
-              </div>
+              <FormControl>
+                <div>
+                  <FormLabel color="yellow.200" htmlFor="name">
+                    Username:{" "}
+                  </FormLabel>
+                  <Input
+                    type="text"
+                    name="name"
+                    id="name"
+                    value={username}
+                    // as the value in input changes, it's setting the value to setUserName
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <FormLabel mt="4" color="yellow.200" htmlFor="password">
+                    Password:{" "}
+                  </FormLabel>
+                  <Input
+                    type="password"
+                    name="password-name"
+                    id="password-register"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <Button
+                    mt="20"
+                    onClick={handleSubmit}
+                    type="submit"
+                    value="Log In"
+                  >
+                    Login
+                  </Button>
+                </div>
+              </FormControl>
             </form>
           </div>
         </Stack>
@@ -84,4 +117,4 @@ const Login = ({ setUser }) => {
   );
 };
 
-export default Login;
+export default LoginRole;

@@ -1,52 +1,85 @@
 import { useState } from "react";
+
 import axios from "axios";
-import { Flex, Center } from "@chakra-ui/react";
+import { Flex, Center, Button } from "@chakra-ui/react";
 import useLocalStorageState from "use-local-storage-state";
-import { Routes, Route } from "react-router-dom";
-import { Footer } from "./Components/Footer";
+import { Routes, Route, Link } from "react-router-dom";
+// import { Footer } from "./Components/Footer";
 import { Main } from "./Components/Main";
+import { ClientMain } from "./Components/ClientMain";
 import { Navbar } from "./Components/Navbar";
-import Login from "./Components/Login";
+import Login from "./Components/login";
 import ClientList from "./Components/ClientList";
 import ClientRegistration from "./Components/ClientRegistration";
 import EventDetails from "./Components/EventDetails";
 import Create from "./Components/Create";
 
 import SearchEvents from "./Components/SearchEvents";
+import UserProfile from "./Components/UserProfile";
+import LoginRole from "./Components/LoginRole";
+import EditUserProfile from "./Components/EditUserProfile";
+import UploadFile from "./Components/UploadFile";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
   const [username, setUsername] = useLocalStorageState("userName", "");
-  const [role, setRole] = useLocalStorageState("userName", "");
+  const [userRole, setUserRole] = useLocalStorageState("userRole", "");
   const baseURL = "https://safe-connected.onrender.com/";
 
-  const setUser = (token, username) => {
+  const setUser = (token, username, userRole) => {
     setToken(token);
     setUsername(username);
+    setUserRole(userRole);
   };
 
-  const setUserRole = (role) => {
-    setRole(role);
+  const handleLogout = () => {
+    axios
+      .post(
+        `${baseURL}auth/token/logout/`,
+        {},
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        setUser("", null);
+        // navigate("/");
+      });
   };
-
-  console.log(token);
-  console.log(username);
 
   return (
     <>
       <Flex direction="column" minHeight="100vh">
-        <Navbar />
+        <Navbar handleLogout={handleLogout} />
         <Flex direction="column" flex="1">
           {token ? (
             <>
               <Routes>
                 <Route
                   path="/"
-                  element={<Main username={username} token={token} />}
+                  element={
+                    <Main
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                    />
+                  }
+                />
+                <Route
+                  path="/create/"
+                  element={<Create username={username} token={token} />}
                 />
                 <Route
                   path="/search-events"
-                  element={<SearchEvents username={username} token={token} />}
+                  element={
+                    <SearchEvents
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                    />
+                  }
                 />
                 <Route
                   path="/clients"
@@ -63,8 +96,34 @@ function App() {
                   element={<EventDetails username={username} token={token} />}
                 />
                 <Route
-                  path="/create/"
-                  element={<Create username={username} token={token} />}
+                  path="/account"
+                  element={
+                    <UserProfile
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                    />
+                  }
+                />
+                <Route
+                  path="/edit-account"
+                  element={
+                    <EditUserProfile
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                    />
+                  }
+                />
+                <Route
+                  path="/upload-image"
+                  element={
+                    <UploadFile
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                    />
+                  }
                 />
               </Routes>
             </>
@@ -72,13 +131,14 @@ function App() {
             <>
               <Center flex="1">
                 <Routes>
-                  <Route path="/" element={<Login setUser={setUser} />} />
+                  {/* <Route path="/" element={<Login setUser={setUser} />} /> */}
+                  <Route path="/" element={<LoginRole setUser={setUser} />} />
                 </Routes>
               </Center>
             </>
           )}
         </Flex>
-        <Footer />
+        {/* <Footer /> */}
       </Flex>
     </>
   );
@@ -102,4 +162,31 @@ element={
   <OrganizationProfile token={token} username={username} />
 }
 /> */
+}
+
+{
+  /* {userRole === "Manager" && (
+                  <Route
+                    path="/"
+                    element={
+                      <Main
+                        username={username}
+                        token={token}
+                        userRole={userRole}
+                      />
+                    }
+                  />
+                )}
+                {userRole === "Client" && (
+                  <Route
+                    path="/"
+                    element={
+                      <ClientMain
+                        username={username}
+                        token={token}
+                        userRole={userRole}
+                      />
+                    }
+                  />
+                )} */
 }
