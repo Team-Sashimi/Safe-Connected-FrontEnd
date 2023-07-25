@@ -20,6 +20,7 @@ import {
 const CreateEvent = ({ token, username }) => {
   const [eventTitle, setEventTitle] = useState("");
   const [generalNotes, setGeneralNotes] = useState("");
+  const [eventDate, setEventDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [streetNumber, setStreetNumber] = useState("");
@@ -41,6 +42,7 @@ const CreateEvent = ({ token, username }) => {
         {
           event_title: eventTitle,
           general_notes: generalNotes,
+          event_date: eventDate,
           start_time: endTime,
           end_time: startTime,
           street_number: streetNumber,
@@ -61,6 +63,7 @@ const CreateEvent = ({ token, username }) => {
         console.log(res.data);
         setEventTitle("");
         setGeneralNotes("");
+        setEventDate("");
         setStartTime("");
         setEndTime("");
         setStreetNumber("");
@@ -84,6 +87,9 @@ const CreateEvent = ({ token, username }) => {
     }
     if (userInput === "generalNotes") {
       setGeneralNotes(e.target.value);
+    }
+    if (userInput === "eventDate") {
+      setEventDate(e.target.value);
     }
     if (userInput === "endTime") {
       setEndTime(e.target.value);
@@ -150,9 +156,9 @@ const CreateEvent = ({ token, username }) => {
                   placeholder="Languages"
                   onChange={(e) => handleChange("language", e)}
                 >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
+                  <option value="1">English</option>
+                  <option value="2">Spanish</option>
+                  <option value="3">French</option>
                 </Select>
                 <FormLabel color="yellow.200" mt="4">
                   Is your event private?
@@ -166,21 +172,30 @@ const CreateEvent = ({ token, username }) => {
                   <option value="False">No</option>
                 </Select>
                 <FormLabel color="yellow.200" mt="4">
-                  Start Date & Time:
+                  Event Date
                 </FormLabel>
                 <Input
                   color="whiteAlpha.600"
                   size="md"
-                  type="datetime-local"
+                  type="date"
+                  onChange={(e) => handleChange("eventDate", e)}
+                />
+                <FormLabel color="yellow.200" mt="4">
+                  Start Time:
+                </FormLabel>
+                <Input
+                  color="whiteAlpha.600"
+                  size="md"
+                  type="time"
                   onChange={(e) => handleChange("startTime", e)}
                 />
                 <FormLabel color="yellow.200" mt="4">
-                  End Date & Time:
+                  End Time:
                 </FormLabel>
                 <Input
                   color="whiteAlpha.600"
                   size="md"
-                  type="datetime-local"
+                  type="time"
                   onChange={(e) => handleChange("endTime", e)}
                 />
               </FormControl>

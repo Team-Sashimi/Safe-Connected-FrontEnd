@@ -9,32 +9,54 @@ import {
   Button,
   Grid,
   Avatar,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
+
+import { PhoneIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
 
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
+import UploadFile from "./UploadFile";
 
 export const Main = ({ username, token, userRole }) => {
   const baseURL = "https://safe-connected.onrender.com/";
-  const [events, setEvents] = useState([]);
+  const [orgDetails, setOrgDetails] = useState([]);
 
-  // useEffect(() => {
+  useEffect(() => {
+    axios
+      .get(`${baseURL}organization/1/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        setOrgDetails(res.data);
+      });
+  }, [token]);
+
+  // const handleUploadFile = () => {
   //   axios
-  //     .get(`${baseURL}event/list/`, {
-  //       headers: {
-  //         Authorization: `Token ${token}`,
-  //       },
-  //     })
+  //     .post(
+  //       `${baseURL}uploads/`,
+  //       { file: `${fileUpload}` },
+  //       {
+  //         headers: {
+  //           Authorization: `Token ${token}`,
+  //         },
+  //       }
+  //     )
   //     .then((res) => {
-  //       setEvents(res.data);
+  //       console.log("you uploaded an file!");
+  //       setFileUpload("");
+  //       // navigate("/");
+  //     })
+  //     .catch((error) => {
+  //       console.log("error");
   //     });
-  // }, [token]);
-
-  console.log(username);
-  console.log(token);
-  console.log(userRole);
+  // };
 
   return (
     <Center bgColor="gray.800" h="100vh">
@@ -42,18 +64,24 @@ export const Main = ({ username, token, userRole }) => {
         <Container maxW="900px" flex="1">
           <Box>
             <Center>
-              <Avatar
+              {/* <Avatar
                 size="xl"
                 name={username}
                 mb="10"
                 // src="https://example.com/avatar.jpg"
-              />
+              /> */}
+              <UploadFile token={token} username={username} />
+              {/* <Center>
+                <InputGroup>
+                  <AddIcon type="file" color="gray.300" cursor="pointer" />
+                </InputGroup>
+              </Center> */}
             </Center>
             <Center>
               <Flex direction="column" align="center">
                 <Heading color="yellow.200">Welcome! {username}</Heading>
                 <Heading mt="4" size="md" color="yellow.200">
-                  {userRole} at *Insert Organization*
+                  {userRole} at {orgDetails.org_name}
                 </Heading>
               </Flex>
             </Center>

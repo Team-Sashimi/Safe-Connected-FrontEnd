@@ -1,50 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
-import {
-  Box,
-  Heading,
-  Center,
-  Text,
-  Button,
-  Tooltip,
-  Input,
-} from "@chakra-ui/react";
+import { Center, InputGroup, Avatar, Input } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+import useLocalStorageState from "use-local-storage-state";
 
 import { Link } from "react-router-dom";
 
-const UploadFile = ({ token, eventID }) => {
+const UploadFile = ({ token, username }) => {
   const baseURL = "https://safe-connected.onrender.com/";
-  const [fileUpload, setFileUpload] = useState("");
+  const fileInputRef = useRef(null);
+  const [fileUpload, setFileUpload] = useLocalStorageState("userAvatar", "");
 
-  const navigate = useNavigate();
+  const handleFileInputChange = () => {
+    const file = fileInputRef.current.files[0];
+    console.log(file);
 
-  //   useEffect(() => {
-  //   axios
-  //     .get(`${baseURL}event/list/`, {
-  //       headers: {
-  //         Authorization: `Token ${token}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setEvents(res.data);
-  //     });
-  // }, [token]);
+    // Create a FormData object and append the file to it
+    const formData = new FormData();
+    formData.append("file", file);
 
-  const handleFile = () => {
     axios
-      .post(
-        `${baseURL}uploads/`,
-        { file: fileUpload },
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        }
-      )
+      .post(`${baseURL}uploads/`, formData, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
       .then((res) => {
-        console.log("you uploaded an file!");
-        setFileUpload("");
+        console.log("you uploaded a file!");
+        console.log(res.data);
+        const uploadedFileUrl = res.data.file;
+        setFileUpload(uploadedFileUrl);
         // navigate("/");
       })
       .catch((error) => {
@@ -52,17 +37,28 @@ const UploadFile = ({ token, eventID }) => {
       });
   };
 
+  const handleAddIconClick = () => {
+    fileInputRef.current.click();
+  };
+
   return (
     <>
-      <Input
-        type="file"
-        id="avatar"
-        name="avatar"
-        // accept="image/png, image/jpeg"
-      ></Input>
-      <Button type="submit" my="10" onClick={handleFile}>
-        Upload Image
-      </Button>
+      <Center>
+        <Avatar size="xl" name={username} mb="10" src={fileUpload} />
+        <InputGroup>
+          <Input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileInputChange}
+          />
+          <AddIcon
+            color="gray.300"
+            cursor="pointer"
+            onClick={handleAddIconClick}
+          />
+        </InputGroup>
+      </Center>
     </>
   );
 };

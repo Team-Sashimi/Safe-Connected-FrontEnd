@@ -9,13 +9,17 @@ import {
   Button,
   Flex,
   Avatar,
+  InputGroup,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import ClientSignUp from "./ClientSignUp";
+import EditEventDetails from "./EditEventDetails";
+import DeleteEvent from "./DeleteEvent";
+import MapBox from "./MapBox";
 
 import { Link } from "react-router-dom";
 
-const EventDetails = ({ token, username, userRole }) => {
+const EventDetails = ({ token, username, userRole, orgDetails }) => {
   const [eventDetails, setEventDetails] = useState([]);
   const [eventRoster, setEventRoster] = useState([]);
 
@@ -53,58 +57,84 @@ const EventDetails = ({ token, username, userRole }) => {
 
   return (
     <>
-      <Center m="10">
+      <Center bgColor="gray.800" h="100vh">
         <Box
           width="400px"
           height="500px"
-          border="1px solid #ccc"
+          // border="1px solid #ccc"
           p="4"
           borderRadius="md"
         >
           <Center>
-            <Box border="1px solid" width="300px" height="150px"></Box>
+            <Box>
+              <Center>
+                <Avatar
+                  size="xl"
+                  name={username}
+                  mb="5"
+                  // src="https://example.com/avatar.jpg"
+                />
+              </Center>
+              <Center>
+                <Flex direction="column" align="center">
+                  <Heading size="md" color="yellow.200">
+                    {orgDetails.org_name}
+                  </Heading>
+                  <Heading size="md" color="yellow.200">
+                    {orgDetails.phone}
+                  </Heading>
+                </Flex>
+              </Center>
+            </Box>
           </Center>
-          <Heading as="h4" size="md" mt="10">
+          <Heading color="yellow.200" as="h4" size="md" mt="10">
             {eventDetails.event_title}
           </Heading>
-          <Text>{eventDetails.general_notes}</Text>
-          <Text>
-            {dayjs(eventDetails.start_time).format("MMMM D, YYYY h:mm A")} -
+          <Text color="yellow.200">{eventDetails.general_notes}</Text>
+          <br></br>
+          <Text color="yellow.200">
+            {dayjs(eventDetails.start_time).format("MMMM D, YYYY")}
+            <br></br>
+            {dayjs(eventDetails.start_time).format("h:mm")}-
             {dayjs(eventDetails.end_time).format("h:mm A")}
           </Text>
-          <Text>Event type of: {eventDetails.event_type}</Text>
-          <Text>
+          <Text color="yellow.200">
+            Event type of: {eventDetails.event_type}
+          </Text>
+          <br></br>
+          <Text color="yellow.200">
             {eventDetails.street_number} {eventDetails.street_name}
           </Text>
-          <Text>
+          <Text color="yellow.200">
             {eventDetails.city} {eventDetails.zipcode}
           </Text>
           {userRole === "Client" && (
             <ClientSignUp token={token} eventID={eventID} />
           )}
+          {userRole === "Manager" && (
+            <>
+              <EditEventDetails token={token} eventID={eventID} />
+              <DeleteEvent token={token} eventID={eventID} />
+            </>
+          )}
         </Box>
 
-        {/* Adding the rectangle with a border */}
         <Box
-          width="600px"
-          height="500px"
-          border="2px solid #000"
-          borderRadius="md"
-          ml="4" // Adjust the margin as per your requirement
-        ></Box>
-      </Center>
-
-      <Center>
-        <Heading as="h4" size="md" mt="10">
-          People Signed Up
-        </Heading>
+        // width="600px"
+        // height="400px"
+        // border="2px solid #eee"
+        // borderRadius="md"
+        // ml="4"
+        >
+          <MapBox token={token} username={username} />
+        </Box>
       </Center>
 
       <Flex
         direction="column"
         justify="center"
         p={4}
-        // bgColor="gray.100"
+        bgColor="gray.800"
         w="100%"
         h="100%"
       >
@@ -115,18 +145,23 @@ const EventDetails = ({ token, username, userRole }) => {
           flexDirection="column"
           alignItems="center"
         >
+          <Heading size="md" color="yellow.200">
+            People Who Signed Up
+          </Heading>
           <Avatar
+            mt="5"
             size="md"
             // name={attendee}
             // src="https://example.com/avatar.jpg"
           />
+          <Box>
+            <Text color="yellow.200" mt="5">
+              {eventRoster.event_attendees}
+            </Text>
+          </Box>
         </Box>
       </Flex>
-      <Center>
-        <Box>
-          <Text mt="5">{eventRoster.event_attendees}</Text>
-        </Box>
-      </Center>
+      <Center></Center>
     </>
   );
 };
