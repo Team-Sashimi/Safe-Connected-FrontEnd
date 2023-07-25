@@ -1,14 +1,15 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
-import { Center, InputGroup, Avatar } from "@chakra-ui/react";
+import { Center, InputGroup, Avatar, Input } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
+import useLocalStorageState from "use-local-storage-state";
 
 import { Link } from "react-router-dom";
 
 const UploadFile = ({ token, username }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const fileInputRef = useRef(null);
-  const [fileUpload, setFileUpload] = useState(null);
+  const [fileUpload, setFileUpload] = useLocalStorageState("userAvatar", "");
 
   const handleFileInputChange = () => {
     const file = fileInputRef.current.files[0];
@@ -45,7 +46,7 @@ const UploadFile = ({ token, username }) => {
       <Center>
         <Avatar size="xl" name={username} mb="10" src={fileUpload} />
         <InputGroup>
-          <input
+          <Input
             type="file"
             ref={fileInputRef}
             style={{ display: "none" }}

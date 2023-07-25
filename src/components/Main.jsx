@@ -24,8 +24,6 @@ import UploadFile from "./UploadFile";
 export const Main = ({ username, token, userRole }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [orgDetails, setOrgDetails] = useState([]);
-  const [fileUpload, setFileUpload] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     axios

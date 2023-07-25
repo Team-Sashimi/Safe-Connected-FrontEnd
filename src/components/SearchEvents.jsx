@@ -51,10 +51,10 @@ const SearchEvents = ({ token, username, userRole }) => {
   console.log(allEvents);
 
   return (
-    <Center bgColor="gray.800" h="100vh">
-      <Container as="container-for-events" maxW="900px">
+    <Center bgColor="gray.800" h="100%">
+      <Container as="container-for-events" h="100%" maxW="900px">
         <Box>
-          <Flex direction="column" align="center">
+          <Flex m="4" direction="column" align="center">
             <Heading mt="5" color="yellow.200">
               {username} Events
             </Heading>
@@ -92,13 +92,14 @@ const SearchEvents = ({ token, username, userRole }) => {
           </Flex>
         </Box>
         <Center>
-          <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="10" mt="10">
+          <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="5" mt="10">
             {allEvents.map((event) => (
               <Box
                 key={event.id}
                 border="1px solid white"
                 borderRadius="md"
                 p="4"
+                m="10"
                 onClick={() => handleEventDetails(event.id)}
                 cursor="pointer"
               >

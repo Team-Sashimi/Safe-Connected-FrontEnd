@@ -150,9 +150,9 @@ const CreateEvent = ({ token, username }) => {
                   placeholder="Languages"
                   onChange={(e) => handleChange("language", e)}
                 >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
+                  <option value="1">English</option>
+                  <option value="2">Spanish</option>
+                  <option value="3">French</option>
                 </Select>
                 <FormLabel color="yellow.200" mt="4">
                   Is your event private?
