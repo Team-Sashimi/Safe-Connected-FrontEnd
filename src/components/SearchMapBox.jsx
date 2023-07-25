@@ -6,14 +6,16 @@ import {
   UnorderedList,
   ListItem,
   Input,
+  FormLabel,
 } from "@chakra-ui/react";
 import mapboxgl from "mapbox-gl";
 import axios from "axios";
+import { Form } from "react-router-dom";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYWxleHlhbmc0MzU4IiwiYSI6ImNsa2lmdGFicDBnc3YzZm10d3VoMzBzaWsifQ.1bpPFD5GX8MLY58smdNiKA";
 
-const SearchMapBox = () => {
+const SearchMapBox = ({ token, setSelectedSuggestion }) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(-78.64);
@@ -21,6 +23,8 @@ const SearchMapBox = () => {
   const [zoom, setZoom] = useState(9);
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  //   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
+
   const [marker, setMarker] = useState(null);
 
   useEffect(() => {
@@ -82,14 +86,19 @@ const SearchMapBox = () => {
       ]); // Recenter the map
       map.current.setZoom(15); // Set the desired zoom level
     }
+    setSelectedSuggestion(suggestion);
   };
+
+  //   console.log(selectedSuggestion);
 
   return (
     <>
       <Center>
         <Box>
-          <Heading>Map Box</Heading>
-          {/* Input field with autocomplete feature */}
+          <FormLabel color="yellow.200">
+            {" "}
+            Search location of event below.{" "}
+          </FormLabel>
           <Input
             type="text"
             width="700px"
@@ -99,6 +108,7 @@ const SearchMapBox = () => {
             onChange={(e) => handleAddressSearch(e.target.value)}
             color="white"
           />
+
           {/* Display autocomplete suggestions */}
           {suggestions.length > 0 && (
             <UnorderedList
@@ -109,15 +119,16 @@ const SearchMapBox = () => {
               bg="white"
             >
               {suggestions.map((suggestion) => (
-                <ListItem
-                  key={suggestion.id}
-                  cursor="pointer"
-                  _hover={{ background: "#f0f0f0" }}
-                  p={2}
-                  onClick={() => handleSelectSuggestion(suggestion)}
-                >
-                  {suggestion.place_name}
-                </ListItem>
+                <>
+                  <ListItem
+                    key={suggestion.id}
+                    cursor="pointer"
+                    p={2}
+                    onClick={() => handleSelectSuggestion(suggestion)}
+                  >
+                    {suggestion.place_name}
+                  </ListItem>
+                </>
               ))}
             </UnorderedList>
           )}

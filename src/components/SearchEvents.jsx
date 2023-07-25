@@ -30,6 +30,7 @@ import dayjs from "dayjs";
 const SearchEvents = ({ token, username, userRole }) => {
   const [allEvents, setAllEvents] = useState([]);
   const [allStreets, setAllStreets] = useState([]);
+
   const navigate = useNavigate();
   const baseURL = "https://safe-connected.onrender.com/";
 

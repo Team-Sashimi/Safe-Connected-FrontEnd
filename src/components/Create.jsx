@@ -32,9 +32,56 @@ const CreateEvent = ({ token, username }) => {
   const [privacy, setPrivacy] = useState("");
   const [language, setLanguage] = useState("");
   const [capacity, setCapacity] = useState("");
+  const [selectedSuggestion, setSelectedSuggestion] = useState(null);
 
   const navigate = useNavigate();
   const baseURL = "https://safe-connected.onrender.com/";
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   axios
+  //     .post(
+  //       `${baseURL}event/create/`,
+  //       {
+  //         event_title: eventTitle,
+  //         general_notes: generalNotes,
+  //         event_date: eventDate,
+  //         start_time: endTime,
+  //         end_time: startTime,
+  //         street_number: streetNumber,
+  //         street_name: streetName,
+  //         city: city,
+  //         zipcode: zip,
+  //         privacy: privacy,
+  //         event_language: language,
+  //         max_attendees: capacity,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Token ${token}`,
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setEventTitle("");
+  //       setGeneralNotes("");
+  //       setEventDate("");
+  //       setStartTime("");
+  //       setEndTime("");
+  //       setStreetNumber("");
+  //       setStreetName("");
+  //       setCity("");
+  //       setZip("");
+  //       setPrivacy("");
+  //       setLanguage("");
+  //       setCapacity("");
+  //       navigate("/");
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,10 +94,10 @@ const CreateEvent = ({ token, username }) => {
           event_date: eventDate,
           start_time: endTime,
           end_time: startTime,
-          street_number: streetNumber,
-          street_name: streetName,
+          street_number: selectedSuggestion.address,
+          street_name: selectedSuggestion.text,
           city: city,
-          zipcode: zip,
+          zipcode: selectedSuggestion.context[1].text,
           privacy: privacy,
           event_language: language,
           max_attendees: capacity,
@@ -123,10 +170,15 @@ const CreateEvent = ({ token, username }) => {
     }
   };
 
+  // console.log(selectedSuggestion.text);
+
   return (
     <>
       <Center bgColor="gray.800" h="100vh">
-        <SearchMapBox token={token} />
+        <SearchMapBox
+          token={token}
+          setSelectedSuggestion={setSelectedSuggestion}
+        />
         <Flex my="8" maxWidth="800px">
           {/* First Column */}
           <Box m="4" mr="150px">
