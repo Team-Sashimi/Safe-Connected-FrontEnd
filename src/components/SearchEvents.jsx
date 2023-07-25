@@ -58,7 +58,7 @@ const SearchEvents = ({ token, username, userRole }) => {
   return (
     <Center bgColor="gray.800" h="100%">
       <Container as="container-for-events" h="100%" maxW="900px">
-        {/* <MapBoxAll token={token} username={username} allStreets={allStreets} /> */}
+        <MapBoxAll token={token} username={username} allStreets={allStreets} />
         <Box>
           <Flex m="4" direction="column" align="center">
             <Heading mt="5" color="yellow.200">

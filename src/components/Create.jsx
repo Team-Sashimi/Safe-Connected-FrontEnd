@@ -17,6 +17,8 @@ import {
   Select,
 } from "@chakra-ui/react";
 
+import SearchMapBox from "./SearchMapBox";
+
 const CreateEvent = ({ token, username }) => {
   const [eventTitle, setEventTitle] = useState("");
   const [generalNotes, setGeneralNotes] = useState("");
@@ -124,6 +126,7 @@ const CreateEvent = ({ token, username }) => {
   return (
     <>
       <Center bgColor="gray.800" h="100vh">
+        <SearchMapBox token={token} />
         <Flex my="8" maxWidth="800px">
           {/* First Column */}
           <Box m="4" mr="150px">
