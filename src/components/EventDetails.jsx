@@ -22,12 +22,11 @@ import { Link } from "react-router-dom";
 const EventDetails = ({ token, username, userRole, orgDetails }) => {
   const [eventDetails, setEventDetails] = useState([]);
   const [eventRoster, setEventRoster] = useState([]);
-
+  const [eventAddress, setEventAddress] = useState("");
+  const [eventStNumber, setEventStNumber] = useState("");
+  const [eventStreet, setEventStreet] = useState("");
   const baseURL = "https://safe-connected.onrender.com/";
   const { eventID } = useParams();
-
-  // get request to grab event details
-  // post or patch request to sign up
 
   useEffect(() => {
     axios
@@ -37,6 +36,9 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
         },
       })
       .then((res) => {
+        setEventStNumber(res.data.street_number);
+        setEventStreet(res.data.street_name);
+        setEventAddress(res.data.full_address);
         setEventDetails(res.data);
       });
   }, [token]);
@@ -52,8 +54,6 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
         setEventRoster(res.data);
       });
   }, [token]);
-
-  console.log(eventRoster);
 
   return (
     <>
@@ -91,6 +91,7 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
             {eventDetails.event_title}
           </Heading>
           <Text color="yellow.200">{eventDetails.general_notes}</Text>
+          <Text color="yellow.200">{eventDetails.full_address}</Text>
           <br></br>
           <Text color="yellow.200">
             {dayjs(eventDetails.start_time).format("MMMM D, YYYY")}
@@ -126,7 +127,13 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
         // borderRadius="md"
         // ml="4"
         >
-          <MapBox token={token} username={username} />
+          <MapBox
+            token={token}
+            username={username}
+            eventAddress={eventAddress}
+            eventStNumber={eventStNumber}
+            eventStreet={eventStreet}
+          />
         </Box>
       </Center>
 
