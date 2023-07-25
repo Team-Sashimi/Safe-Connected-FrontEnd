@@ -70,7 +70,7 @@ const SearchEvents = ({ token, username, userRole }) => {
                   </MenuList>
                 </Menu>
               </Box>
-              <Box>
+              {/* <Box>
                 <Menu>
                   <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                     Language
@@ -80,7 +80,7 @@ const SearchEvents = ({ token, username, userRole }) => {
                     <MenuItem>Most Recently Added</MenuItem>
                   </MenuList>
                 </Menu>
-              </Box>
+              </Box> */}
             </Flex>
             {userRole === "Manager" && (
               <Link to="/create">
@@ -109,8 +109,11 @@ const SearchEvents = ({ token, username, userRole }) => {
                   </Heading>
                   <Text color="whiteAlpha.800">{event.general_notes}</Text>
                   <Text color="whiteAlpha.800">
-                    {dayjs(event.start_time).format("MMMM D, YYYY h:mm A")}-
-                    {dayjs(event.end_time).format("h:mm A")}
+                    {dayjs(event.event_date).format("MMMM D, YYYY")}
+                    <br></br>
+                    {event.start_time} - {event.end_time}
+                    <br></br>
+                    {/* Start Time: {dayjs(event.start_time).format("HH:mm")} */}
                   </Text>
                   <Text color="whiteAlpha.800">{event.privacy}</Text>
                 </Box>

@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import ClientSignUp from "./ClientSignUp";
 import EditEventDetails from "./EditEventDetails";
 import DeleteEvent from "./DeleteEvent";
+import MapBox from "./MapBox";
 
 import { Link } from "react-router-dom";
 
@@ -118,14 +119,15 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           )}
         </Box>
 
-        {/* Adding the rectangle with a border */}
         <Box
-          width="600px"
-          height="500px"
-          border="2px solid #eee"
-          borderRadius="md"
-          ml="4" // Adjust the margin as per your requirement
-        ></Box>
+        // width="600px"
+        // height="400px"
+        // border="2px solid #eee"
+        // borderRadius="md"
+        // ml="4"
+        >
+          <MapBox token={token} username={username} />
+        </Box>
       </Center>
 
       <Flex
