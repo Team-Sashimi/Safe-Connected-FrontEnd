@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
+import UploadFile from "./UploadFile";
 
 const UserProfile = ({ token, username, userRole }) => {
   const baseURL = "https://safe-connected.onrender.com/";
@@ -45,12 +46,7 @@ const UserProfile = ({ token, username, userRole }) => {
           <Container maxW="900px" flex="1">
             <Box>
               <Center>
-                <Avatar
-                  size="xl"
-                  name={username}
-                  mb="10"
-                  // src="https://example.com/avatar.jpg"
-                />
+                <UploadFile token={token} username={username} />
               </Center>
               <Center>
                 <Flex direction="column" align="center">
@@ -70,14 +66,14 @@ const UserProfile = ({ token, username, userRole }) => {
                       </Button>
                     </Link>
                   )}
-                  <Link to="/upload-image">
+                  <Link to="/your-events">
                     <Button backgroundColor="yellow.400" m="4">
-                      Upload Image
+                      Events
                     </Button>
                   </Link>
                   <Link to="/edit-account">
                     <Button backgroundColor="yellow.400" m="4">
-                      Edit Account
+                      Edit Info
                     </Button>
                   </Link>
                 </Flex>

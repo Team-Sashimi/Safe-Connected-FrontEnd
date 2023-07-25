@@ -16,6 +16,7 @@ import ClientSignUp from "./ClientSignUp";
 import EditEventDetails from "./EditEventDetails";
 import DeleteEvent from "./DeleteEvent";
 import MapBox from "./MapBox";
+import EventRoster from "./EventRoster";
 
 import { Link } from "react-router-dom";
 
@@ -43,37 +44,14 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
       });
   }, [token]);
 
-  useEffect(() => {
-    axios
-      .get(`${baseURL}event/roster/${eventID}`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        setEventRoster(res.data);
-      });
-  }, [token]);
-
   return (
     <>
       <Center bgColor="gray.800" h="100vh">
-        <Box
-          width="400px"
-          height="500px"
-          // border="1px solid #ccc"
-          p="4"
-          borderRadius="md"
-        >
+        <Box width="400px" height="500px" p="4" borderRadius="md">
           <Center>
             <Box>
               <Center>
-                <Avatar
-                  size="xl"
-                  name={username}
-                  mb="5"
-                  // src="https://example.com/avatar.jpg"
-                />
+                <Avatar size="xl" name={username} mb="5" />
               </Center>
               <Center>
                 <Flex direction="column" align="center">
@@ -120,13 +98,7 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           )}
         </Box>
 
-        <Box
-        // width="600px"
-        // height="400px"
-        // border="2px solid #eee"
-        // borderRadius="md"
-        // ml="4"
-        >
+        <Box>
           <MapBox
             token={token}
             username={username}
@@ -134,41 +106,11 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
             eventStNumber={eventStNumber}
             eventStreet={eventStreet}
           />
+          <EventRoster token={token} />
         </Box>
-      </Center>
 
-      <Flex
-        direction="column"
-        justify="center"
-        p={4}
-        bgColor="gray.800"
-        w="100%"
-        h="100%"
-      >
-        <Box
-          w="100%"
-          h="100%"
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-        >
-          <Heading size="md" color="yellow.200">
-            People Who Signed Up
-          </Heading>
-          <Avatar
-            mt="5"
-            size="md"
-            // name={attendee}
-            // src="https://example.com/avatar.jpg"
-          />
-          <Box>
-            <Text color="yellow.200" mt="5">
-              {eventRoster.event_attendees}
-            </Text>
-          </Box>
-        </Box>
-      </Flex>
-      <Center></Center>
+        <Box></Box>
+      </Center>
     </>
   );
 };

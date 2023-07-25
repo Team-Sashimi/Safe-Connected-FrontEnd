@@ -18,6 +18,7 @@ import UserProfile from "./Components/UserProfile";
 import LoginRole from "./Components/LoginRole";
 import EditUserProfile from "./Components/EditUserProfile";
 import UploadFile from "./Components/UploadFile";
+import DeleteEvent from "./Components/DeleteEvent";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");

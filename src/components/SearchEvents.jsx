@@ -20,6 +20,7 @@ import {
   MenuOptionGroup,
   MenuDivider,
 } from "@chakra-ui/react";
+import MapBoxAll from "./MapBoxAll";
 
 import { PhoneIcon, AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
@@ -28,6 +29,7 @@ import dayjs from "dayjs";
 
 const SearchEvents = ({ token, username, userRole }) => {
   const [allEvents, setAllEvents] = useState([]);
+  const [allStreets, setAllStreets] = useState([]);
   const navigate = useNavigate();
   const baseURL = "https://safe-connected.onrender.com/";
 
@@ -40,6 +42,8 @@ const SearchEvents = ({ token, username, userRole }) => {
       })
       .then((res) => {
         setAllEvents(res.data);
+        const streetNamesArray = res.data.map((e) => e.street_name);
+        setAllStreets(streetNamesArray);
       });
   }, [token]);
 
@@ -49,10 +53,12 @@ const SearchEvents = ({ token, username, userRole }) => {
   };
 
   console.log(allEvents);
+  // console.log(allStreets);
 
   return (
     <Center bgColor="gray.800" h="100%">
       <Container as="container-for-events" h="100%" maxW="900px">
+        {/* <MapBoxAll token={token} username={username} allStreets={allStreets} /> */}
         <Box>
           <Flex m="4" direction="column" align="center">
             <Heading mt="5" color="yellow.200">
@@ -70,17 +76,6 @@ const SearchEvents = ({ token, username, userRole }) => {
                   </MenuList>
                 </Menu>
               </Box>
-              {/* <Box>
-                <Menu>
-                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                    Language
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem>Most Recent</MenuItem>
-                    <MenuItem>Most Recently Added</MenuItem>
-                  </MenuList>
-                </Menu>
-              </Box> */}
             </Flex>
             {userRole === "Manager" && (
               <Link to="/create">
@@ -92,17 +87,9 @@ const SearchEvents = ({ token, username, userRole }) => {
           </Flex>
         </Box>
         <Center>
-          <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="5" mt="10">
+          <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} spacing="5" mt="10">
             {allEvents.map((event) => (
-              <Box
-                key={event.id}
-                border="1px solid white"
-                borderRadius="md"
-                p="4"
-                m="10"
-                onClick={() => handleEventDetails(event.id)}
-                cursor="pointer"
-              >
+              <Box key={event.id} borderLeft="1px solid white" pl="4" m="10">
                 <Box as="event-card" key={event.id}>
                   <Heading color="whiteAlpha.800" as="h4" size="md">
                     {event.event_title}
@@ -116,6 +103,15 @@ const SearchEvents = ({ token, username, userRole }) => {
                     {/* Start Time: {dayjs(event.start_time).format("HH:mm")} */}
                   </Text>
                   <Text color="whiteAlpha.800">{event.privacy}</Text>
+                  <Heading
+                    onClick={() => handleEventDetails(event.id)}
+                    cursor="pointer"
+                    size="md"
+                    mt="5"
+                    color="yellow.200"
+                  >
+                    LEARN MORE
+                  </Heading>
                 </Box>
               </Box>
             ))}

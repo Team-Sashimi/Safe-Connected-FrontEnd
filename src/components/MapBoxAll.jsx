@@ -4,24 +4,19 @@ import mapboxgl from "mapbox-gl";
 import axios from "axios";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYWxleHlhbmc0MzU4IiwiYSI6ImNsa2lmdGFicDBnc3YzZm10d3VoMzBzaWsifQ.1bpPFD5GX8MLY58smdNiKA";
-const MapBox = ({
-  token,
-  eventID,
-  eventAddress,
-  eventStNumber,
-  eventStreet,
-}) => {
+const MapBoxAll = ({ token, allStreets }) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(-78.64);
   const [lat, setLat] = useState(35.77);
   const [zoom, setZoom] = useState(15);
   const tempurl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-    eventStreet
+    allStreets
   )}.json?access_token=${mapboxgl.accessToken}`;
 
   useEffect(() => {
     if (map.current) return;
+
     axios
       .get(tempurl)
       .then((response) => {
@@ -37,18 +32,22 @@ const MapBox = ({
           zoom: zoom,
         });
 
-        new mapboxgl.Marker()
-          .setLngLat([longitude, latitude])
-          .addTo(map.current);
+        // Adding markers for all streets
+        allStreets.forEach((street) => {
+          new mapboxgl.Marker()
+            .setLngLat([street.longitude, street.latitude])
+            .addTo(map.current);
+        });
       })
       .catch((error) => {
         console.log("Error fetching coordinates:", error);
       });
-  }, [eventStreet, lat, lng, zoom]);
+  }, [allStreets, lat, lng, zoom]);
 
-  console.log(encodeURIComponent(eventStreet));
-  console.log(eventAddress);
+  //   console.log(encodeURIComponent(eventStreet));
+  //   console.log(eventAddress);
 
+  //   console.log(allStreets);
   return (
     <>
       <Center>
@@ -66,4 +65,4 @@ const MapBox = ({
   );
 };
 
-export default MapBox;
+export default MapBoxAll;
