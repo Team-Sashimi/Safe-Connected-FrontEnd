@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 import { Center, InputGroup, Avatar } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
@@ -12,26 +12,28 @@ const UploadFile = ({ token, username }) => {
 
   const handleFileInputChange = () => {
     const file = fileInputRef.current.files[0];
+    console.log(file);
+
+    // Create a FormData object and append the file to it
+    const formData = new FormData();
+    formData.append("file", file);
+
     axios
-      .post(
-        `${baseURL}uploads/`,
-        { file: file },
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        }
-      )
+      .post(`${baseURL}uploads/`, formData, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
       .then((res) => {
-        console.log("you uploaded an file!");
-        setFileUpload("");
+        console.log("you uploaded a file!");
+        console.log(res.data);
+        const uploadedFileUrl = res.data.file;
+        setFileUpload(uploadedFileUrl);
         // navigate("/");
       })
       .catch((error) => {
         console.log("error");
       });
-
-    console.log(file);
   };
 
   const handleAddIconClick = () => {
@@ -41,12 +43,7 @@ const UploadFile = ({ token, username }) => {
   return (
     <>
       <Center>
-        <Avatar
-          size="xl"
-          name={username}
-          mb="10"
-          // src="https://example.com/avatar.jpg"
-        />
+        <Avatar size="xl" name={username} mb="10" src={fileUpload} />
         <InputGroup>
           <input
             type="file"

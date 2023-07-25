@@ -43,7 +43,7 @@ export const Main = ({ username, token, userRole }) => {
   //   axios
   //     .post(
   //       `${baseURL}uploads/`,
-  //       { file: fileUpload },
+  //       { file: `${fileUpload}` },
   //       {
   //         headers: {
   //           Authorization: `Token ${token}`,
