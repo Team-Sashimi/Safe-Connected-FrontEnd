@@ -46,7 +46,7 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
 
   return (
     <>
-      <Center bgColor="gray.800" h="100vh">
+      <Center bgColor="gray.800" h="92vh">
         <Box width="400px" height="500px" p="4" borderRadius="md">
           <Center>
             <Box>
@@ -69,11 +69,8 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
             {eventDetails.event_title}
           </Heading>
           <Text color="yellow.200">{eventDetails.general_notes}</Text>
-          <Text color="yellow.200">{eventDetails.full_address}</Text>
           <br></br>
           <Text color="yellow.200">
-            {dayjs(eventDetails.start_time).format("MMMM D, YYYY")}
-            <br></br>
             {dayjs(eventDetails.start_time).format("h:mm")}-
             {dayjs(eventDetails.end_time).format("h:mm A")}
           </Text>

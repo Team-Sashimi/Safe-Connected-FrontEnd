@@ -17,8 +17,10 @@ const MapBox = ({
   const [lat, setLat] = useState(35.77);
   const [zoom, setZoom] = useState(15);
   const tempurl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-    eventStreet
-  )}.json?access_token=${mapboxgl.accessToken}`;
+    eventStNumber
+  )}/${encodeURIComponent(eventStreet)}.json?access_token=${
+    mapboxgl.accessToken
+  }`;
 
   useEffect(() => {
     if (map.current) return;
@@ -47,7 +49,7 @@ const MapBox = ({
   }, [eventStreet, lat, lng, zoom]);
 
   console.log(encodeURIComponent(eventStreet));
-  console.log(eventAddress);
+  console.log(eventStNumber);
 
   return (
     <>

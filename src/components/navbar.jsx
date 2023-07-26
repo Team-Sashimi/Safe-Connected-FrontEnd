@@ -4,11 +4,15 @@ export const Navbar = ({ handleLogout }) => {
   return (
     <Box bgColor="yellow.200" as="nav" role="navigation" bg="bg.accent.default">
       <Container maxW="100vh">
-        <Flex justifyContent="space-between" alignItems="center" minH="20">
+        <Flex
+          pt="5"
+          justifyContent="space-between"
+          alignItems="center"
+          minH="8vh"
+        >
           <Link fontWeight="bold" href="/">
             Safe n Connected
           </Link>
-          <Link>Choose Language</Link>
           <Link to="/">
             <Button onClick={handleLogout}>Log Out</Button>
           </Link>

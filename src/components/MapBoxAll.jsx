@@ -10,7 +10,7 @@ const MapBoxAll = ({ token, allStreets }) => {
   const map = useRef(null);
   const [lng, setLng] = useState(-78.64);
   const [lat, setLat] = useState(35.77);
-  const [zoom, setZoom] = useState(15);
+  const [zoom, setZoom] = useState(5);
 
   useEffect(() => {
     if (map.current) return;

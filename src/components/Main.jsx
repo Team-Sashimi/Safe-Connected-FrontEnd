@@ -59,7 +59,7 @@ export const Main = ({ username, token, userRole }) => {
   // };
 
   return (
-    <Center bgColor="gray.800" h="100vh">
+    <Center bgColor="gray.800" h="92vh">
       <Flex as="main" role="main" direction="column" flex="2" py="3">
         <Container maxW="900px" flex="1">
           <Box>

@@ -96,7 +96,7 @@ const CreateEvent = ({ token, username }) => {
           end_time: startTime,
           street_number: selectedSuggestion.address,
           street_name: selectedSuggestion.text,
-          city: city,
+          city: selectedSuggestion.context[2].text,
           zipcode: selectedSuggestion.context[1].text,
           privacy: privacy,
           event_language: language,
@@ -169,19 +169,22 @@ const CreateEvent = ({ token, username }) => {
       setCapacity(e.target.value);
     }
   };
-
-  // console.log(selectedSuggestion.text);
+  console.log(selectedSuggestion);
+  console.log(selectedSuggestion.text);
+  console.log(selectedSuggestion.address);
+  console.log(selectedSuggestion.context[1].text);
+  console.log(selectedSuggestion.context[2].text);
 
   return (
     <>
-      <Center bgColor="gray.800" h="100vh">
+      <Center bgColor="gray.800" h="92vh">
         <SearchMapBox
           token={token}
           setSelectedSuggestion={setSelectedSuggestion}
         />
         <Flex my="8" maxWidth="800px">
           {/* First Column */}
-          <Box m="4" mr="150px">
+          <Box m="4" mr="100px">
             <form onSubmit={handleSubmit}>
               <FormControl>
                 <FormLabel color="yellow.200">Event Title</FormLabel>
@@ -226,33 +229,6 @@ const CreateEvent = ({ token, username }) => {
                   <option value="True">Yes</option>
                   <option value="False">No</option>
                 </Select>
-                <FormLabel color="yellow.200" mt="4">
-                  Event Date
-                </FormLabel>
-                <Input
-                  color="whiteAlpha.600"
-                  size="md"
-                  type="date"
-                  onChange={(e) => handleChange("eventDate", e)}
-                />
-                <FormLabel color="yellow.200" mt="4">
-                  Start Time:
-                </FormLabel>
-                <Input
-                  color="whiteAlpha.600"
-                  size="md"
-                  type="time"
-                  onChange={(e) => handleChange("startTime", e)}
-                />
-                <FormLabel color="yellow.200" mt="4">
-                  End Time:
-                </FormLabel>
-                <Input
-                  color="whiteAlpha.600"
-                  size="md"
-                  type="time"
-                  onChange={(e) => handleChange("endTime", e)}
-                />
               </FormControl>
             </form>
           </Box>
@@ -260,36 +236,31 @@ const CreateEvent = ({ token, username }) => {
           <Box ml="4">
             <FormControl>
               <FormLabel color="yellow.200" mt="4">
-                Street Number
+                Event Date
               </FormLabel>
               <Input
-                size="md"
                 color="whiteAlpha.600"
-                onChange={(e) => handleChange("streetNumber", e)}
+                size="md"
+                type="date"
+                onChange={(e) => handleChange("eventDate", e)}
               />
               <FormLabel color="yellow.200" mt="4">
-                Street Name
+                Start Time:
               </FormLabel>
               <Input
-                size="md"
                 color="whiteAlpha.600"
-                onChange={(e) => handleChange("streetName", e)}
+                size="md"
+                type="time"
+                onChange={(e) => handleChange("startTime", e)}
               />
               <FormLabel color="yellow.200" mt="4">
-                City
+                End Time:
               </FormLabel>
               <Input
-                size="md"
                 color="whiteAlpha.600"
-                onChange={(e) => handleChange("city", e)}
-              />
-              <FormLabel color="yellow.200" mt="4">
-                Zipcode
-              </FormLabel>
-              <Input
                 size="md"
-                color="whiteAlpha.600"
-                onChange={(e) => handleChange("zip", e)}
+                type="time"
+                onChange={(e) => handleChange("endTime", e)}
               />
               <FormLabel color="yellow.200" mt="4">
                 Capacity
@@ -317,3 +288,144 @@ const CreateEvent = ({ token, username }) => {
 };
 
 export default CreateEvent;
+
+{
+  /* <Center bgColor="gray.800" h="100vh">
+<SearchMapBox
+  token={token}
+  setSelectedSuggestion={setSelectedSuggestion}
+/>
+<Flex my="8" maxWidth="800px">
+
+  <Box m="4" mr="150px">
+    <form onSubmit={handleSubmit}>
+      <FormControl>
+        <FormLabel color="yellow.200">Event Title</FormLabel>
+        <Input
+          my="2"
+
+          placeholder="Name of Event"
+          size="md"
+          color="whiteAlpha.600"
+          onChange={(e) => handleChange("eventTitle", e)}
+        />
+        <FormLabel mt="4" color="yellow.200">
+          General Notes
+        </FormLabel>
+        <Textarea
+          my="2"
+          color="whiteAlpha.600"
+          placeholder="General Notes"
+          size="md"
+          onChange={(e) => handleChange("generalNotes", e)}
+        />
+        <FormLabel color="yellow.200" mt="4">
+          Select Language
+        </FormLabel>
+        <Select
+          color="whiteAlpha.600"
+          placeholder="Languages"
+          onChange={(e) => handleChange("language", e)}
+        >
+          <option value="1">English</option>
+          <option value="2">Spanish</option>
+          <option value="3">French</option>
+        </Select>
+        <FormLabel color="yellow.200" mt="4">
+          Is your event private?
+        </FormLabel>
+        <Select
+          placeholder="Choose below"
+          color="whiteAlpha.600"
+          onChange={(e) => handleChange("privacy", e)}
+        >
+          <option value="True">Yes</option>
+          <option value="False">No</option>
+        </Select>
+        <FormLabel color="yellow.200" mt="4">
+          Event Date
+        </FormLabel>
+        <Input
+          color="whiteAlpha.600"
+          size="md"
+          type="date"
+          onChange={(e) => handleChange("eventDate", e)}
+        />
+        <FormLabel color="yellow.200" mt="4">
+          Start Time:
+        </FormLabel>
+        <Input
+          color="whiteAlpha.600"
+          size="md"
+          type="time"
+          onChange={(e) => handleChange("startTime", e)}
+        />
+        <FormLabel color="yellow.200" mt="4">
+          End Time:
+        </FormLabel>
+        <Input
+          color="whiteAlpha.600"
+          size="md"
+          type="time"
+          onChange={(e) => handleChange("endTime", e)}
+        />
+      </FormControl>
+    </form>
+  </Box>
+
+  <Box ml="4">
+    <FormControl>
+      <FormLabel color="yellow.200" mt="4">
+        Street Number
+      </FormLabel>
+      <Input
+        size="md"
+        color="whiteAlpha.600"
+        onChange={(e) => handleChange("streetNumber", e)}
+      />
+      <FormLabel color="yellow.200" mt="4">
+        Street Name
+      </FormLabel>
+      <Input
+        size="md"
+        color="whiteAlpha.600"
+        onChange={(e) => handleChange("streetName", e)}
+      />
+      <FormLabel color="yellow.200" mt="4">
+        City
+      </FormLabel>
+      <Input
+        size="md"
+        color="whiteAlpha.600"
+        onChange={(e) => handleChange("city", e)}
+      />
+      <FormLabel color="yellow.200" mt="4">
+        Zipcode
+      </FormLabel>
+      <Input
+        size="md"
+        color="whiteAlpha.600"
+        onChange={(e) => handleChange("zip", e)}
+      />
+      <FormLabel color="yellow.200" mt="4">
+        Capacity
+      </FormLabel>
+      <Input
+        size="md"
+        color="whiteAlpha.600"
+        onChange={(e) => handleChange("capacity", e)}
+      />
+    </FormControl>
+    <Button
+      mt="6"
+      size="md"
+      type="submit"
+      onClick={handleSubmit}
+      cursor="pointer"
+    >
+      Submit
+    </Button>
+  </Box>
+</Flex>
+</Center> */
+}

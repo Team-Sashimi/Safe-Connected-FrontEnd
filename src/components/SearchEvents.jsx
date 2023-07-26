@@ -19,6 +19,7 @@ import {
   MenuGroup,
   MenuOptionGroup,
   MenuDivider,
+  Avatar,
 } from "@chakra-ui/react";
 import MapBoxAll from "./MapBoxAll";
 
@@ -27,7 +28,7 @@ import { PhoneIcon, AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 
-const SearchEvents = ({ token, username, userRole }) => {
+const SearchEvents = ({ token, username, userRole, orgDetails }) => {
   const [allEvents, setAllEvents] = useState([]);
   const [allStreets, setAllStreets] = useState([]);
 
@@ -55,6 +56,8 @@ const SearchEvents = ({ token, username, userRole }) => {
 
   console.log(allEvents);
   // console.log(allStreets);
+
+  console.log(orgDetails);
 
   return (
     <Center bgColor="gray.800" h="100%">
@@ -90,17 +93,33 @@ const SearchEvents = ({ token, username, userRole }) => {
         <Center>
           <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} spacing="5" mt="10">
             {allEvents.map((event) => (
-              <Box key={event.id} borderLeft="1px solid white" pl="4" m="10">
-                <Box as="event-card" key={event.id}>
+              <Box
+                key={event.id}
+                display="flex"
+                alignItems="center" // Align items vertically in the center
+                borderLeft="1px solid white"
+                pl="4"
+                m="10"
+              >
+                <br></br>
+                <Avatar
+                  size="xl"
+                  name={orgDetails.name}
+                  mb="10"
+                  // src={fileUpload}
+                />
+                <Box ml="4">
+                  {" "}
+                  {/* Add margin to create space between Avatar and content */}
                   <Heading color="whiteAlpha.800" as="h4" size="md">
                     {event.event_title}
                   </Heading>
                   <Text color="whiteAlpha.800">{event.general_notes}</Text>
                   <Text color="whiteAlpha.800">
                     {dayjs(event.event_date).format("MMMM D, YYYY")}
-                    <br></br>
+                    <br />
                     {event.start_time} - {event.end_time}
-                    <br></br>
+                    <br />
                     {/* Start Time: {dayjs(event.start_time).format("HH:mm")} */}
                   </Text>
                   <Text color="whiteAlpha.800">{event.privacy}</Text>

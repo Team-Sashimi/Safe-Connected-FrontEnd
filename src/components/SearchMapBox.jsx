@@ -7,7 +7,12 @@ import {
   ListItem,
   Input,
   FormLabel,
+  InputGroup,
+  InputLeftElement,
+  IconButton,
 } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
+
 import mapboxgl from "mapbox-gl";
 import axios from "axios";
 import { Form } from "react-router-dom";
@@ -95,19 +100,24 @@ const SearchMapBox = ({ token, setSelectedSuggestion }) => {
     <>
       <Center>
         <Box>
-          <FormLabel color="yellow.200">
-            {" "}
-            Search location of event below.{" "}
+          <FormLabel fontWeight="bold" color="yellow.200">
+            LOCATION:
           </FormLabel>
-          <Input
-            type="text"
-            width="700px"
-            mb="10"
-            placeholder="Enter address to search"
-            value={searchQuery}
-            onChange={(e) => handleAddressSearch(e.target.value)}
-            color="white"
-          />
+          <InputGroup>
+            <InputLeftElement pointerEvents="none">
+              <SearchIcon color="gray.300" />
+            </InputLeftElement>
+            <Input
+              type="text"
+              width="700px"
+              mb="10"
+              placeholder="Start typing address"
+              value={searchQuery}
+              onChange={(e) => handleAddressSearch(e.target.value)}
+              color="white"
+              bg="gray.800" // Change the background color here if needed
+            />
+          </InputGroup>
 
           {/* Display autocomplete suggestions */}
           {suggestions.length > 0 && (
