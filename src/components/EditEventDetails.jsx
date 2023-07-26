@@ -5,9 +5,11 @@ import { Box, Heading, Center, Text, Button, Tooltip } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
 
-const EditEventDetails = ({ token, eventID }) => {
+const EditEventDetails = ({ token }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [event, setEvent] = useState([]);
+  const { eventID } = useParams();
 
   const navigate = useNavigate();
 

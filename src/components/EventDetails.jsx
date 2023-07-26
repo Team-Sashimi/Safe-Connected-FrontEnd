@@ -16,18 +16,19 @@ import ClientSignUp from "./ClientSignUp";
 import EditEventDetails from "./EditEventDetails";
 import DeleteEvent from "./DeleteEvent";
 import MapBox from "./MapBox";
+import EventRoster from "./EventRoster";
+import moment from "moment";
 
 import { Link } from "react-router-dom";
 
 const EventDetails = ({ token, username, userRole, orgDetails }) => {
   const [eventDetails, setEventDetails] = useState([]);
   const [eventRoster, setEventRoster] = useState([]);
-
+  const [eventAddress, setEventAddress] = useState("");
+  const [eventStNumber, setEventStNumber] = useState("");
+  const [eventStreet, setEventStreet] = useState("");
   const baseURL = "https://safe-connected.onrender.com/";
   const { eventID } = useParams();
-
-  // get request to grab event details
-  // post or patch request to sign up
 
   useEffect(() => {
     axios
@@ -37,43 +38,27 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
         },
       })
       .then((res) => {
+        setEventStNumber(res.data.street_number);
+        setEventStreet(res.data.street_name);
+        setEventAddress(res.data.full_address);
         setEventDetails(res.data);
       });
   }, [token]);
 
-  useEffect(() => {
-    axios
-      .get(`${baseURL}event/roster/${eventID}`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        setEventRoster(res.data);
-      });
-  }, [token]);
+  const startTime = moment(eventDetails.start_time, "HH:mm:ss");
+  const endTime = moment(eventDetails.end_time, "HH:mm:ss");
 
-  console.log(eventRoster);
-
+  // Format the time strings as "HH:mm A"
+  const formattedStartTime = startTime.format("H:mm");
+  const formattedEndTime = endTime.format("HH:mm A");
   return (
     <>
-      <Center bgColor="gray.800" h="100vh">
-        <Box
-          width="400px"
-          height="500px"
-          // border="1px solid #ccc"
-          p="4"
-          borderRadius="md"
-        >
+      <Center bgColor="gray.800" h="92vh">
+        <Box width="400px" height="500px" p="4" borderRadius="md">
           <Center>
             <Box>
               <Center>
-                <Avatar
-                  size="xl"
-                  name={username}
-                  mb="5"
-                  // src="https://example.com/avatar.jpg"
-                />
+                <Avatar size="xl" name={username} mb="5" />
               </Center>
               <Center>
                 <Flex direction="column" align="center">
@@ -93,10 +78,7 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           <Text color="yellow.200">{eventDetails.general_notes}</Text>
           <br></br>
           <Text color="yellow.200">
-            {dayjs(eventDetails.start_time).format("MMMM D, YYYY")}
-            <br></br>
-            {dayjs(eventDetails.start_time).format("h:mm")}-
-            {dayjs(eventDetails.end_time).format("h:mm A")}
+            {formattedStartTime} - {formattedEndTime}
           </Text>
           <Text color="yellow.200">
             Event type of: {eventDetails.event_type}
@@ -119,49 +101,19 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           )}
         </Box>
 
-        <Box
-        // width="600px"
-        // height="400px"
-        // border="2px solid #eee"
-        // borderRadius="md"
-        // ml="4"
-        >
-          <MapBox token={token} username={username} />
-        </Box>
-      </Center>
-
-      <Flex
-        direction="column"
-        justify="center"
-        p={4}
-        bgColor="gray.800"
-        w="100%"
-        h="100%"
-      >
-        <Box
-          w="100%"
-          h="100%"
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-        >
-          <Heading size="md" color="yellow.200">
-            People Who Signed Up
-          </Heading>
-          <Avatar
-            mt="5"
-            size="md"
-            // name={attendee}
-            // src="https://example.com/avatar.jpg"
+        <Box>
+          <MapBox
+            token={token}
+            username={username}
+            eventAddress={eventAddress}
+            eventStNumber={eventStNumber}
+            eventStreet={eventStreet}
           />
-          <Box>
-            <Text color="yellow.200" mt="5">
-              {eventRoster.event_attendees}
-            </Text>
-          </Box>
+          <EventRoster token={token} />
         </Box>
-      </Flex>
-      <Center></Center>
+
+        <Box></Box>
+      </Center>
     </>
   );
 };
@@ -192,3 +144,5 @@ export default EventDetails;
 //     </Box>
 //   ));
 // }
+
+//* {dayjs(eventDetails.start_time).format("h:mm")}- {dayjs(eventDetails.end_time).format("h:mm A")}

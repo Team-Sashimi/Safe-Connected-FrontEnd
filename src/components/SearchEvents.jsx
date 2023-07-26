@@ -19,15 +19,23 @@ import {
   MenuGroup,
   MenuOptionGroup,
   MenuDivider,
+  Avatar,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
+import MapBoxAll from "./MapBoxAll";
 
-import { PhoneIcon, AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { PhoneIcon, SearchIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 
-const SearchEvents = ({ token, username, userRole }) => {
+const SearchEvents = ({ token, username, userRole, orgDetails }) => {
   const [allEvents, setAllEvents] = useState([]);
+  const [allStreets, setAllStreets] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResult, setSearchResult] = useState(null);
+
   const navigate = useNavigate();
   const baseURL = "https://safe-connected.onrender.com/";
 
@@ -40,6 +48,8 @@ const SearchEvents = ({ token, username, userRole }) => {
       })
       .then((res) => {
         setAllEvents(res.data);
+        const streetNamesArray = res.data.map((e) => e.full_address);
+        setAllStreets(streetNamesArray);
       });
   }, [token]);
 
@@ -48,17 +58,38 @@ const SearchEvents = ({ token, username, userRole }) => {
     navigate(`/event/${eventID}`);
   };
 
-  console.log(allEvents);
+  console.log(searchResult);
 
   return (
     <Center bgColor="gray.800" h="100%">
       <Container as="container-for-events" h="100%" maxW="900px">
+        <Center>
+          <Heading mt="20" mb="5" color="yellow.200">
+            BROWSE EVENTS
+          </Heading>
+        </Center>
+
+        <MapBoxAll token={token} username={username} allStreets={allStreets} />
         <Box>
           <Flex m="4" direction="column" align="center">
+            <InputGroup size="lg">
+              <InputLeftElement size="large" pointerEvents="none">
+                <SearchIcon size="lg" color="gray.300" />
+              </InputLeftElement>
+              <Input
+                type="text"
+                width="800px"
+                placeholder=""
+                // value={searchQuery}
+                // onChange={(e) => setSearchQuery(e.target.value)}
+                color="white"
+                size="lg"
+              />
+            </InputGroup>
             <Heading mt="5" color="yellow.200">
-              {username} Events
+              {/* {username} Events */}
             </Heading>
-            <Flex mt="5">
+            <Flex mt="3">
               <Box mr="2">
                 <Menu>
                   <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
@@ -70,17 +101,6 @@ const SearchEvents = ({ token, username, userRole }) => {
                   </MenuList>
                 </Menu>
               </Box>
-              {/* <Box>
-                <Menu>
-                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                    Language
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem>Most Recent</MenuItem>
-                    <MenuItem>Most Recently Added</MenuItem>
-                  </MenuList>
-                </Menu>
-              </Box> */}
             </Flex>
             {userRole === "Manager" && (
               <Link to="/create">
@@ -92,30 +112,47 @@ const SearchEvents = ({ token, username, userRole }) => {
           </Flex>
         </Box>
         <Center>
-          <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="5" mt="10">
+          <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} spacing="5" mt="10">
             {allEvents.map((event) => (
               <Box
                 key={event.id}
-                border="1px solid white"
-                borderRadius="md"
-                p="4"
+                display="flex"
+                alignItems="center" // Align items vertically in the center
+                borderLeft="1px solid white"
+                pl="4"
                 m="10"
-                onClick={() => handleEventDetails(event.id)}
-                cursor="pointer"
               >
-                <Box as="event-card" key={event.id}>
+                <br></br>
+                <Avatar
+                  size="xl"
+                  name={orgDetails.name}
+                  mb="10"
+                  // src={fileUpload}
+                />
+                <Box ml="4">
+                  {" "}
+                  {/* Add margin to create space between Avatar and content */}
                   <Heading color="whiteAlpha.800" as="h4" size="md">
                     {event.event_title}
                   </Heading>
                   <Text color="whiteAlpha.800">{event.general_notes}</Text>
                   <Text color="whiteAlpha.800">
                     {dayjs(event.event_date).format("MMMM D, YYYY")}
-                    <br></br>
+                    <br />
                     {event.start_time} - {event.end_time}
-                    <br></br>
+                    <br />
                     {/* Start Time: {dayjs(event.start_time).format("HH:mm")} */}
                   </Text>
                   <Text color="whiteAlpha.800">{event.privacy}</Text>
+                  <Heading
+                    onClick={() => handleEventDetails(event.id)}
+                    cursor="pointer"
+                    size="md"
+                    mt="5"
+                    color="yellow.200"
+                  >
+                    LEARN MORE
+                  </Heading>
                 </Box>
               </Box>
             ))}
@@ -127,3 +164,19 @@ const SearchEvents = ({ token, username, userRole }) => {
 };
 
 export default SearchEvents;
+
+// console.log(allEvents);
+// console.log(allStreets);
+// console.log(orgDetails);
+
+// const handleSearch = () => {
+//   axios
+//     .get(`https://safe-connected.onrender.com/?${searchQuery}=`)
+//     .then((response) => {
+//       setSearchResult(response.data);
+//     })
+//     .catch((error) => {
+//       console.error("Error fetching data:", error);
+//       setSearchResult(null);
+//     });
+// };

@@ -13,30 +13,25 @@ import {
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
+import UploadFile from "./UploadFile";
 
 const UserProfile = ({ token, username, userRole }) => {
   const baseURL = "https://safe-connected.onrender.com/";
+  const [userDetails, setUserDetails] = useState([]);
 
-  const handleFile = () => {
+  useEffect(() => {
     axios
-      .post(
-        `${baseURL}uploads/`,
-        { file: fileUpload },
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log("you uploaded an file!");
-        setFileUpload("");
-        // navigate("/");
+      .get(`${baseURL}auth/users/me/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
       })
-      .catch((error) => {
-        console.log("error");
+      .then((res) => {
+        setUserDetails(res.data);
       });
-  };
+  }, [token]);
+
+  console.log(userDetails);
 
   return (
     <>
@@ -45,17 +40,24 @@ const UserProfile = ({ token, username, userRole }) => {
           <Container maxW="900px" flex="1">
             <Box>
               <Center>
+                {/* <UploadFile token={token} username={username} /> */}
                 <Avatar
                   size="xl"
                   name={username}
-                  mb="10"
+                  mb="5"
                   // src="https://example.com/avatar.jpg"
                 />
               </Center>
               <Center>
                 <Flex direction="column" align="center">
-                  <Heading mt="4" size="md" color="yellow.200">
+                  <Heading mt="2" size="lg" color="yellow.200">
                     {userRole} Account Information
+                  </Heading>
+                  <Heading mt="4" size="sm" color="yellow.200">
+                    {userDetails.first_name} {userDetails.last_name}
+                  </Heading>
+                  <Heading mt="1" size="sm" color="yellow.200">
+                    {userDetails.email}
                   </Heading>
                 </Flex>
               </Center>
@@ -70,14 +72,14 @@ const UserProfile = ({ token, username, userRole }) => {
                       </Button>
                     </Link>
                   )}
-                  <Link to="/upload-image">
+                  <Link to="/your-events">
                     <Button backgroundColor="yellow.400" m="4">
-                      Upload Image
+                      Events
                     </Button>
                   </Link>
                   <Link to="/edit-account">
                     <Button backgroundColor="yellow.400" m="4">
-                      Edit Account
+                      Edit Info
                     </Button>
                   </Link>
                 </Flex>
@@ -91,3 +93,24 @@ const UserProfile = ({ token, username, userRole }) => {
 };
 
 export default UserProfile;
+
+// const handleFile = () => {
+//   axios
+//     .post(
+//       `${baseURL}uploads/`,
+//       { file: fileUpload },
+//       {
+//         headers: {
+//           Authorization: `Token ${token}`,
+//         },
+//       }
+//     )
+//     .then((res) => {
+//       console.log("you uploaded an file!");
+//       setFileUpload("");
+//       // navigate("/");
+//     })
+//     .catch((error) => {
+//       console.log("error");
+//     });
+// };
