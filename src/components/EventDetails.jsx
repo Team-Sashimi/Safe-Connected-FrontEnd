@@ -17,6 +17,7 @@ import EditEventDetails from "./EditEventDetails";
 import DeleteEvent from "./DeleteEvent";
 import MapBox from "./MapBox";
 import EventRoster from "./EventRoster";
+import moment from "moment";
 
 import { Link } from "react-router-dom";
 
@@ -44,6 +45,12 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
       });
   }, [token]);
 
+  const startTime = moment(eventDetails.start_time, "HH:mm:ss");
+  const endTime = moment(eventDetails.end_time, "HH:mm:ss");
+
+  // Format the time strings as "HH:mm A"
+  const formattedStartTime = startTime.format("H:mm");
+  const formattedEndTime = endTime.format("HH:mm A");
   return (
     <>
       <Center bgColor="gray.800" h="92vh">
@@ -71,8 +78,7 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           <Text color="yellow.200">{eventDetails.general_notes}</Text>
           <br></br>
           <Text color="yellow.200">
-            {dayjs(eventDetails.start_time).format("h:mm")}-
-            {dayjs(eventDetails.end_time).format("h:mm A")}
+            {formattedStartTime} - {formattedEndTime}
           </Text>
           <Text color="yellow.200">
             Event type of: {eventDetails.event_type}
@@ -138,3 +144,5 @@ export default EventDetails;
 //     </Box>
 //   ));
 // }
+
+//* {dayjs(eventDetails.start_time).format("h:mm")}- {dayjs(eventDetails.end_time).format("h:mm A")}

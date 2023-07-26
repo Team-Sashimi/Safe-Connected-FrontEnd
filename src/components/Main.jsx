@@ -37,40 +37,19 @@ export const Main = ({ username, token, userRole }) => {
       });
   }, [token]);
 
-  // const handleUploadFile = () => {
-  //   axios
-  //     .post(
-  //       `${baseURL}uploads/`,
-  //       { file: `${fileUpload}` },
-  //       {
-  //         headers: {
-  //           Authorization: `Token ${token}`,
-  //         },
-  //       }
-  //     )
-  //     .then((res) => {
-  //       console.log("you uploaded an file!");
-  //       setFileUpload("");
-  //       // navigate("/");
-  //     })
-  //     .catch((error) => {
-  //       console.log("error");
-  //     });
-  // };
-
   return (
     <Center bgColor="gray.800" h="92vh">
       <Flex as="main" role="main" direction="column" flex="2" py="3">
         <Container maxW="900px" flex="1">
           <Box>
             <Center>
-              {/* <Avatar
+              <Avatar
                 size="xl"
                 name={username}
                 mb="10"
                 // src="https://example.com/avatar.jpg"
-              /> */}
-              <UploadFile token={token} username={username} />
+              />
+
               {/* <Center>
                 <InputGroup>
                   <AddIcon type="file" color="gray.300" cursor="pointer" />
@@ -115,25 +94,44 @@ export const Main = ({ username, token, userRole }) => {
   );
 };
 
-{
-  /* <Center>
-<Flex direction="column">
-  {events.map((event) => (
-    <>
-      <Box maxW="400px" as="event-card" key={event.title}>
-        <Heading as="h4" size="md">
-          {event.event_title}
-        </Heading>
-        <Text>{event.general_notes}</Text>
-        <Text>
-          {dayjs(event.start_time).format("MMMM D, YYYY h:mm A")} -
-          {dayjs(event.end_time).format("h:mm A")}
-        </Text>
-        <Text>{event.event_organization}</Text>
-        <Text>{event.privacy}</Text>
-      </Box>
-    </>
-  ))}
-</Flex>
-</Center> */
-}
+// <Center>
+// <Flex direction="column">
+//   {events.map((event) => (
+//     <>
+//       <Box maxW="400px" as="event-card" key={event.title}>
+//         <Heading as="h4" size="md">
+//           {event.event_title}
+//         </Heading>
+//         <Text>{event.general_notes}</Text>
+//         <Text>
+//           {dayjs(event.start_time).format("MMMM D, YYYY h:mm A")} -
+//           {dayjs(event.end_time).format("h:mm A")}
+//         </Text>
+//         <Text>{event.event_organization}</Text>
+//         <Text>{event.privacy}</Text>
+//       </Box>
+//     </>
+//   ))}
+// </Flex>
+// </Center>
+
+// const handleUploadFile = () => {
+//   axios
+//     .post(
+//       `${baseURL}uploads/`,
+//       { file: `${fileUpload}` },
+//       {
+//         headers: {
+//           Authorization: `Token ${token}`,
+//         },
+//       }
+//     )
+//     .then((res) => {
+//       console.log("you uploaded an file!");
+//       setFileUpload("");
+//       // navigate("/");
+//     })
+//     .catch((error) => {
+//       console.log("error");
+//     });
+// };

@@ -78,7 +78,7 @@ const MapBoxAll = ({ token, allStreets }) => {
     initializeMap();
   }, [allStreets, lat, lng, zoom, token]);
 
-  console.log(allStreets);
+  // console.log(allStreets);
 
   return (
     <>

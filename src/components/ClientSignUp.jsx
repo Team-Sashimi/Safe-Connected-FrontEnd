@@ -37,7 +37,6 @@ const ClientSignUp = ({ token, eventID }) => {
       .then((res) => {
         console.log("you signed up!");
         setIsButtonClicked(true);
-        // navigate("/");
       })
       .catch((error) => {
         console.log("error");

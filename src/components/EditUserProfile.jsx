@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Box,
   Heading,
@@ -14,6 +14,7 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
+import UploadFile from "./UploadFile";
 
 import { Link } from "react-router-dom";
 
@@ -21,14 +22,20 @@ const EditUserProfile = ({ token, username, userRole }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
 
-  const handleEditAccount = () => {
+  const navigate = useNavigate();
+
+  const handleEditAccount = (e) => {
+    e.preventDefault();
+
     axios
       .patch(
         `${baseURL}auth/users/me/`,
         {
           first_name: firstName,
           last_name: lastName,
+          email: email,
         },
         {
           headers: {
@@ -37,10 +44,10 @@ const EditUserProfile = ({ token, username, userRole }) => {
         }
       )
       .then((res) => {
-        console.log("you signed up!");
+        console.log("you edited your profile");
         setFirstName("");
         setLastName("");
-        // navigate("/");
+        navigate("/account");
       })
       .catch((error) => {
         console.log("error");
@@ -53,7 +60,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
     <>
       <Center bgColor="gray.800" h="100vh">
         <Container className="login">
-          <Heading color="yellow.200">{username} edit profile page</Heading>
+          <UploadFile token={token} username={username} />
           <form onSubmit={handleEditAccount}>
             <FormControl>
               <div>
@@ -82,6 +89,18 @@ const EditUserProfile = ({ token, username, userRole }) => {
                   color="whiteAlpha.600"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
+                <FormLabel mt="4" color="yellow.200" htmlFor="password">
+                  Email
+                </FormLabel>
+                <Input
+                  type="text"
+                  name="email"
+                  id="email"
+                  color="whiteAlpha.600"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>

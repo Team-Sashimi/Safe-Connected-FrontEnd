@@ -33,6 +33,8 @@ import dayjs from "dayjs";
 const SearchEvents = ({ token, username, userRole, orgDetails }) => {
   const [allEvents, setAllEvents] = useState([]);
   const [allStreets, setAllStreets] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResult, setSearchResult] = useState(null);
 
   const navigate = useNavigate();
   const baseURL = "https://safe-connected.onrender.com/";
@@ -46,7 +48,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
       })
       .then((res) => {
         setAllEvents(res.data);
-        const streetNamesArray = res.data.map((e) => e.street_name);
+        const streetNamesArray = res.data.map((e) => e.full_address);
         setAllStreets(streetNamesArray);
       });
   }, [token]);
@@ -56,10 +58,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
     navigate(`/event/${eventID}`);
   };
 
-  console.log(allEvents);
-  // console.log(allStreets);
-
-  console.log(orgDetails);
+  console.log(searchResult);
 
   return (
     <Center bgColor="gray.800" h="100%">
@@ -80,12 +79,11 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
               <Input
                 type="text"
                 width="800px"
-                placeholder="Start typing address"
+                placeholder=""
                 // value={searchQuery}
-                onChange={(e) => handleAddressSearch(e.target.value)}
+                // onChange={(e) => setSearchQuery(e.target.value)}
                 color="white"
                 size="lg"
-                bg="gray.800" // Change the background color here if needed
               />
             </InputGroup>
             <Heading mt="5" color="yellow.200">
@@ -166,3 +164,19 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
 };
 
 export default SearchEvents;
+
+// console.log(allEvents);
+// console.log(allStreets);
+// console.log(orgDetails);
+
+// const handleSearch = () => {
+//   axios
+//     .get(`https://safe-connected.onrender.com/?${searchQuery}=`)
+//     .then((response) => {
+//       setSearchResult(response.data);
+//     })
+//     .catch((error) => {
+//       console.error("Error fetching data:", error);
+//       setSearchResult(null);
+//     });
+// };
