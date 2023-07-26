@@ -94,8 +94,6 @@ const SearchMapBox = ({ token, setSelectedSuggestion }) => {
     setSelectedSuggestion(suggestion);
   };
 
-  //   console.log(selectedSuggestion);
-
   return (
     <>
       <Center>

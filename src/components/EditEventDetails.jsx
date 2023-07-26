@@ -5,6 +5,8 @@ import { Box, Heading, Center, Text, Button, Tooltip } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
 
+//patch on create event component
+
 const EditEventDetails = ({ token }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [isButtonClicked, setIsButtonClicked] = useState(false);
@@ -25,7 +27,7 @@ const EditEventDetails = ({ token }) => {
         }
       )
       .then((res) => {
-        console.log("you signed up!");
+        console.log("You are about to edit the event.");
         setIsButtonClicked(true);
         // navigate("/");
       })
@@ -37,7 +39,7 @@ const EditEventDetails = ({ token }) => {
   return (
     <>
       {isButtonClicked ? (
-        <Tooltip label="Thanks for signing up!" isOpen>
+        <Tooltip label="Edit" isOpen>
           <Button>Edit</Button>
         </Tooltip>
       ) : (

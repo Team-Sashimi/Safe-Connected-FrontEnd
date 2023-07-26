@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import {
   Flex,
   Container,
@@ -25,9 +24,7 @@ import {
 } from "@chakra-ui/react";
 import MapBoxAll from "./MapBoxAll";
 
-import { PhoneIcon, SearchIcon, ChevronDownIcon } from "@chakra-ui/icons";
-
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 
 const SearchEvents = ({ token, username, userRole, orgDetails }) => {
@@ -35,6 +32,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
   const [allStreets, setAllStreets] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 10;
+  const navigate = useNavigate();
 
   const baseURL = "https://safe-connected.onrender.com/";
 

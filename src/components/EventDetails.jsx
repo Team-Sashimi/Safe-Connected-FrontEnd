@@ -95,6 +95,7 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           {userRole === "Manager" && (
             <>
               <EditEventDetails token={token} eventID={eventID} />
+
               <DeleteEvent token={token} eventID={eventID} />
             </>
           )}

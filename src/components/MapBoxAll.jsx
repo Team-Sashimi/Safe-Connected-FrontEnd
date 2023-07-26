@@ -35,7 +35,6 @@ const MapBoxAll = ({ token, allStreets }) => {
       );
       const coordinates = await Promise.all(coordinatesPromises);
 
-      // Filter out null coordinates in case of errors
       const validCoordinates = coordinates.filter((coord) => coord !== null);
 
       if (validCoordinates.length === 0) {
