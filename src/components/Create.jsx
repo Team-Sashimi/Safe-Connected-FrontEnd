@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Container,
   Flex,
@@ -33,6 +33,7 @@ const CreateEvent = ({ token, username }) => {
   const [language, setLanguage] = useState("");
   const [capacity, setCapacity] = useState("");
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
+  const { eventID } = useParams();
 
   const navigate = useNavigate();
   const baseURL = "https://safe-connected.onrender.com/";
@@ -169,19 +170,21 @@ const CreateEvent = ({ token, username }) => {
       setCapacity(e.target.value);
     }
   };
-  console.log(selectedSuggestion);
-  console.log(selectedSuggestion.text);
-  console.log(selectedSuggestion.address);
-  console.log(selectedSuggestion.context[1].text);
-  console.log(selectedSuggestion.context[2].text);
+  // console.log(selectedSuggestion);
+  // console.log(selectedSuggestion.text);
+  // console.log(selectedSuggestion.address);
+  // console.log(selectedSuggestion.context[1].text);
+  // console.log(selectedSuggestion.context[2].text);
 
   return (
     <>
       <Center bgColor="gray.800" h="92vh">
-        <SearchMapBox
-          token={token}
-          setSelectedSuggestion={setSelectedSuggestion}
-        />
+        <Container as="container-for-events" h="100%" maxW="900px">
+          <SearchMapBox
+            token={token}
+            setSelectedSuggestion={setSelectedSuggestion}
+          />
+        </Container>
         <Flex my="8" maxWidth="800px">
           {/* First Column */}
           <Box m="4" mr="100px">

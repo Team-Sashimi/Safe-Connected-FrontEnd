@@ -20,10 +20,12 @@ import {
   MenuOptionGroup,
   MenuDivider,
   Avatar,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
 import MapBoxAll from "./MapBoxAll";
 
-import { PhoneIcon, AddIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { PhoneIcon, SearchIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
@@ -62,13 +64,34 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
   return (
     <Center bgColor="gray.800" h="100%">
       <Container as="container-for-events" h="100%" maxW="900px">
+        <Center>
+          <Heading mt="20" mb="5" color="yellow.200">
+            BROWSE EVENTS
+          </Heading>
+        </Center>
+
         <MapBoxAll token={token} username={username} allStreets={allStreets} />
         <Box>
           <Flex m="4" direction="column" align="center">
+            <InputGroup size="lg">
+              <InputLeftElement size="large" pointerEvents="none">
+                <SearchIcon size="lg" color="gray.300" />
+              </InputLeftElement>
+              <Input
+                type="text"
+                width="800px"
+                placeholder="Start typing address"
+                // value={searchQuery}
+                onChange={(e) => handleAddressSearch(e.target.value)}
+                color="white"
+                size="lg"
+                bg="gray.800" // Change the background color here if needed
+              />
+            </InputGroup>
             <Heading mt="5" color="yellow.200">
-              {username} Events
+              {/* {username} Events */}
             </Heading>
-            <Flex mt="5">
+            <Flex mt="3">
               <Box mr="2">
                 <Menu>
                   <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
