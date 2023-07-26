@@ -48,7 +48,6 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
   const startTime = moment(eventDetails.start_time, "HH:mm:ss");
   const endTime = moment(eventDetails.end_time, "HH:mm:ss");
 
-  // Format the time strings as "HH:mm A"
   const formattedStartTime = startTime.format("H:mm");
   const formattedEndTime = endTime.format("HH:mm A");
   return (

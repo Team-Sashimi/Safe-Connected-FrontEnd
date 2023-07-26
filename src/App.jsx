@@ -123,6 +123,7 @@ function App() {
                       username={username}
                       token={token}
                       userRole={userRole}
+                      orgDetails={orgDetails}
                     />
                   }
                 />

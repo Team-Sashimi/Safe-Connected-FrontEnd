@@ -15,7 +15,7 @@ import {
 import { Link } from "react-router-dom";
 import UploadFile from "./UploadFile";
 
-const UserProfile = ({ token, username, userRole }) => {
+const UserProfile = ({ token, username, userRole, orgDetails }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [userDetails, setUserDetails] = useState([]);
 
@@ -32,7 +32,7 @@ const UserProfile = ({ token, username, userRole }) => {
   }, [token]);
 
   console.log(userDetails);
-
+  console.log(orgDetails);
   return (
     <>
       <Center bgColor="gray.800" h="100vh">
@@ -43,18 +43,18 @@ const UserProfile = ({ token, username, userRole }) => {
                 {/* <UploadFile token={token} username={username} /> */}
                 <Avatar
                   size="xl"
-                  name={username}
+                  name={orgDetails.org_name}
                   mb="5"
                   // src="https://example.com/avatar.jpg"
                 />
               </Center>
               <Center>
                 <Flex direction="column" align="center">
-                  <Heading mt="2" size="lg" color="yellow.200">
-                    {userRole} Account Information
+                  <Heading mt="4" size="lg" color="yellow.200">
+                    {userDetails.first_name} {userDetails.last_name}
                   </Heading>
                   <Heading mt="4" size="sm" color="yellow.200">
-                    {userDetails.first_name} {userDetails.last_name}
+                    {userRole} at {orgDetails.org_name}
                   </Heading>
                   <Heading mt="1" size="sm" color="yellow.200">
                     {userDetails.email}

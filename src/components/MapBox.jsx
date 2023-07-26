@@ -51,6 +51,8 @@ const MapBox = ({
   console.log(encodeURIComponent(eventStreet));
   console.log(eventStNumber);
 
+  console.log(tempurl);
+
   return (
     <>
       <Center>
