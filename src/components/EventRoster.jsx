@@ -14,9 +14,8 @@ import {
 } from "@chakra-ui/react";
 import MapBox from "./MapBox";
 
-const EventRoster = ({ token, username, userRole, orgDetails }) => {
+const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
   const [eventRoster, setEventRoster] = useState([]);
-
   const baseURL = "https://safe-connected.onrender.com/";
   const { eventID } = useParams();
 
@@ -32,7 +31,7 @@ const EventRoster = ({ token, username, userRole, orgDetails }) => {
       });
   }, [token]);
 
-  console.log(eventRoster);
+  console.log(progress);
 
   return (
     <>

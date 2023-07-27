@@ -27,6 +27,8 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
   const [eventAddress, setEventAddress] = useState("");
   const [eventStNumber, setEventStNumber] = useState("");
   const [eventStreet, setEventStreet] = useState("");
+  const [progress, setProgress] = useState(0);
+
   const baseURL = "https://safe-connected.onrender.com/";
   const { eventID } = useParams();
 
@@ -42,6 +44,7 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
         setEventStreet(res.data.street_name);
         setEventAddress(res.data.full_address);
         setEventDetails(res.data);
+        setProgress(res.data.max_attendees);
       });
   }, [token]);
 
@@ -51,7 +54,6 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
   const formattedStartTime = startTime.format("H:mm");
   const formattedEndTime = endTime.format("HH:mm A");
 
-  console.log(eventDetails);
   return (
     <>
       <Center bgColor="gray.800" h="92vh">
@@ -81,8 +83,11 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           <Text color="yellow.200">
             {formattedStartTime} - {formattedEndTime}
           </Text>
-          <Text color="yellow.200">
+          {/* <Text color="yellow.200">
             Event type of: {eventDetails.event_type}
+          </Text> */}
+          <Text color="yellow.200">
+            Max capacity: {eventDetails.max_attendees}
           </Text>
           <br></br>
           <Text color="yellow.200">
@@ -112,7 +117,7 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
             eventStNumber={eventStNumber}
             eventStreet={eventStreet}
           />
-          <EventRoster token={token} />
+          <EventRoster token={token} progress={progress} />
         </Box>
 
         <Box></Box>
