@@ -5,24 +5,24 @@ import { Flex, Center, Button } from "@chakra-ui/react";
 import useLocalStorageState from "use-local-storage-state";
 import { Routes, Route, Link } from "react-router-dom";
 // import { Footer } from "./Components/Footer";
-import { Main } from "./Components/Main";
-import { Navbar } from "./Components/Navbar";
-import Login from "./Components/login";
-import ClientList from "./Components/ClientList";
-import ClientRegistration from "./Components/ClientRegistration";
-import ClientProfile from "./Components/ClientProfile";
+import { Main } from "./components/Main";
+import { Navbar } from "./components/Navbar";
+import Login from "./components/login";
+import ClientList from "./components/ClientList";
+import ClientRegistration from "./components/ClientRegistration";
+import ClientProfile from "./components/ClientProfile";
 
-import EventDetails from "./Components/EventDetails";
-import Create from "./Components/Create";
+import EventDetails from "./components/EventDetails";
+import Create from "./components/Create";
 
-import SearchEvents from "./Components/SearchEvents";
-import UserProfile from "./Components/UserProfile";
-import LoginRole from "./Components/LoginRole";
-import EditUserProfile from "./Components/EditUserProfile";
-import UploadFile from "./Components/UploadFile";
-import DeleteEvent from "./Components/DeleteEvent";
-import EditEventDetails from "./Components/EditEventDetails";
-import ManagerEvents from "./Components/ManagerEvents";
+import SearchEvents from "./components/SearchEvents";
+import UserProfile from "./components/UserProfile";
+import LoginRole from "./components/LoginRole";
+import EditUserProfile from "./components/EditUserProfile";
+import UploadFile from "./components/UploadFile";
+import DeleteEvent from "./components/DeleteEvent";
+import EditEventDetails from "./components/EditEventDetails";
+import ManagerEvents from "./components/ManagerEvents";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
