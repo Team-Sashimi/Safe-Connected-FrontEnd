@@ -14,6 +14,12 @@ import {
   Input,
   Textarea,
   Select,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
@@ -42,6 +48,7 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
   const [eventStNumber, setEventStNumber] = useState("");
   const [eventStreet, setEventStreet] = useState("");
   const { eventID } = useParams();
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const navigate = useNavigate();
   const baseURL = "https://safe-connected.onrender.com/";
@@ -106,10 +113,17 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
         setPrivacy("");
         setLanguage("");
         setCapacity("");
+        setIsAlertOpen(true);
       })
       .catch((error) => {
         console.error(error);
       });
+  };
+
+  const handleCloseAlert = () => {
+    setIsAlertOpen(false);
+    navigate("/");
+    // You can also perform any other necessary actions after the AlertDialog is closed.
   };
 
   const handleChange = (userInput, e) => {
@@ -274,6 +288,29 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
             >
               Submit
             </Button>
+            <AlertDialog
+              isOpen={isAlertOpen}
+              leastDestructiveRef={null}
+              onClose={handleCloseAlert}
+            >
+              <AlertDialogOverlay>
+                <AlertDialogContent>
+                  <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                    Success
+                  </AlertDialogHeader>
+
+                  <AlertDialogBody>
+                    The patch request has been successful.
+                  </AlertDialogBody>
+
+                  <AlertDialogFooter>
+                    <Button ref={null} onClick={handleCloseAlert}>
+                      Close
+                    </Button>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialogOverlay>
+            </AlertDialog>
           </Box>
         </Flex>
       </Center>
