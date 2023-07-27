@@ -50,6 +50,8 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
 
   const formattedStartTime = startTime.format("H:mm");
   const formattedEndTime = endTime.format("HH:mm A");
+
+  console.log(eventDetails);
   return (
     <>
       <Center bgColor="gray.800" h="92vh">
@@ -94,8 +96,10 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           )}
           {userRole === "Manager" && (
             <>
-              <EditEventDetails token={token} eventID={eventID} />
               <DeleteEvent token={token} eventID={eventID} />
+              <Link to={`/edit-event/${eventID}`}>
+                <Button m="3">Edit</Button>
+              </Link>
             </>
           )}
         </Box>

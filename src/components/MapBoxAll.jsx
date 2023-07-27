@@ -33,9 +33,9 @@ const MapBoxAll = ({ token, allStreets }) => {
       const coordinatesPromises = allStreets.map((street) =>
         getCoordinates(street)
       );
+
       const coordinates = await Promise.all(coordinatesPromises);
 
-      // Filter out null coordinates in case of errors
       const validCoordinates = coordinates.filter((coord) => coord !== null);
 
       if (validCoordinates.length === 0) {
@@ -78,7 +78,7 @@ const MapBoxAll = ({ token, allStreets }) => {
     initializeMap();
   }, [allStreets, lat, lng, zoom, token]);
 
-  // console.log(allStreets);
+  console.log(allStreets);
 
   return (
     <>

@@ -3,49 +3,73 @@ import {
   Box,
   Heading,
   Center,
-  UnorderedList,
-  ListItem,
-  Input,
   FormLabel,
   InputGroup,
   InputLeftElement,
-  IconButton,
+  Input,
+  UnorderedList,
+  ListItem,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-
 import mapboxgl from "mapbox-gl";
 import axios from "axios";
-import { Form } from "react-router-dom";
-
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYWxleHlhbmc0MzU4IiwiYSI6ImNsa2lmdGFicDBnc3YzZm10d3VoMzBzaWsifQ.1bpPFD5GX8MLY58smdNiKA";
-
-const SearchMapBox = ({ token, setSelectedSuggestion }) => {
+const MapBoxEdit = ({
+  token,
+  eventID,
+  eventAddress,
+  eventStNumber,
+  eventStreet,
+  setSelectedSuggestion,
+}) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(-78.64);
   const [lat, setLat] = useState(35.77);
-  const [zoom, setZoom] = useState(9);
+  const [zoom, setZoom] = useState(15);
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  //   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
-
   const [marker, setMarker] = useState(null);
+
+  const tempurl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+    eventStNumber
+  )}/${encodeURIComponent(eventStreet)}.json?access_token=${
+    mapboxgl.accessToken
+  }`;
 
   useEffect(() => {
     if (map.current) return;
+    axios
+      .get(tempurl)
+      .then((response) => {
+        const [longitude, latitude] = response.data.features[0].center;
 
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v12",
-      center: [lng, lat],
-      zoom: zoom,
-    });
+        setLng(longitude);
+        setLat(latitude);
 
-    new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map.current);
-  }, [lat, lng, zoom]);
+        map.current = new mapboxgl.Map({
+          container: mapContainer.current,
+          style: "mapbox://styles/mapbox/streets-v12",
+          center: [longitude, latitude],
+          zoom: zoom,
+        });
 
-  // Function to handle address search
+        setMarker(
+          new mapboxgl.Marker()
+            .setLngLat([longitude, latitude])
+            .addTo(map.current)
+        );
+
+        new mapboxgl.Marker()
+          .setLngLat([longitude, latitude])
+          .addTo(map.current);
+      })
+      .catch((error) => {
+        console.log("Error fetching coordinates:", error);
+      });
+  }, [eventStreet, lat, lng, zoom]);
+
   const handleAddressSearch = async (searchValue) => {
     setSearchQuery(searchValue);
 
@@ -72,7 +96,7 @@ const SearchMapBox = ({ token, setSelectedSuggestion }) => {
     setLat(suggestion.geometry.coordinates[1]);
     setLng(suggestion.geometry.coordinates[0]);
     setZoom(15); // You can set the desired zoom level when a suggestion is selected.
-    setSuggestions([]); // Clear suggestions after selection (optional).
+    setSuggestions([]);
 
     if (marker) {
       marker.remove();
@@ -99,7 +123,7 @@ const SearchMapBox = ({ token, setSelectedSuggestion }) => {
       <Center>
         <Box>
           <FormLabel fontWeight="bold" color="yellow.200">
-            LOCATION:
+            EDIT LOCATION:
           </FormLabel>
           <InputGroup>
             <InputLeftElement pointerEvents="none">
@@ -153,4 +177,9 @@ const SearchMapBox = ({ token, setSelectedSuggestion }) => {
   );
 };
 
-export default SearchMapBox;
+export default MapBoxEdit;
+
+// console.log(encodeURIComponent(eventStreet));
+// console.log(eventStNumber);
+
+// console.log(tempurl);
