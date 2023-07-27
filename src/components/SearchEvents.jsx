@@ -147,8 +147,8 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
                   <Text color="whiteAlpha.800">
                     {dayjs(event.event_date).format("MMMM D, YYYY")}
                     <br />
-                    {formatToRegularTime(event.start_time)} -{" "}
-                    {formatToRegularTime(event.end_time)} <br />
+                    {formatToRegularTime(event.end_time)}-{" "}
+                    {formatToRegularTime(event.start_time)}
                     {/* Start Time: {dayjs(event.start_time).format("HH:mm")} */}
                   </Text>
                   <Text color="whiteAlpha.800">{event.privacy}</Text>

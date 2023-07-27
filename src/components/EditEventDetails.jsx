@@ -168,10 +168,10 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
   };
 
   console.log(selectedSuggestion);
+  console.log(eventID);
 
   return (
     <>
-      <Text>{eventID}</Text>
       <Center bgColor="gray.800" h="92vh">
         <Container as="container-for-events" h="100%" maxW="900px">
           <MapBoxEdit
@@ -254,7 +254,7 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
               </FormLabel>
               <Input
                 color="whiteAlpha.600"
-                value={startTime}
+                value={endTime}
                 size="md"
                 type="time"
                 onChange={(e) => handleChange("startTime", e)}
@@ -264,7 +264,7 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
               </FormLabel>
               <Input
                 color="whiteAlpha.600"
-                value={endTime}
+                value={startTime}
                 size="md"
                 type="time"
                 onChange={(e) => handleChange("endTime", e)}

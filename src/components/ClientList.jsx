@@ -72,12 +72,12 @@ const ClientList = ({ token, username, orgDetails }) => {
                     <Flex direction="column" alignItems="center" ml="4">
                       <Avatar size="xl" mb="3" src={user.member} />
                       <Heading
-                        color="whiteAlpha.800"
+                        color="yellow.200"
                         as="h4"
                         size="md"
                         onClick={() => handleUserID(user.member)}
                       >
-                        <Link> {user.member}</Link>
+                        <Link color="yellow.200"> {user.member}</Link>
                       </Heading>
                     </Flex>
                   </Box>

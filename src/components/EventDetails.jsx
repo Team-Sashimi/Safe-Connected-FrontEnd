@@ -85,8 +85,8 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           <Text color="yellow.200">
             {eventDetails.start_time && eventDetails.end_time ? (
               <Text color="yellow.200">
-                {formatToRegularTime(eventDetails.start_time)} -{" "}
-                {formatToRegularTime(eventDetails.end_time)}
+                {formatToRegularTime(eventDetails.end_time)} -{" "}
+                {formatToRegularTime(eventDetails.start_time)}
               </Text>
             ) : (
               <Text color="yellow.200">Time not available</Text>
@@ -104,10 +104,10 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           )}
           {userRole === "Manager" && (
             <>
-              <DeleteEvent token={token} eventID={eventID} />
               <Link to={`/edit-event/${eventID}`}>
                 <Button m="3">Edit</Button>
               </Link>
+              <DeleteEvent token={token} eventID={eventID} />
             </>
           )}
         </Box>
