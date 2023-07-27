@@ -99,12 +99,22 @@ function App() {
                 />
                 <Route
                   path="/clients"
-                  element={<ClientList username={username} token={token} />}
+                  element={
+                    <ClientList
+                      username={username}
+                      token={token}
+                      orgDetails={orgDetails}
+                    />
+                  }
                 />
                 <Route
                   path="/register-client"
                   element={
-                    <ClientRegistration username={username} token={token} />
+                    <ClientRegistration
+                      username={username}
+                      token={token}
+                      orgDetails={orgDetails}
+                    />
                   }
                 />
                 <Route
