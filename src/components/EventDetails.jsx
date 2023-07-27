@@ -48,11 +48,13 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
       });
   }, [token]);
 
-  const startTime = moment(eventDetails.start_time, "HH:mm:ss");
-  const endTime = moment(eventDetails.end_time, "HH:mm:ss");
-
-  const formattedStartTime = startTime.format("H:mm");
-  const formattedEndTime = endTime.format("HH:mm A");
+  const formatToRegularTime = (militaryTime) => {
+    const [hours, minutes] = militaryTime.split(":");
+    return new Date(0, 0, 0, hours, minutes).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
 
   return (
     <>
@@ -68,9 +70,9 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
                   <Heading size="md" color="yellow.200">
                     {orgDetails.org_name}
                   </Heading>
-                  <Heading size="md" color="yellow.200">
+                  {/* <Heading size="md" color="yellow.200">
                     {orgDetails.phone}
-                  </Heading>
+                  </Heading> */}
                 </Flex>
               </Center>
             </Box>
@@ -81,9 +83,15 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           <Text color="yellow.200">{eventDetails.general_notes}</Text>
           <br></br>
           <Text color="yellow.200">
-            {formattedStartTime} - {formattedEndTime}
+            {eventDetails.start_time && eventDetails.end_time ? (
+              <Text color="yellow.200">
+                {formatToRegularTime(eventDetails.start_time)} -{" "}
+                {formatToRegularTime(eventDetails.end_time)}
+              </Text>
+            ) : (
+              <Text color="yellow.200">Time not available</Text>
+            )}
           </Text>
-
           <br></br>
           <Text color="yellow.200">
             {eventDetails.street_number} {eventDetails.street_name}

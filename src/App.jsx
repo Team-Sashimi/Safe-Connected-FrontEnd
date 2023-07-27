@@ -10,6 +10,8 @@ import { Navbar } from "./Components/Navbar";
 import Login from "./Components/login";
 import ClientList from "./Components/ClientList";
 import ClientRegistration from "./Components/ClientRegistration";
+import ClientProfile from "./Components/ClientProfile";
+
 import EventDetails from "./Components/EventDetails";
 import Create from "./Components/Create";
 
@@ -103,6 +105,17 @@ function App() {
                     <ClientList
                       username={username}
                       token={token}
+                      orgDetails={orgDetails}
+                    />
+                  }
+                />
+                <Route
+                  path="/clients/:userID"
+                  element={
+                    <ClientProfile
+                      username={username}
+                      token={token}
+                      userRole={userRole}
                       orgDetails={orgDetails}
                     />
                   }

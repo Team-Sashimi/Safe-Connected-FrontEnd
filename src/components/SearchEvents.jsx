@@ -70,6 +70,14 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
     navigate(`/event/${eventID}`);
   };
 
+  const formatToRegularTime = (militaryTime) => {
+    const [hours, minutes] = militaryTime.split(":");
+    return new Date(0, 0, 0, hours, minutes).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
   // console.log(searchResult);
   console.log(allEvents);
 
@@ -139,8 +147,8 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
                   <Text color="whiteAlpha.800">
                     {dayjs(event.event_date).format("MMMM D, YYYY")}
                     <br />
-                    {event.start_time} - {event.end_time}
-                    <br />
+                    {formatToRegularTime(event.start_time)} -{" "}
+                    {formatToRegularTime(event.end_time)} <br />
                     {/* Start Time: {dayjs(event.start_time).format("HH:mm")} */}
                   </Text>
                   <Text color="whiteAlpha.800">{event.privacy}</Text>
