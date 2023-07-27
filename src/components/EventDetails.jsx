@@ -83,12 +83,7 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           <Text color="yellow.200">
             {formattedStartTime} - {formattedEndTime}
           </Text>
-          {/* <Text color="yellow.200">
-            Event type of: {eventDetails.event_type}
-          </Text> */}
-          <Text color="yellow.200">
-            Max capacity: {eventDetails.max_attendees}
-          </Text>
+
           <br></br>
           <Text color="yellow.200">
             {eventDetails.street_number} {eventDetails.street_name}
@@ -117,7 +112,7 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
             eventStNumber={eventStNumber}
             eventStreet={eventStreet}
           />
-          <EventRoster token={token} progress={progress} />
+          <EventRoster token={token} progress={progress} userRole={userRole} />
         </Box>
 
         <Box></Box>
