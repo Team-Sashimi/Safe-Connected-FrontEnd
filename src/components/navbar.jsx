@@ -1,4 +1,5 @@
 import { Box, Container, Heading, Flex, Link, Button } from "@chakra-ui/react";
+import cnctr from "../assets/cnctr.svg";
 
 export const Navbar = ({ handleLogout }) => {
   return (
@@ -10,9 +11,10 @@ export const Navbar = ({ handleLogout }) => {
           alignItems="center"
           minH="8vh"
         >
-          <Link fontWeight="bold" href="/">
-            Safe n Connected
+          <Link href="/">
+            <img src={cnctr} alt="Logo" width="100px" height="40px" />
           </Link>
+
           <Link to="/">
             <Button onClick={handleLogout}>Log Out</Button>
           </Link>
@@ -21,3 +23,13 @@ export const Navbar = ({ handleLogout }) => {
     </Box>
   );
 };
+
+{
+  /* <Link fontWeight="bold" href="/">
+Safe n Connected
+</Link>
+
+<Link href="/">
+<cnctr width="150px" height="40px" alt="Logo" />
+</Link> */
+}

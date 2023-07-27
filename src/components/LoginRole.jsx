@@ -72,37 +72,48 @@ const LoginRole = ({ setUser }) => {
             <form onSubmit={handleSubmit}>
               <FormControl>
                 <div>
-                  <FormLabel color="yellow.200" htmlFor="name">
-                    Username:{" "}
-                  </FormLabel>
-                  <Input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={username}
-                    color="white"
-                    // as the value in input changes, it's setting the value to setUserName
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                  />
+                  <Center>
+                    <FormLabel color="yellow.200" htmlFor="name" mr="20px">
+                      Username:{" "}
+                    </FormLabel>
+                    <Input
+                      type="text"
+                      name="name"
+                      id="name"
+                      width="250px"
+                      value={username}
+                      color="white"
+                      // as the value in input changes, it's setting the value to setUserName
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                    />
+                  </Center>
                 </div>
                 <div>
-                  <FormLabel mt="4" color="yellow.200" htmlFor="password">
-                    Password:{" "}
-                  </FormLabel>
-                  <Input
-                    type="password"
-                    name="password-name"
-                    id="password-register"
-                    color="white"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
+                  <Center>
+                    <FormLabel
+                      mt="4"
+                      color="yellow.200"
+                      htmlFor="password"
+                      mr="20px"
+                    >
+                      Password:{" "}
+                    </FormLabel>
+                    <Input
+                      type="password"
+                      name="password-name"
+                      id="password-register"
+                      width="250px"
+                      color="white"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </Center>
                 </div>
                 <div>
                   <Button
-                    mt="20"
+                    mt="10"
                     onClick={handleSubmit}
                     type="submit"
                     value="Log In"
