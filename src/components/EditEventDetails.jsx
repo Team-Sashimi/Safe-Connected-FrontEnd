@@ -91,7 +91,6 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
           city: selectedSuggestion.context[2].text,
           zipcode: selectedSuggestion.context[1].text,
           privacy: privacy,
-          event_language: language,
           max_attendees: capacity,
         },
         {
