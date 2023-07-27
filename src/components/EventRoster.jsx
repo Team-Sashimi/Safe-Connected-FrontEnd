@@ -11,12 +11,12 @@ import {
   Avatar,
   InputGroup,
   SimpleGrid,
+  Progress,
 } from "@chakra-ui/react";
-import MapBox from "./MapBox";
 
-const EventRoster = ({ token, username, userRole, orgDetails }) => {
+const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
   const [eventRoster, setEventRoster] = useState([]);
-
+  const [signUpCount, setSignUpCount] = useState(0);
   const baseURL = "https://safe-connected.onrender.com/";
   const { eventID } = useParams();
 
@@ -29,9 +29,12 @@ const EventRoster = ({ token, username, userRole, orgDetails }) => {
       })
       .then((res) => {
         setEventRoster(res.data.event_attendees);
+        setSignUpCount(res.data.event_attendees.length);
       });
   }, [token]);
 
+  console.log(progress);
+  console.log(userRole);
   console.log(eventRoster);
 
   return (
@@ -54,32 +57,50 @@ const EventRoster = ({ token, username, userRole, orgDetails }) => {
           <Heading size="md" color="yellow.200">
             People Who Signed Up
           </Heading>
+          {userRole === "Client" && (
+            <Box mt={4}>
+              <Progress
+                value={(eventRoster.length / progress) * 150}
+                colorScheme="yellow"
+                size="lg"
+                height="32px"
+                width="600px"
+              />
+              <Center>
+                <Text mt={2} color="white">
+                  {signUpCount} out of {progress} people have signed up for this
+                  event.
+                </Text>
+              </Center>
+            </Box>
+          )}
+          {userRole === "Manager" && (
+            <Box>
+              <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} spacing="5" mt="10">
+                {eventRoster.length > 0 ? (
+                  eventRoster.map((event_attendees, index) => (
+                    <Box
+                      key={index}
+                      display="flex"
+                      alignItems="center"
+                      pl="4"
+                      m="10"
+                    >
+                      <Flex direction="column" alignItems="center" ml="4">
+                        <Avatar size="xl" name={event_attendees} mb="3" />
 
-          <Box as="attendees">
-            <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} spacing="5" mt="10">
-              {eventRoster.length > 0 ? (
-                eventRoster.map((event_attendees, index) => (
-                  <Box
-                    key={index}
-                    display="flex"
-                    alignItems="center"
-                    borderLeft="1px solid white"
-                    pl="4"
-                    m="10"
-                  >
-                    <Avatar size="xl" name={event_attendees} mb="10" />
-                    <Box ml="4">
-                      <Heading color="whiteAlpha.800" as="h4" size="md">
-                        {event_attendees}
-                      </Heading>
+                        <Heading color="whiteAlpha.800" as="h4" size="md">
+                          {event_attendees}
+                        </Heading>
+                      </Flex>
                     </Box>
-                  </Box>
-                ))
-              ) : (
-                <Text color="white">No one has signed up yet</Text>
-              )}
-            </SimpleGrid>
-          </Box>
+                  ))
+                ) : (
+                  <Text color="white">No one has signed up yet</Text>
+                )}
+              </SimpleGrid>
+            </Box>
+          )}
         </Box>
       </Flex>
     </>

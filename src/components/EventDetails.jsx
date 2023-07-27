@@ -27,6 +27,8 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
   const [eventAddress, setEventAddress] = useState("");
   const [eventStNumber, setEventStNumber] = useState("");
   const [eventStreet, setEventStreet] = useState("");
+  const [progress, setProgress] = useState(0);
+
   const baseURL = "https://safe-connected.onrender.com/";
   const { eventID } = useParams();
 
@@ -42,16 +44,18 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
         setEventStreet(res.data.street_name);
         setEventAddress(res.data.full_address);
         setEventDetails(res.data);
+        setProgress(res.data.max_attendees);
       });
   }, [token]);
 
-  const startTime = moment(eventDetails.start_time, "HH:mm:ss");
-  const endTime = moment(eventDetails.end_time, "HH:mm:ss");
+  const formatToRegularTime = (militaryTime) => {
+    const [hours, minutes] = militaryTime.split(":");
+    return new Date(0, 0, 0, hours, minutes).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
 
-  const formattedStartTime = startTime.format("H:mm");
-  const formattedEndTime = endTime.format("HH:mm A");
-
-  console.log(eventDetails);
   return (
     <>
       <Center bgColor="gray.800" h="92vh">
@@ -66,9 +70,9 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
                   <Heading size="md" color="yellow.200">
                     {orgDetails.org_name}
                   </Heading>
-                  <Heading size="md" color="yellow.200">
+                  {/* <Heading size="md" color="yellow.200">
                     {orgDetails.phone}
-                  </Heading>
+                  </Heading> */}
                 </Flex>
               </Center>
             </Box>
@@ -79,10 +83,14 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           <Text color="yellow.200">{eventDetails.general_notes}</Text>
           <br></br>
           <Text color="yellow.200">
-            {formattedStartTime} - {formattedEndTime}
-          </Text>
-          <Text color="yellow.200">
-            Event type of: {eventDetails.event_type}
+            {eventDetails.start_time && eventDetails.end_time ? (
+              <Text color="yellow.200">
+                {formatToRegularTime(eventDetails.end_time)} -{" "}
+                {formatToRegularTime(eventDetails.start_time)}
+              </Text>
+            ) : (
+              <Text color="yellow.200">Time not available</Text>
+            )}
           </Text>
           <br></br>
           <Text color="yellow.200">
@@ -96,10 +104,10 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           )}
           {userRole === "Manager" && (
             <>
-              <DeleteEvent token={token} eventID={eventID} />
               <Link to={`/edit-event/${eventID}`}>
                 <Button m="3">Edit</Button>
               </Link>
+              <DeleteEvent token={token} eventID={eventID} />
             </>
           )}
         </Box>
@@ -112,7 +120,7 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
             eventStNumber={eventStNumber}
             eventStreet={eventStreet}
           />
-          <EventRoster token={token} />
+          <EventRoster token={token} progress={progress} userRole={userRole} />
         </Box>
 
         <Box></Box>

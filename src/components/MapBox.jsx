@@ -48,10 +48,10 @@ const MapBox = ({
       });
   }, [eventStreet, lat, lng, zoom]);
 
-  console.log(encodeURIComponent(eventStreet));
-  console.log(eventStNumber);
+  // console.log(encodeURIComponent(eventStreet));
+  // console.log(eventStNumber);
 
-  console.log(tempurl);
+  // console.log(tempurl);
 
   return (
     <>

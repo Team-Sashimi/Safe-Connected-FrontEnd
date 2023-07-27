@@ -45,18 +45,17 @@ const DeleteEvent = ({ token }) => {
         navigate("/search-events");
       })
       .catch((error) => {
-        // Handle error if the request fails
         console.error("Error deleting event:", error);
       })
       .finally(() => {
-        onClose(); // Close the AlertDialog after the deletion is done, regardless of success or failure
+        onClose();
       });
   };
 
   return (
     <>
       <>
-        <Button m="3" onClick={handleDelete}>
+        <Button colorScheme="red" m="3" onClick={handleDelete}>
           Delete
         </Button>
         <AlertDialog isOpen={isOpen} onClose={onClose}>

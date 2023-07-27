@@ -70,6 +70,14 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
     navigate(`/event/${eventID}`);
   };
 
+  const formatToRegularTime = (militaryTime) => {
+    const [hours, minutes] = militaryTime.split(":");
+    return new Date(0, 0, 0, hours, minutes).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
   // console.log(searchResult);
   console.log(allEvents);
 
@@ -77,7 +85,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
     <Center bgColor="gray.800" h="100%">
       <Container as="container-for-events" h="100%" maxW="900px">
         <Center>
-          <Heading mt="20" mb="5" color="yellow.200">
+          <Heading mt="75px" mb="5" color="yellow.200">
             BROWSE EVENTS
           </Heading>
         </Center>
@@ -118,7 +126,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
               <Box
                 key={event.id}
                 display="flex"
-                alignItems="center" // Align items vertically in the center
+                alignItems="center"
                 borderLeft="1px solid white"
                 pl="4"
                 m="10"
@@ -132,7 +140,6 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
                 />
                 <Box ml="4">
                   {" "}
-                  {/* Add margin to create space between Avatar and content */}
                   <Heading color="whiteAlpha.800" as="h4" size="md">
                     {event.event_title}
                   </Heading>
@@ -140,8 +147,8 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
                   <Text color="whiteAlpha.800">
                     {dayjs(event.event_date).format("MMMM D, YYYY")}
                     <br />
-                    {event.start_time} - {event.end_time}
-                    <br />
+                    {formatToRegularTime(event.end_time)}-{" "}
+                    {formatToRegularTime(event.start_time)}
                     {/* Start Time: {dayjs(event.start_time).format("HH:mm")} */}
                   </Text>
                   <Text color="whiteAlpha.800">{event.privacy}</Text>

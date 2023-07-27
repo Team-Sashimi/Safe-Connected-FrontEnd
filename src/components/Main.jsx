@@ -70,18 +70,45 @@ export const Main = ({ username, token, userRole }) => {
               <Flex align="center">
                 {userRole === "Manager" && (
                   <Link to="/clients">
-                    <Button backgroundColor="yellow.400" m="4">
+                    <Button
+                      _hover={{
+                        backgroundColor: "gray.700",
+                        color: "yellow.200",
+                      }}
+                      color="yellow.200"
+                      variant="outline"
+                      p="6"
+                      m="4"
+                    >
                       Clients
                     </Button>
                   </Link>
                 )}
                 <Link to="/search-events">
-                  <Button backgroundColor="yellow.400" m="4">
+                  <Button
+                    _hover={{
+                      backgroundColor: "gray.700",
+                      color: "yellow.200",
+                    }}
+                    color="yellow.200"
+                    variant="outline"
+                    p="6"
+                    m="4"
+                  >
                     Events
                   </Button>
                 </Link>
                 <Link to="/account">
-                  <Button backgroundColor="yellow.400" m="4">
+                  <Button
+                    _hover={{
+                      backgroundColor: "gray.700",
+                      color: "yellow.200",
+                    }}
+                    color="yellow.200"
+                    variant="outline"
+                    p="6"
+                    m="4"
+                  >
                     Account
                   </Button>
                 </Link>
