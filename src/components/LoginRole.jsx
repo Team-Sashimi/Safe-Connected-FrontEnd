@@ -80,6 +80,7 @@ const LoginRole = ({ setUser }) => {
                     name="name"
                     id="name"
                     value={username}
+                    color="white"
                     // as the value in input changes, it's setting the value to setUserName
                     onChange={(e) => setUsername(e.target.value)}
                     required
@@ -93,6 +94,7 @@ const LoginRole = ({ setUser }) => {
                     type="password"
                     name="password-name"
                     id="password-register"
+                    color="white"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required

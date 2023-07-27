@@ -118,7 +118,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
               <Box
                 key={event.id}
                 display="flex"
-                alignItems="center" // Align items vertically in the center
+                alignItems="center"
                 borderLeft="1px solid white"
                 pl="4"
                 m="10"
@@ -132,7 +132,6 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
                 />
                 <Box ml="4">
                   {" "}
-                  {/* Add margin to create space between Avatar and content */}
                   <Heading color="whiteAlpha.800" as="h4" size="md">
                     {event.event_title}
                   </Heading>

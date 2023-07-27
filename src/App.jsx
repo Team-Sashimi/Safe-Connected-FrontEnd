@@ -20,6 +20,7 @@ import EditUserProfile from "./Components/EditUserProfile";
 import UploadFile from "./Components/UploadFile";
 import DeleteEvent from "./Components/DeleteEvent";
 import EditEventDetails from "./Components/EditEventDetails";
+import ManagerEvents from "./Components/ManagerEvents";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
@@ -146,6 +147,17 @@ function App() {
                       username={username}
                       token={token}
                       userRole={userRole}
+                    />
+                  }
+                />
+                <Route
+                  path="/your-events"
+                  element={
+                    <ManagerEvents
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                      orgDetails={orgDetails}
                     />
                   }
                 />
