@@ -12,7 +12,7 @@ export const Navbar = ({ handleLogout }) => {
           minH="8vh"
         >
           <Link href="/">
-            <img src={cnctr_nav} alt="Logo" width="100px" height="40px" />
+            <img src={cnctr_nav} alt="Logo" width="120px" height="60px" />
           </Link>
 
           <Link to="/">

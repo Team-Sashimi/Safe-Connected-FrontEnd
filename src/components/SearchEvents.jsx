@@ -77,7 +77,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
     <Center bgColor="gray.800" h="100%">
       <Container as="container-for-events" h="100%" maxW="900px">
         <Center>
-          <Heading mt="20" mb="5" color="yellow.200">
+          <Heading mt="75px" mb="5" color="yellow.200">
             BROWSE EVENTS
           </Heading>
         </Center>
