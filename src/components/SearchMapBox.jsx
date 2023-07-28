@@ -96,59 +96,65 @@ const SearchMapBox = ({ token, setSelectedSuggestion }) => {
 
   return (
     <>
-      <Center>
-        <Box>
-          <FormLabel fontWeight="bold" color="yellow.200">
-            LOCATION:
-          </FormLabel>
-          <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <SearchIcon color="gray.300" />
-            </InputLeftElement>
-            <Input
-              type="text"
-              width="700px"
-              mb="10"
-              placeholder="Start typing address"
-              value={searchQuery}
-              onChange={(e) => handleAddressSearch(e.target.value)}
-              color="white"
-              bg="gray.800" // Change the background color here if needed
-            />
-          </InputGroup>
+      <Box width="100%" maxWidth="700px" mx="auto" position="relative">
+        <FormLabel fontWeight="bold" color="yellow.200" fontSize="sm" mt="2">
+          LOCATION:
+        </FormLabel>
+        <InputGroup size="sm">
+          <InputLeftElement pointerEvents="none">
+            <SearchIcon color="gray.300" />
+          </InputLeftElement>
+          <Input
+            type="text"
+            width="100%"
+            mb="2"
+            fontSize="sm"
+            placeholder="Start typing address"
+            value={searchQuery}
+            onChange={(e) => handleAddressSearch(e.target.value)}
+            color="white"
+            bg="gray.800"
+            px="2" // Reduce horizontal padding
+            py="1" // Reduce vertical padding
+          />
+        </InputGroup>
 
-          {/* Display autocomplete suggestions */}
-          {suggestions.length > 0 && (
-            <UnorderedList
-              mt={2}
-              border="1px solid #ccc"
-              p={2}
-              borderRadius="md"
-              bg="white"
-            >
+        {/* Display autocomplete suggestions */}
+        {suggestions.length > 0 && (
+          <Box
+            position="absolute"
+            width="100%"
+            bg="white"
+            p={2}
+            borderRadius="md"
+            boxShadow="md"
+            zIndex="1"
+            top="calc(100% + 10px)"
+            fontSize="sm"
+          >
+            <UnorderedList p={0} m={0} listStyleType="none">
               {suggestions.map((suggestion) => (
-                <>
-                  <ListItem
-                    key={suggestion.id}
-                    cursor="pointer"
-                    p={2}
-                    onClick={() => handleSelectSuggestion(suggestion)}
-                  >
-                    {suggestion.place_name}
-                  </ListItem>
-                </>
+                <ListItem
+                  key={suggestion.id}
+                  cursor="pointer"
+                  p={2}
+                  onClick={() => handleSelectSuggestion(suggestion)}
+                  borderBottom="1px solid #ccc"
+                >
+                  {suggestion.place_name}
+                </ListItem>
               ))}
             </UnorderedList>
-          )}
-          <Box
-            borderRadius="md"
-            height="300px"
-            width="700px"
-            mr="20"
-            ref={mapContainer}
-          />
-        </Box>
-      </Center>
+          </Box>
+        )}
+      </Box>
+      <Box
+        borderRadius="md"
+        height="150px"
+        width="100%"
+        mt="2"
+        ref={mapContainer}
+      />
     </>
   );
 };

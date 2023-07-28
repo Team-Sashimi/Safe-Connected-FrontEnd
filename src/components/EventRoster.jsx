@@ -45,7 +45,7 @@ const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
         p={4}
         bgColor="gray.800"
         w="100%"
-        h="100%"
+        h="auto"
       >
         <Box
           w="100%"

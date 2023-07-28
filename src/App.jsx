@@ -63,7 +63,7 @@ function App() {
     <>
       <Navbar handleLogout={handleLogout} />
       <Flex bgColor="gray.800" h="92vh">
-        <SideBar />
+        <SideBar userRole={userRole} />
         <Flex flex="1" flexDirection="column">
           {token ? (
             <>
@@ -75,12 +75,19 @@ function App() {
                       username={username}
                       token={token}
                       userRole={userRole}
+                      handleLogout={handleLogout}
                     />
                   }
                 />
                 <Route
                   path="/create/"
-                  element={<Create username={username} token={token} />}
+                  element={
+                    <Create
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                    />
+                  }
                 />
                 <Route
                   path="/search-events"

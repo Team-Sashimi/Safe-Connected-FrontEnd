@@ -7,6 +7,7 @@ import {
   FiDollarSign,
   FiBriefcase,
   FiSettings,
+  FiPlus,
 } from "react-icons/fi";
 import { IoPawOutline } from "react-icons/io5";
 import React, { useState } from "react";
@@ -21,7 +22,7 @@ import UploadFile from "./UploadFile";
 const SideBar = ({ username, token, userRole }) => {
   const baseURL = "https://safe-connected.onrender.com/";
 
-  const [navSize, changeNavSize] = useState("large");
+  const [navSize, changeNavSize] = useState("small");
 
   return (
     <Flex
@@ -43,7 +44,7 @@ const SideBar = ({ username, token, userRole }) => {
         alignItems={navSize === "small" ? "center" : "flex-start"} // Use === instead of ==
         as="nav"
       >
-        <IconButton
+        {/* <IconButton
           background="none"
           mt={5}
           _hover={{ background: "none" }}
@@ -53,7 +54,7 @@ const SideBar = ({ username, token, userRole }) => {
               changeNavSize("large"); // Use === instead of ==
             else changeNavSize("small"); // Use === instead of ==
           }}
-        />
+        /> */}
         <Link to="/">
           <NavItem
             navSize={navSize}
@@ -62,10 +63,15 @@ const SideBar = ({ username, token, userRole }) => {
             description="This is the description for the dashboard."
           />
         </Link>
+        {userRole === "Manager" && (
+          <Link to="/create">
+            <NavItem navSize={navSize} icon={FiPlus} title="Create" />
+          </Link>
+        )}
         <Link to="/search-events">
           <NavItem navSize={navSize} icon={FiCalendar} title="Events" />
         </Link>
-        <NavItem navSize={navSize} icon={FiUser} title="Clients" />
+
         <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
       </Flex>
 

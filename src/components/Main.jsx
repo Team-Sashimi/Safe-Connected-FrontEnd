@@ -35,7 +35,7 @@ import dayjs from "dayjs";
 import SideBar from "./SideBar";
 import MainDashBoard from "./MainDashBoard";
 
-export const Main = ({ username, token, userRole }) => {
+export const Main = ({ username, token, userRole, handleLogout }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [managerEvents, setManagerEvents] = useState([]);
 
@@ -114,6 +114,17 @@ export const Main = ({ username, token, userRole }) => {
                 {event.event_title}
               </Text>
             ))}
+          </Flex>
+          <Flex
+            align="flex-end" // Right-align the items horizontally
+            justify="flex-end" // Right-align the items vertically
+            overflow="hidden"
+          >
+            <Link to="/">
+              <Button size="xs" onClick={handleLogout}>
+                Log Out
+              </Button>
+            </Link>
           </Flex>
         </Container>
       </Flex>
