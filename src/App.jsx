@@ -4,24 +4,18 @@ import axios from "axios";
 import { Flex, Center, Button } from "@chakra-ui/react";
 import useLocalStorageState from "use-local-storage-state";
 import { Routes, Route, Link } from "react-router-dom";
-// import { Footer } from "./Components/Footer";
 import { Main } from "./components/Main";
 import { Navbar } from "./components/navbar";
 import ClientList from "./components/ClientList";
-import ClientRegistration from "./components/ClientRegistration";
-import ClientProfile from "./components/ClientProfile";
-
-import EventDetails from "./components/EventDetails";
 import Create from "./components/Create";
 
 import SearchEvents from "./components/SearchEvents";
-import UserProfile from "./components/UserProfile";
 import LoginRole from "./components/LoginRole";
-import EditUserProfile from "./components/EditUserProfile";
-import UploadFile from "./components/UploadFile";
-import DeleteEvent from "./components/DeleteEvent";
-import EditEventDetails from "./components/EditEventDetails";
+import SideBar from "./components/SideBar";
+
 import ManagerEvents from "./components/ManagerEvents";
+import EditEventDetails from "./components/EditEventDetails";
+import EventDetails from "./components/EventDetails";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
@@ -67,9 +61,10 @@ function App() {
 
   return (
     <>
-      <Flex direction="column" minHeight="100vh">
-        <Navbar handleLogout={handleLogout} />
-        <Flex direction="column" flex="1">
+      <Navbar handleLogout={handleLogout} />
+      <Flex bgColor="gray.800" h="92vh">
+        <SideBar />
+        <Flex flex="1" flexDirection="column">
           {token ? (
             <>
               <Routes>
@@ -109,30 +104,9 @@ function App() {
                   }
                 />
                 <Route
-                  path="/clients/:userID"
+                  path="/your-events"
                   element={
-                    <ClientProfile
-                      username={username}
-                      token={token}
-                      userRole={userRole}
-                      orgDetails={orgDetails}
-                    />
-                  }
-                />
-                <Route
-                  path="/register-client"
-                  element={
-                    <ClientRegistration
-                      username={username}
-                      token={token}
-                      orgDetails={orgDetails}
-                    />
-                  }
-                />
-                <Route
-                  path="/event/:eventID"
-                  element={
-                    <EventDetails
+                    <ManagerEvents
                       username={username}
                       token={token}
                       userRole={userRole}
@@ -152,44 +126,13 @@ function App() {
                   }
                 />
                 <Route
-                  path="/account"
+                  path="/event/:eventID"
                   element={
-                    <UserProfile
+                    <EventDetails
                       username={username}
                       token={token}
                       userRole={userRole}
                       orgDetails={orgDetails}
-                    />
-                  }
-                />
-                <Route
-                  path="/edit-account"
-                  element={
-                    <EditUserProfile
-                      username={username}
-                      token={token}
-                      userRole={userRole}
-                    />
-                  }
-                />
-                <Route
-                  path="/your-events"
-                  element={
-                    <ManagerEvents
-                      username={username}
-                      token={token}
-                      userRole={userRole}
-                      orgDetails={orgDetails}
-                    />
-                  }
-                />
-                <Route
-                  path="/upload-image"
-                  element={
-                    <UploadFile
-                      username={username}
-                      token={token}
-                      userRole={userRole}
                     />
                   }
                 />
@@ -199,62 +142,15 @@ function App() {
             <>
               <Center flex="1">
                 <Routes>
-                  {/* <Route path="/" element={<Login setUser={setUser} />} /> */}
                   <Route path="/" element={<LoginRole setUser={setUser} />} />
                 </Routes>
               </Center>
             </>
           )}
         </Flex>
-        {/* <Footer /> */}
       </Flex>
     </>
   );
 }
 
 export default App;
-
-{
-  /* <>
-<Registration setUserPK={setUserPK} />
-<Routes>
-  <Route path="/login" element={<Login setUser={setUser} />} />
-</Routes>
-</> */
-}
-
-{
-  /* <Route
-path="/organizations/:orgID"
-element={
-  <OrganizationProfile token={token} username={username} />
-}
-/> */
-}
-
-{
-  /* {userRole === "Manager" && (
-                  <Route
-                    path="/"
-                    element={
-                      <Main
-                        username={username}
-                        token={token}
-                        userRole={userRole}
-                      />
-                    }
-                  />
-                )}
-                {userRole === "Client" && (
-                  <Route
-                    path="/"
-                    element={
-                      <ClientMain
-                        username={username}
-                        token={token}
-                        userRole={userRole}
-                      />
-                    }
-                  />
-                )} */
-}

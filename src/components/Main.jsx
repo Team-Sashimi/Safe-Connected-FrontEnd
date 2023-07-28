@@ -11,6 +11,19 @@ import {
   Avatar,
   InputGroup,
   InputLeftElement,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
 } from "@chakra-ui/react";
 
 import { PhoneIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
@@ -19,146 +32,118 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
-import UploadFile from "./UploadFile";
+import SideBar from "./SideBar";
+import MainDashBoard from "./MainDashBoard";
 
 export const Main = ({ username, token, userRole }) => {
   const baseURL = "https://safe-connected.onrender.com/";
-  const [orgDetails, setOrgDetails] = useState([]);
+  const [managerEvents, setManagerEvents] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`${baseURL}organization/1/`, {
+      .get(`${baseURL}event/organizer/list/`, {
         headers: {
           Authorization: `Token ${token}`,
         },
       })
       .then((res) => {
-        setOrgDetails(res.data);
+        setManagerEvents(res.data);
       });
   }, [token]);
 
-  return (
-    <Center bgColor="gray.800" h="92vh">
-      <Flex as="main" role="main" direction="column" flex="2" py="3">
-        <Container maxW="900px" flex="1">
-          <Box>
-            <Center>
-              <Avatar
-                size="xl"
-                name={username}
-                mb="10"
-                // src="https://example.com/avatar.jpg"
-              />
+  const handleEventDetails = (eventID) => {
+    console.log(`hi this is the event id: ${eventID}`);
+    navigate(`/event/${eventID}`);
+  };
 
-              {/* <Center>
-                <InputGroup>
-                  <AddIcon type="file" color="gray.300" cursor="pointer" />
-                </InputGroup>
-              </Center> */}
-            </Center>
-            <Center>
-              <Flex direction="column" align="center">
-                <Heading color="yellow.200">Welcome! {username}</Heading>
-                <Heading mt="4" size="md" color="yellow.200">
-                  {userRole} at {orgDetails.org_name}
-                </Heading>
-              </Flex>
-            </Center>
-          </Box>
-          <Box m="5">
-            <Center>
-              <Flex align="center">
-                {userRole === "Manager" && (
-                  <Link to="/clients">
-                    <Button
-                      _hover={{
-                        backgroundColor: "gray.700",
-                        color: "yellow.200",
-                      }}
-                      color="yellow.200"
-                      variant="outline"
-                      p="6"
-                      m="4"
-                    >
-                      Clients
-                    </Button>
-                  </Link>
-                )}
-                <Link to="/search-events">
-                  <Button
-                    _hover={{
-                      backgroundColor: "gray.700",
-                      color: "yellow.200",
-                    }}
-                    color="yellow.200"
-                    variant="outline"
-                    p="6"
-                    m="4"
-                  >
-                    Events
-                  </Button>
-                </Link>
-                <Link to="/account">
-                  <Button
-                    _hover={{
-                      backgroundColor: "gray.700",
-                      color: "yellow.200",
-                    }}
-                    color="yellow.200"
-                    variant="outline"
-                    p="6"
-                    m="4"
-                  >
-                    Account
-                  </Button>
-                </Link>
-              </Flex>
-            </Center>
-          </Box>
+  console.log(managerEvents);
+
+  return (
+    <>
+      <Flex
+        direction="column"
+        marginLeft={["5%", "10%", "15%"]} // Adjust the left margin for different screen sizes
+        marginTop="2.5vh"
+      >
+        <Container h="100vh">
+          <Flex
+            direction="column" // Display the elements beneath each other
+            w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
+            h={["150px", "200px", "250px"]}
+            borderRadius="15"
+            border="solid"
+            // borderColor="yellow.200"
+            align="flex-end" // Right-align the items horizontally
+            justify="center" // Right-align the items vertically
+            overflow="hidden" // Prevent content from overflowing
+          >
+            <Heading mb="1" fontSize="lg" color="yellow.200">
+              GETTING STARTED{" "}
+            </Heading>
+            <Text fontSize="small" color="yellow.200">
+              Safely register clients.
+            </Text>
+            <Text fontSize="small" color="yellow.200">
+              Create & manage events.
+            </Text>
+            <Text fontSize="small" color="yellow.200">
+              Language translation built in.
+            </Text>
+          </Flex>
+          <Flex
+            direction="column" // Display the elements beneath each other
+            w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
+            h={["200px", "250px", "300px"]} // Adjust the height to make the accordion smaller
+            borderRadius="15"
+            border="solid"
+            // borderColor="yellow.200"
+            align="flex-end" // Right-align the items horizontally
+            justify="center" // Right-align the items vertically
+            overflow="hidden" // Prevent content from overflowing
+          >
+            <Heading mb="3" fontSize="lg" color="yellow.200">
+              YOUR EVENTS
+            </Heading>
+            {managerEvents.slice(0, 5).map((event) => (
+              <Text
+                fontSize="small"
+                color="whiteAlpha.500"
+                key={event.id}
+                ml="auto"
+              >
+                {event.event_title}
+              </Text>
+            ))}
+          </Flex>
         </Container>
       </Flex>
-    </Center>
+    </>
   );
 };
 
-// <Center>
-// <Flex direction="column">
-//   {events.map((event) => (
-//     <>
-//       <Box maxW="400px" as="event-card" key={event.title}>
-//         <Heading as="h4" size="md">
-//           {event.event_title}
-//         </Heading>
-//         <Text>{event.general_notes}</Text>
-//         <Text>
-//           {dayjs(event.start_time).format("MMMM D, YYYY h:mm A")} -
-//           {dayjs(event.end_time).format("h:mm A")}
-//         </Text>
-//         <Text>{event.event_organization}</Text>
-//         <Text>{event.privacy}</Text>
-//       </Box>
-//     </>
-//   ))}
-// </Flex>
-// </Center>
-
-// const handleUploadFile = () => {
-//   axios
-//     .post(
-//       `${baseURL}uploads/`,
-//       { file: `${fileUpload}` },
-//       {
-//         headers: {
-//           Authorization: `Token ${token}`,
-//         },
-//       }
-//     )
-//     .then((res) => {
-//       console.log("you uploaded an file!");
-//       setFileUpload("");
-//       // navigate("/");
-//     })
-//     .catch((error) => {
-//       console.log("error");
-//     });
-// };
+{
+  /* <Flex
+direction="column" // Display the elements beneath each other
+w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
+h={["150px", "200px", "250px"]}
+borderRadius="15"
+border="solid"
+// borderColor="yellow.200"
+align="flex-end" // Right-align the items horizontally
+justify="center" // Right-align the items vertically
+>
+<Heading mb="3" fontSize="lg" color="yellow.200">
+  YOUR EVENTS{" "}
+</Heading>
+{managerEvents.slice(0, 5).map((event) => (
+  <Text
+    fontSize="small"
+    color="yellow.200"
+    key={event.id}
+    ml="auto"
+  >
+    {event.event_title}
+  </Text>
+))}
+</Flex> */
+}

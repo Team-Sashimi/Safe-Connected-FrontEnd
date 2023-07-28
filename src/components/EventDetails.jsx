@@ -10,6 +10,7 @@ import {
   Flex,
   Avatar,
   InputGroup,
+  Container,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import ClientSignUp from "./ClientSignUp";
@@ -57,32 +58,29 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
   };
 
   return (
-    <>
-      <Center bgColor="gray.800" h="92vh">
-        <Box width="400px" height="500px" p="4" borderRadius="md">
-          <Center>
-            <Box>
-              <Center>
-                <Avatar size="xl" name={username} mb="5" />
-              </Center>
-              <Center>
-                <Flex direction="column" align="center">
-                  <Heading size="md" color="yellow.200">
-                    {orgDetails.org_name}
-                  </Heading>
-                  {/* <Heading size="md" color="yellow.200">
-                    {orgDetails.phone}
-                  </Heading> */}
-                </Flex>
-              </Center>
-            </Box>
-          </Center>
+    <Flex
+      direction="column"
+      marginLeft={["5%", "10%", "15%"]} // Adjust the left margin for different screen sizes
+      marginTop="2.5vh"
+    >
+      <Container h="100vh">
+        <Flex
+          direction="column" // Display the elements beneath each other
+          w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
+          h={["200px", "200px", "250px"]}
+          borderRadius={15}
+          border="solid"
+          // borderColor="yellow.200"
+          align="center" // Right-align the items horizontally
+          justify="center" // Right-align the items vertically
+          overflow="auto" // Prevent content from overflowing
+        >
           <Heading color="yellow.200" as="h4" size="md" mt="10">
             {eventDetails.event_title}
           </Heading>
           <Text color="yellow.200">{eventDetails.general_notes}</Text>
           <br></br>
-          <Text color="yellow.200">
+          <Text fontSize="12px" color="yellow.200">
             {eventDetails.start_time && eventDetails.end_time ? (
               <Text color="yellow.200">
                 {formatToRegularTime(eventDetails.end_time)} -{" "}
@@ -92,68 +90,106 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
               <Text color="yellow.200">Time not available</Text>
             )}
           </Text>
-          <br></br>
-          <Text color="yellow.200">
+
+          <Text fontSize="12px" color="yellow.200">
             {eventDetails.street_number} {eventDetails.street_name}
           </Text>
-          <Text color="yellow.200">
-            {eventDetails.city} {eventDetails.zipcode}
-          </Text>
-          {userRole === "Client" && (
-            <ClientSignUp token={token} eventID={eventID} />
-          )}
-          {userRole === "Manager" && (
-            <>
-              <Link to={`/edit-event/${eventID}`}>
-                <Button m="3">Edit</Button>
-              </Link>
-              <DeleteEvent token={token} eventID={eventID} />
-            </>
-          )}
-        </Box>
-
-        <Box>
-          <MapBox
-            token={token}
-            username={username}
-            eventAddress={eventAddress}
-            eventStNumber={eventStNumber}
-            eventStreet={eventStreet}
-          />
-          <EventRoster token={token} progress={progress} userRole={userRole} />
-        </Box>
-
-        <Box></Box>
-      </Center>
-    </>
+          <Flex>
+            {userRole === "Manager" && (
+              <>
+                <Link to={`/edit-event/${eventID}`}>
+                  <Button size="xs" m="3">
+                    Edit
+                  </Button>
+                </Link>
+                <DeleteEvent token={token} eventID={eventID} />
+              </>
+            )}
+          </Flex>
+        </Flex>
+        <Flex justifyContent="center">
+          <Center>
+            <MapBox
+              token={token}
+              username={username}
+              eventAddress={eventAddress}
+              eventStNumber={eventStNumber}
+              eventStreet={eventStreet}
+            />
+          </Center>
+        </Flex>
+        <EventRoster token={token} progress={progress} userRole={userRole} />
+      </Container>
+    </Flex>
   );
 };
 
 export default EventDetails;
 
-// {
-//   allEvents.map((event) => (
-//     <Box
-//       key={event.id}
-//       border="1px solid black"
-//       borderRadius="md"
-//       p="4"
-//       onClick={() => handleEventDetails(event.id)}
-//       cursor="pointer"
-//     >
-//       <Box as="event-card" key={event.id}>
-//         <Heading as="h4" size="md">
-//           {event.event_title}
-//         </Heading>
-//         <Text>{event.general_notes}</Text>
-//         <Text>
-//           {dayjs(event.start_time).format("MMMM D, YYYY h:mm A")}-
-//           {dayjs(event.end_time).format("h:mm A")}
-//         </Text>
-//         <Text>{event.privacy}</Text>
-//       </Box>
-//     </Box>
-//   ));
-// }
+// <Center bgColor="gray.800" h="92vh">
+//         <Box width="400px" height="500px" p="4" borderRadius="md">
+//           <Center>
+//             <Box>
+//               <Center>
+//                 <Avatar size="xl" name={username} mb="5" />
+//               </Center>
+//               <Center>
+//                 <Flex direction="column" align="center">
+//                   <Heading size="md" color="yellow.200">
+//                     {orgDetails.org_name}
+//                   </Heading>
+//                   {/* <Heading size="md" color="yellow.200">
+//                     {orgDetails.phone}
+//                   </Heading> */}
+//                 </Flex>
+//               </Center>
+//             </Box>
+//           </Center>
+//           <Heading color="yellow.200" as="h4" size="md" mt="10">
+//             {eventDetails.event_title}
+//           </Heading>
+//           <Text color="yellow.200">{eventDetails.general_notes}</Text>
+//           <br></br>
+//           <Text color="yellow.200">
+//             {eventDetails.start_time && eventDetails.end_time ? (
+//               <Text color="yellow.200">
+//                 {formatToRegularTime(eventDetails.end_time)} -{" "}
+//                 {formatToRegularTime(eventDetails.start_time)}
+//               </Text>
+//             ) : (
+//               <Text color="yellow.200">Time not available</Text>
+//             )}
+//           </Text>
+//           <br></br>
+//           <Text color="yellow.200">
+//             {eventDetails.street_number} {eventDetails.street_name}
+//           </Text>
+//           <Text color="yellow.200">
+//             {eventDetails.city} {eventDetails.zipcode}
+//           </Text>
+//           {userRole === "Client" && (
+//             <ClientSignUp token={token} eventID={eventID} />
+//           )}
+//           {userRole === "Manager" && (
+//             <>
+//               <Link to={`/edit-event/${eventID}`}>
+//                 <Button m="3">Edit</Button>
+//               </Link>
+//               <DeleteEvent token={token} eventID={eventID} />
+//             </>
+//           )}
+//         </Box>
 
-//* {dayjs(eventDetails.start_time).format("h:mm")}- {dayjs(eventDetails.end_time).format("h:mm A")}
+//         <Box>
+//           <MapBox
+//             token={token}
+//             username={username}
+//             eventAddress={eventAddress}
+//             eventStNumber={eventStNumber}
+//             eventStreet={eventStreet}
+//           />
+//           <EventRoster token={token} progress={progress} userRole={userRole} />
+//         </Box>
+
+//         <Box></Box>
+//       </Center>
