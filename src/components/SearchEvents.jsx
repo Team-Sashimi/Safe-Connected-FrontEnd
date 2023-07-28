@@ -89,8 +89,8 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
             BROWSE EVENTS
           </Heading>
         </Center>
-
-        <MapBoxAll token={token} username={username} allStreets={allStreets} />
+        {/* 
+        <MapBoxAll token={token} username={username} allStreets={allStreets} /> */}
         <Box>
           <Flex m="4" direction="column" align="center">
             <Heading mt="5" color="yellow.200">
@@ -106,7 +106,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
                     key={index}
                     onClick={() => handlePageChange(index + 1)}
                   >
-                    {index + 1}
+                    Sorting - {index + 1}
                   </Button>
                 ))}
               </Box>
@@ -132,12 +132,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
                 m="10"
               >
                 <br></br>
-                <Avatar
-                  size="xl"
-                  name={orgDetails.name}
-                  mb="10"
-                  // src={fileUpload}
-                />
+
                 <Box ml="4">
                   {" "}
                   <Heading color="whiteAlpha.800" as="h4" size="md">
