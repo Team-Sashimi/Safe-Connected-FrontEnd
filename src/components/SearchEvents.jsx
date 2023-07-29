@@ -74,7 +74,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
   console.log(allEvents);
 
   return (
-    <Flex ml="1">
+    <Flex mt="12">
       <Box
         width="90%"
         height="80vh"
@@ -86,7 +86,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
         borderRadius="md" // Rounded corners
         overflow="auto" // Enable scroll if contents overflow
       >
-        <Heading color="yellow.200" size="md" mb="4">
+        <Heading color="yellow.200" size="md" mb="4" mr="4">
           Browse Events
         </Heading>
         <SimpleGrid columns={2} spacing={4}>

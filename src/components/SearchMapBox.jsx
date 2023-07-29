@@ -100,7 +100,9 @@ const SearchMapBox = ({ token, setSelectedSuggestion }) => {
         {/* <FormLabel fontWeight="bold" color="yellow.200" fontSize="10px" mt="2">
           LOCATION:
         </FormLabel> */}
-        <InputGroup ml="4" size="xs">
+        <Box borderRadius="md" height="150px" width="100%" ref={mapContainer} />
+
+        <InputGroup size="xs" mt="2">
           <InputLeftElement pointerEvents="none">
             <SearchIcon color="gray.300" />
           </InputLeftElement>
@@ -150,13 +152,6 @@ const SearchMapBox = ({ token, setSelectedSuggestion }) => {
           </Box>
         )}
       </Box>
-      <Box
-        borderRadius="md"
-        height="150px"
-        width="100%"
-        mt="2"
-        ref={mapContainer}
-      />
     </>
   );
 };

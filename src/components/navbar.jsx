@@ -30,7 +30,12 @@ export const Navbar = ({ handleLogout }) => {
         <Link href="/">
           <img src={cnctr_yellow} alt="Logo" width="90px" height="60px" />
         </Link>
-        <Icon as={FiLogOut} color="yellow.200" boxSize="5" />
+        <Icon
+          onClick={handleLogout}
+          as={FiLogOut}
+          color="yellow.200"
+          boxSize="5"
+        />
       </Flex>
     </Box>
   );

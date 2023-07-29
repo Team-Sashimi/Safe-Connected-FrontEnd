@@ -58,19 +58,16 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
   };
 
   return (
-    <Flex
-      direction="column"
-      marginLeft={["5%", "10%", "15%"]} // Adjust the left margin for different screen sizes
-      marginTop="2.5vh"
-    >
-      <Container h="100vh">
+    <Flex direction="column" marginTop="10vh">
+      <Container mt="2">
         <Flex
           direction="column" // Display the elements beneath each other
-          w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
-          h={["200px", "200px", "250px"]}
+          w="100%"
+          h="200px"
           borderRadius={15}
           border="solid"
           // borderColor="yellow.200"
+          mb="5"
           align="center" // Right-align the items horizontally
           justify="center" // Right-align the items vertically
           overflow="auto" // Prevent content from overflowing

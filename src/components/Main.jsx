@@ -24,6 +24,8 @@ import {
   MenuGroup,
   MenuOptionGroup,
   MenuDivider,
+  Icon,
+  SimpleGrid,
 } from "@chakra-ui/react";
 
 import { PhoneIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
@@ -60,95 +62,108 @@ export const Main = ({ username, token, userRole, language }) => {
 
   return (
     <>
-      <Flex
-        direction="column"
-        marginLeft={["5%", "10%", "15%"]} // Adjust the left margin for different screen sizes
-        marginTop="2.5vh"
+      <SimpleGrid
+        // backgroundColor="yellow.200"
+        mt="8"
+        h="75%"
+        w="80%"
+        rows={2}
+        // spacing={4}
+        borderRadius="20px"
+        alignItems="center"
+        // maxChildHeight="100px"
       >
-        <Container h="100%">
-          <Flex
-            direction="column" // Display the elements beneath each other
-            w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
-            h={["150px", "200px", "250px"]}
-            borderRadius="15"
-            border="solid"
-            // borderColor="yellow.200"
-            align="flex-end" // Right-align the items horizontally
-            justify="center" // Right-align the items vertically
-            overflow="hidden" // Prevent content from overflowing
-          >
-            <Heading mb="1" fontSize="lg" color="yellow.200">
-              GETTING STARTED
-            </Heading>
-            <Text fontSize="small" color="yellow.200">
-              Safely register clients.
-            </Text>
-            <Text fontSize="small" color="yellow.200">
-              Create & manage events.
-            </Text>
-            <Text fontSize="small" color="yellow.200">
-              Language translation built in.
-            </Text>
-          </Flex>
-          <Flex
-            direction="column" // Display the elements beneath each other
-            w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
-            h={["200px", "250px", "300px"]} // Adjust the height to make the accordion smaller
-            borderRadius="15"
-            border="solid"
-            // borderColor="yellow.200"
-            align="flex-end" // Right-align the items horizontally
-            justify="center" // Right-align the items vertically
-            overflow="hidden" // Prevent content from overflowing
-          >
-            <Heading mb="3" fontSize="lg" color="yellow.200">
-              YOUR EVENTS
-            </Heading>
-            {managerEvents.slice(0, 5).map((event) => (
-              <Text
-                fontSize="small"
-                color="whiteAlpha.500"
-                key={event.id}
-                ml="auto"
-              >
-                {event.event_title}
-              </Text>
-            ))}
-          </Flex>
-          <Flex
-            align="flex-end" // Right-align the items horizontally
-            justify="flex-end" // Right-align the items vertically
-            overflow="hidden"
-          ></Flex>
-        </Container>
-      </Flex>
+        <Box
+          // backgroundColor="gray.200"
+          borderRadius="20px"
+          maxHeight="30vh"
+          overflow="auto"
+          p="4"
+        >
+          <Heading color="yellow.200" textAlign="center">
+            Let's get started.
+          </Heading>
+          <br></br>
+
+          <Text color="yellow.200" textAlign="center">
+            Create & manage events.
+          </Text>
+          <Text color="yellow.200" textAlign="center">
+            Safely register clients.
+          </Text>
+          <Text color="yellow.200" textAlign="center">
+            Built in language translation.
+          </Text>
+        </Box>
+      </SimpleGrid>
     </>
   );
 };
 
-{
-  /* <Flex
-direction="column" // Display the elements beneath each other
-w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
-h={["150px", "200px", "250px"]}
-borderRadius="15"
-border="solid"
-// borderColor="yellow.200"
-align="flex-end" // Right-align the items horizontally
-justify="center" // Right-align the items vertically
->
-<Heading mb="3" fontSize="lg" color="yellow.200">
-  YOUR EVENTS{" "}
-</Heading>
-{managerEvents.slice(0, 5).map((event) => (
-  <Text
-    fontSize="small"
-    color="yellow.200"
-    key={event.id}
-    ml="auto"
-  >
-    {event.event_title}
-  </Text>
-))}
-</Flex> */
-}
+// return (
+//   <>
+//     <Flex
+//       direction="column"
+//       marginLeft={["5%", "10%", "15%"]} // Adjust the left margin for different screen sizes
+//       marginTop="2.5vh"
+//     >
+//       <Container h="100%">
+//         <Flex
+//           direction="column" // Display the elements beneath each other
+//           w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
+//           h={["150px", "200px", "250px"]}
+//           borderRadius="15"
+//           border="solid"
+//           // borderColor="yellow.200"
+//           align="flex-end" // Right-align the items horizontally
+//           justify="center" // Right-align the items vertically
+//           overflow="hidden" // Prevent content from overflowing
+//         >
+//           <Heading mb="1" fontSize="lg" color="yellow.200">
+//             GETTING STARTED
+//           </Heading>
+//           <Text fontSize="small" color="yellow.200">
+//             Safely register clients.
+//           </Text>
+//           <Text fontSize="small" color="yellow.200">
+//             Create & manage events.
+//           </Text>
+//           <Text fontSize="small" color="yellow.200">
+//             Language translation built in.
+//           </Text>
+//         </Flex>
+//         <Flex
+//           direction="column" // Display the elements beneath each other
+//           w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
+//           h={["200px", "250px", "300px"]} // Adjust the height to make the accordion smaller
+//           borderRadius="15"
+//           border="solid"
+//           // borderColor="yellow.200"
+//           align="flex-end" // Right-align the items horizontally
+//           justify="center" // Right-align the items vertically
+//           overflow="hidden" // Prevent content from overflowing
+//         >
+//           <Heading mb="3" fontSize="lg" color="yellow.200">
+//             YOUR EVENTS
+//           </Heading>
+//           {managerEvents.slice(0, 5).map((event) => (
+//             <Text
+//               fontSize="small"
+//               color="whiteAlpha.500"
+//               key={event.id}
+//               ml="auto"
+//             >
+//               {event.event_title}
+//             </Text>
+//           ))}
+//         </Flex>
+//         <Flex
+//           align="flex-end" // Right-align the items horizontally
+//           justify="flex-end" // Right-align the items vertically
+//           overflow="hidden"
+//         ></Flex>
+//       </Container>
+//     </Flex>
+//   </>
+// );
+// };

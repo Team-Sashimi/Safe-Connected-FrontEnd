@@ -20,6 +20,7 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
+  SimpleGrid,
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
@@ -72,7 +73,7 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
         setEventAddress(res.data.full_address);
         setEventDetails(res.data);
       });
-  }, [token]);
+  }, [token, eventID]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -166,154 +167,138 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
     }
   };
 
-  console.log(selectedSuggestion);
-  console.log(eventID);
+  // console.log(selectedSuggestion);
+  // console.log(eventID);
+  console.log(eventDetails.privacy);
 
   return (
-    <>
-      <Center bgColor="gray.800" h="92vh">
-        <Container as="container-for-events" h="100%" maxW="900px">
-          <MapBoxEdit
-            token={token}
-            username={username}
-            setSelectedSuggestion={setSelectedSuggestion}
-            eventAddress={eventAddress}
-            eventStNumber={eventStNumber}
-            eventStreet={eventStreet}
+    <Container h="30vh" mt="13vh">
+      <Flex
+        direction="column"
+        w="100%"
+        h="100%"
+        borderRadius="15"
+        border="solid"
+        // borderColor="yellow.200"
+      >
+        <MapBoxEdit
+          token={token}
+          username={username}
+          setSelectedSuggestion={setSelectedSuggestion}
+          eventAddress={eventAddress}
+          eventStNumber={eventStNumber}
+          eventStreet={eventStreet}
+        />
+      </Flex>
+      <SimpleGrid columns={2} spacing={4}>
+        <FormControl>
+          <FormLabel color="yellow.200" fontSize="10px" mb="1">
+            Event Title
+          </FormLabel>
+          <Input
+            placeholder="Name of Event"
+            value={eventTitle}
+            type="text"
+            size="xs"
+            color="whiteAlpha.800"
+            onChange={(e) => handleChange("eventTitle", e)}
           />
-        </Container>
-        <Flex my="8" maxWidth="800px">
-          {/* First Column */}
-          <Box m="4" mr="100px">
-            <form onSubmit={handleSubmit}>
-              <FormControl>
-                <FormLabel color="yellow.200">Event Title</FormLabel>
-                <Input
-                  my="2"
-                  value={eventTitle}
-                  placeholder="Name of Event"
-                  size="md"
-                  color="whiteAlpha.600"
-                  onChange={(e) => handleChange("eventTitle", e)}
-                />
-                <FormLabel mt="4" color="yellow.200">
-                  General Notes
-                </FormLabel>
-                <Textarea
-                  my="2"
-                  value={generalNotes}
-                  color="whiteAlpha.600"
-                  placeholder="General Notes"
-                  size="md"
-                  onChange={(e) => handleChange("generalNotes", e)}
-                />
-                <FormLabel color="yellow.200" mt="4">
-                  Select Language
-                </FormLabel>
-                <Select
-                  color="whiteAlpha.600"
-                  placeholder="Languages"
-                  value={language}
-                  onChange={(e) => handleChange("language", e)}
-                >
-                  <option value="1">English</option>
-                  <option value="2">Spanish</option>
-                  <option value="3">French</option>
-                </Select>
-                <FormLabel color="yellow.200" mt="4">
-                  Is your event private?
-                </FormLabel>
-                <Select
-                  placeholder="Choose below"
-                  color="whiteAlpha.600"
-                  value={privacy}
-                  onChange={(e) => handleChange("privacy", e)}
-                >
-                  <option value="True">Yes</option>
-                  <option value="False">No</option>
-                </Select>
-              </FormControl>
-            </form>
-          </Box>
-          {/* Second Column */}
-          <Box ml="4">
-            <FormControl>
-              <FormLabel color="yellow.200" mt="4">
-                Event Date
-              </FormLabel>
-              <Input
-                color="whiteAlpha.600"
-                value={eventDate}
-                size="md"
-                type="date"
-                onChange={(e) => handleChange("eventDate", e)}
-              />
-              <FormLabel color="yellow.200" mt="4">
-                Start Time:
-              </FormLabel>
-              <Input
-                color="whiteAlpha.600"
-                value={endTime}
-                size="md"
-                type="time"
-                onChange={(e) => handleChange("startTime", e)}
-              />
-              <FormLabel color="yellow.200" mt="4">
-                End Time:
-              </FormLabel>
-              <Input
-                color="whiteAlpha.600"
-                value={startTime}
-                size="md"
-                type="time"
-                onChange={(e) => handleChange("endTime", e)}
-              />
-              <FormLabel color="yellow.200" mt="4">
-                Capacity
-              </FormLabel>
-              <Input
-                size="md"
-                value={capacity}
-                color="whiteAlpha.600"
-                onChange={(e) => handleChange("capacity", e)}
-              />
-            </FormControl>
-            <Button
-              mt="6"
-              size="md"
-              type="submit"
-              onClick={handleSubmit}
-              cursor="pointer"
-            >
-              Submit
-            </Button>
-            <AlertDialog
-              isOpen={isAlertOpen}
-              leastDestructiveRef={null}
-              onClose={handleCloseAlert}
-            >
-              <AlertDialogOverlay>
-                <AlertDialogContent>
-                  <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                    Success
-                  </AlertDialogHeader>
+          <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+            Event Date
+          </FormLabel>
+          <Input
+            placeholder="Pick a date"
+            value={eventDate}
+            type="date"
+            mt="-20px"
+            size="xs"
+            variant="filled"
+            color="blackAlpha.800"
+            onChange={(e) => handleChange("eventDate", e)}
+          />
+          <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+            Start Time:
+          </FormLabel>
+          <Input
+            type="time"
+            value={startTime}
+            mt="-20px"
+            size="xs"
+            variant="filled"
+            color="blackAlpha.800"
+            onChange={(e) => handleChange("startTime", e)}
+          />
+        </FormControl>
 
-                  <AlertDialogBody>
-                    The patch request has been successful.
-                  </AlertDialogBody>
+        <FormControl>
+          <FormLabel color="yellow.200" fontSize="10px" mb="1">
+            End Time:
+          </FormLabel>
+          <Input
+            type="time"
+            value={endTime}
+            mt="-20px"
+            size="xs"
+            variant="filled"
+            color="blackAlpha.800"
+            onChange={(e) => handleChange("endTime", e)}
+          />
+          <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+            Is your event private?
+          </FormLabel>
+          <Select
+            placeholder="Choose below"
+            size="xs"
+            value={privacy}
+            variant="filled"
+            color="blackAlpha.800"
+            onChange={(e) => handleChange("privacy", e)}
+          >
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </Select>
+          <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+            Capacity
+          </FormLabel>
+          <Input
+            placeholder="Choose below"
+            value={capacity}
+            size="xs"
+            variant="filled"
+            color="blackAlpha.800"
+            onChange={(e) => handleChange("capacity", e)}
+          />
+        </FormControl>
+      </SimpleGrid>
 
-                  <AlertDialogFooter>
-                    <Button ref={null} onClick={handleCloseAlert}>
-                      Close
-                    </Button>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialogOverlay>
-            </AlertDialog>
-          </Box>
-        </Flex>
-      </Center>
-    </>
+      <FormControl>
+        <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+          General Notes
+        </FormLabel>
+        <Textarea
+          placeholder="Event details..."
+          value={generalNotes}
+          size="xs"
+          variant="filled"
+          color="blackAlpha.800"
+          onChange={(e) => handleChange("generalNotes", e)}
+        />
+      </FormControl>
+      <FormControl>
+        <Center>
+          <Button
+            mt="4"
+            size="xs"
+            type="submit"
+            colorScheme="green"
+            onClick={handleSubmit}
+            cursor="pointer"
+          >
+            Update
+          </Button>
+        </Center>
+      </FormControl>
+    </Container>
   );
 };
 

@@ -54,7 +54,7 @@ const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
           flexDirection="column"
           alignItems="center"
         >
-          <Heading size="sm" color="yellow.200">
+          <Heading size="xs" color="yellow.200">
             People Who Signed Up
           </Heading>
           {userRole === "Client" && (
@@ -68,7 +68,7 @@ const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
                 width={{ base: "90%", sm: "70%", md: "50%", lg: "600px" }}
               />
               <Center>
-                <Text mt={2} color="white">
+                <Text fontSize="10px" mt={2} color="white">
                   {signUpCount} out of {progress} people have signed up for this
                   event.
                 </Text>
@@ -106,7 +106,9 @@ const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
                       </Box>
                     ))
                   ) : (
-                    <Text color="white">No one has signed up yet</Text>
+                    <Text fontSize="xs" color="white" mt="2">
+                      No one has signed up yet
+                    </Text>
                   )}
                 </Center>
               </SimpleGrid>

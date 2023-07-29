@@ -70,10 +70,11 @@ function App() {
   return (
     <>
       <Navbar handleLogout={handleLogout} />
+      <BottomBar userRole={userRole} />
       {/* <Flex bgColor="gray.800" h="92vh">
         <SideBar userRole={userRole} />
         <Flex flex="1" flexDirection="column" h="92vh"> */}
-      <Center h="100vh" bgColor="gray.800">
+      <Center h="100vh" bgColor="gray.800" alignItems="flex-start">
         {token ? (
           <>
             <Routes>
@@ -189,7 +190,6 @@ function App() {
             </Center>
           </>
         )}
-        <BottomBar />
       </Center>
       {/* </Flex>
       </Flex> */}
