@@ -13,6 +13,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Select,
 } from "@chakra-ui/react";
 import UploadFile from "./UploadFile";
 
@@ -23,6 +24,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [userLanguage, setUserLanguage] = useState("");
 
   const navigate = useNavigate();
 
@@ -36,6 +38,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
           first_name: firstName,
           last_name: lastName,
           email: email,
+          language: userLanguage,
         },
         {
           headers: {
@@ -47,6 +50,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
         console.log("you edited your profile");
         setFirstName("");
         setLastName("");
+        setUserLanguage("");
         navigate("/account");
       })
       .catch((error) => {
@@ -55,6 +59,8 @@ const EditUserProfile = ({ token, username, userRole }) => {
   };
 
   console.log(token);
+
+  console.log(userLanguage);
 
   return (
     <>
@@ -103,6 +109,18 @@ const EditUserProfile = ({ token, username, userRole }) => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
+                <FormLabel mt="4" color="yellow.200" htmlFor="password">
+                  Preferred Language
+                </FormLabel>
+                <Select
+                  color="whiteAlpha.600"
+                  placeholder="Languages"
+                  onChange={(e) => setUserLanguage(e.target.value)}
+                >
+                  <option value="en">English</option>
+                  <option value="es">Spanish</option>
+                  <option value="fr">French</option>
+                </Select>
               </div>
               <div>
                 <Button

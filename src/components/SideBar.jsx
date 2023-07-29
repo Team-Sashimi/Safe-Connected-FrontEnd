@@ -27,8 +27,8 @@ const SideBar = ({ username, token, userRole }) => {
   return (
     <Flex
       pos="sticky"
-      bgColor="yellow.200"
-      left="5"
+      bgColor="grey.200"
+      left="2"
       h="80vh"
       marginTop="2.5vh"
       boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
@@ -85,7 +85,9 @@ const SideBar = ({ username, token, userRole }) => {
         <Divider display={navSize === "small" ? "none" : "flex"} />{" "}
         {/* Use === instead of == */}
         <Flex mt={4} align="center">
-          <Avatar size="sm" src={userRole} />
+          <Link to="/account">
+            <Avatar size="sm" src={userRole} />
+          </Link>
           <Flex
             flexDir="column"
             ml={4}

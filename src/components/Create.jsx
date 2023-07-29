@@ -15,6 +15,7 @@ import {
   FormLabel,
   Textarea,
   Select,
+  SimpleGrid,
 } from "@chakra-ui/react";
 
 import SearchMapBox from "./SearchMapBox";
@@ -133,106 +134,122 @@ const CreateEvent = ({ token, username }) => {
   // console.log(selectedSuggestion.context[2].text);
 
   return (
-    <Flex
-      direction="column"
-      marginLeft={["5%", "10%", "15%"]}
-      marginTop="2.5vh"
-    >
-      <Container h="100vh">
+    <Flex direction="column" mt="3" marginLeft={["5%", "10%", "15%"]}>
+      <Container h="30vh">
         <Flex
           direction="column"
           w={["100%", "80%", "500px"]}
-          h={["300px", "200px", "250px"]}
+          h={["100%", "200px", "250px"]}
           borderRadius="15"
           border="solid"
-          align="flex-end"
-          justify="center"
-          overflow="auto"
+          // borderColor="yellow.200"
+          alignItems="center"
+          justify="flex-start"
+          // overflow="auto"
         >
-          <Heading color="yellow.200">Create event.</Heading>
+          =
           <SearchMapBox
             token={token}
             setSelectedSuggestion={setSelectedSuggestion}
           />
         </Flex>
-        <Flex
-          direction="column"
-          w={["100%", "80%", "500px"]}
-          h={["300px", "200px", "250px"]}
-          borderRadius="15"
-          border="solid"
-          align="center"
-          justify="center"
-          overflow="hidden"
-        >
-          <form w="300px" onSubmit={handleSubmit}>
-            <FormControl>
-              <FormLabel color="yellow.200" fontSize="10px" mb="1">
-                Event Title
-              </FormLabel>
-              <Input
-                placeholder="Name of Event"
-                size="xs"
-                color="whiteAlpha.600"
-                onChange={(e) => handleChange("eventTitle", e)}
-              />
-              <FormLabel color="yellow.200" fontSize="10px" mb="1">
-                Event Title
-              </FormLabel>
-              <Input
-                placeholder="Name of Event"
-                mt="-20px"
-                size="xs"
-                color="whiteAlpha.600"
-                onChange={(e) => handleChange("eventTitle", e)}
-              />
-              <FormLabel color="yellow.200" fontSize="10px" mb="1">
-                Event Title
-              </FormLabel>
-              <Input
-                placeholder="Name of Event"
-                mt="-20px"
-                size="xs"
-                color="whiteAlpha.600"
-                onChange={(e) => handleChange("eventTitle", e)}
-              />
-              <FormLabel color="yellow.200" fontSize="10px" mb="1">
-                Event Title
-              </FormLabel>
-              <Input
-                placeholder="Name of Event"
-                mt="-20px"
-                size="xs"
-                color="whiteAlpha.600"
-                onChange={(e) => handleChange("eventTitle", e)}
-              />
-              <FormLabel color="yellow.200" fontSize="10px" mb="1">
-                Event Title
-              </FormLabel>
-              <Input
-                placeholder="Name of Event"
-                mt="-20px"
-                size="xs"
-                color="whiteAlpha.600"
-                onChange={(e) => handleChange("eventTitle", e)}
-              />
-              <FormLabel color="yellow.200" fontSize="10px" mb="1">
-                Event Title
-              </FormLabel>
-              <Input
-                placeholder="Name of Event"
-                mt="-20px"
-                size="xs"
-                color="whiteAlpha.600"
-                onChange={(e) => handleChange("eventTitle", e)}
-              />
-            </FormControl>
+        <SimpleGrid columns={2} spacing={4} alignItems="baseline">
+          <FormControl>
+            <FormLabel color="yellow.200" fontSize="10px" mb="1">
+              Event Title
+            </FormLabel>
+            <Input
+              placeholder="Name of Event"
+              type="text"
+              size="xs"
+              color="whiteAlpha.800"
+              onChange={(e) => handleChange("eventTitle", e)}
+            />
+            <FormLabel color="yellow.200" fontSize="10px" mt="3" mb="1">
+              Event Date
+            </FormLabel>
+            <Input
+              placeholder="Pick a date"
+              type="date"
+              mt="-20px"
+              size="xs"
+              variant="filled"
+              color="blackAlpha.800"
+              onChange={(e) => handleChange("eventDate", e)}
+            />
+            <FormLabel color="yellow.200" fontSize="10px" mt="3" mb="1">
+              Start Time:
+            </FormLabel>
+            <Input
+              type="time"
+              mt="-20px"
+              size="xs"
+              variant="filled"
+              color="blackAlpha.800"
+              onChange={(e) => handleChange("startTime", e)}
+            />
+          </FormControl>
 
-            <Button backgroundColor="yellow.200" type="submit">
-              Submit
-            </Button>
-          </form>
-        </Flex>
+          <FormControl>
+            <FormLabel color="yellow.200" fontSize="10px" mt="3" mb="1">
+              End Time:
+            </FormLabel>
+            <Input
+              type="time"
+              mt="-20px"
+              size="xs"
+              variant="filled"
+              color="blackAlpha.800"
+              onChange={(e) => handleChange("endTime", e)}
+            />
+            <FormLabel color="yellow.200" fontSize="10px" mt="3" mb="1">
+              Is your event private?
+            </FormLabel>
+            <Select
+              placeholder="Choose below"
+              size="xs"
+              variant="filled"
+              color="blackAlpha.800"
+              onChange={(e) => handleChange("privacy", e)}
+            >
+              <option value="True">Yes</option>
+              <option value="False">No</option>
+            </Select>
+            <FormLabel color="yellow.200" fontSize="10px" mt="3" mb="1">
+              Capacity
+            </FormLabel>
+            <Input
+              placeholder="Choose below"
+              size="xs"
+              variant="filled"
+              color="blackAlpha.800"
+              onChange={(e) => handleChange("capacity", e)}
+            />
+          </FormControl>
+        </SimpleGrid>
+
+        <FormControl>
+          <FormLabel color="yellow.200" fontSize="10px" mt="3" mb="1">
+            General Notes
+          </FormLabel>
+          <Textarea
+            placeholder="Event details..."
+            size="xs"
+            variant="filled"
+            color="blackAlpha.800"
+            onChange={(e) => handleChange("generalNotes", e)}
+          />
+        </FormControl>
+        <Button
+          mt="6"
+          size="sm"
+          type="submit"
+          colorScheme="green"
+          onClick={handleSubmit}
+          cursor="pointer"
+        >
+          Create Event
+        </Button>
       </Container>
     </Flex>
   );

@@ -16,7 +16,7 @@ import { ArrowBackIcon, ArrowForwardIcon, WarningIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 
-const SearchEvents = ({ token, username, userRole, orgDetails }) => {
+const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
   const [allEvents, setAllEvents] = useState([]);
   const [allStreets, setAllStreets] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,7 +27,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
 
   useEffect(() => {
     axios
-      .get(`${baseURL}event/all`, {
+      .get(`${baseURL}${language}/event/all`, {
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -102,17 +102,29 @@ const SearchEvents = ({ token, username, userRole, orgDetails }) => {
               <Text fontWeight="bold" fontSize="10px">
                 {dayjs(event.event_date).format("MMMM D, YYYY")}
               </Text>
-
-              <Text
-                onClick={() => handleEventDetails(event.id)}
-                cursor="pointer"
-                size="sm"
-                mt="5"
-                color="yellow.200"
-                fontSize="8px"
-              >
-                LEARN MORE
-              </Text>
+              {userRole === "Manager" ? (
+                <Text
+                  onClick={() => handleEventDetails(event.id)}
+                  cursor="pointer"
+                  size="sm"
+                  mt="5"
+                  color="yellow.200"
+                  fontSize="8px"
+                >
+                  MANAGE
+                </Text>
+              ) : (
+                <Text
+                  onClick={() => handleEventDetails(event.id)}
+                  cursor="pointer"
+                  size="sm"
+                  mt="5"
+                  color="yellow.200"
+                  fontSize="8px"
+                >
+                  LEARN MORE
+                </Text>
+              )}
             </Box>
           ))}
         </SimpleGrid>

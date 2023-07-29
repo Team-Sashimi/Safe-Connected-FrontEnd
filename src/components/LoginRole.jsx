@@ -40,8 +40,9 @@ const LoginRole = ({ setUser }) => {
           })
           .then((res) => {
             const role = res.data.role;
-            setUser(token, username, role);
-            console.log(`hi my role is ${role}`);
+            const language = res.data.language;
+            setUser(token, username, role, language);
+            console.log(`hi my role is ${role} my language is ${language}`);
             navigate("/");
           })
           .catch((error) => {

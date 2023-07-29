@@ -17,17 +17,22 @@ import ManagerEvents from "./components/ManagerEvents";
 import EditEventDetails from "./components/EditEventDetails";
 import EventDetails from "./components/EventDetails";
 
+import UserProfile from "./components/UserProfile";
+import EditUserProfile from "./components/EditUserProfile";
+
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
   const [username, setUsername] = useLocalStorageState("userName", "");
   const [userRole, setUserRole] = useLocalStorageState("userRole", "");
+  const [language, setLanguage] = useLocalStorageState("userLanguage", "");
   const [orgDetails, setOrgDetails] = useState([]);
   const baseURL = "https://safe-connected.onrender.com/";
 
-  const setUser = (token, username, userRole) => {
+  const setUser = (token, username, userRole, language) => {
     setToken(token);
     setUsername(username);
     setUserRole(userRole);
+    setLanguage(language);
   };
 
   const handleLogout = () => {
@@ -47,24 +52,26 @@ function App() {
       });
   };
 
-  useEffect(() => {
-    axios
-      .get(`${baseURL}organization/1/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        setOrgDetails(res.data);
-      });
-  }, [token]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${baseURL}organization/1/`, {
+  //       headers: {
+  //         Authorization: `Token ${token}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setOrgDetails(res.data);
+  //     });
+  // }, [token]);
+
+  console.log(language);
 
   return (
     <>
       <Navbar handleLogout={handleLogout} />
       <Flex bgColor="gray.800" h="92vh">
         <SideBar userRole={userRole} />
-        <Flex flex="1" flexDirection="column">
+        <Flex flex="1" flexDirection="column" h="92vh">
           {token ? (
             <>
               <Routes>
@@ -75,6 +82,7 @@ function App() {
                       username={username}
                       token={token}
                       userRole={userRole}
+                      language={language}
                       handleLogout={handleLogout}
                     />
                   }
@@ -97,6 +105,7 @@ function App() {
                       token={token}
                       userRole={userRole}
                       orgDetails={orgDetails}
+                      language={language}
                     />
                   }
                 />
@@ -140,6 +149,30 @@ function App() {
                       token={token}
                       userRole={userRole}
                       orgDetails={orgDetails}
+                      language={language}
+                    />
+                  }
+                />
+                <Route
+                  path="/account"
+                  element={
+                    <UserProfile
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                      orgDetails={orgDetails}
+                      language={language}
+                    />
+                  }
+                />
+                <Route
+                  path="/edit-account"
+                  element={
+                    <EditUserProfile
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                      language={language}
                     />
                   }
                 />

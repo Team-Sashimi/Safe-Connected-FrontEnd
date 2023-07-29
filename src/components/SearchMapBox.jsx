@@ -97,18 +97,20 @@ const SearchMapBox = ({ token, setSelectedSuggestion }) => {
   return (
     <>
       <Box width="100%" maxWidth="700px" mx="auto" position="relative">
-        <FormLabel fontWeight="bold" color="yellow.200" fontSize="sm" mt="2">
+        {/* <FormLabel fontWeight="bold" color="yellow.200" fontSize="10px" mt="2">
           LOCATION:
-        </FormLabel>
-        <InputGroup size="sm">
+        </FormLabel> */}
+        <InputGroup ml="4" size="xs">
           <InputLeftElement pointerEvents="none">
             <SearchIcon color="gray.300" />
           </InputLeftElement>
           <Input
+            border="none"
+            justifyContent="flex-end"
             type="text"
-            width="100%"
-            mb="2"
-            fontSize="sm"
+            width="80%"
+            size="xs"
+            fontSize="xs"
             placeholder="Start typing address"
             value={searchQuery}
             onChange={(e) => handleAddressSearch(e.target.value)}

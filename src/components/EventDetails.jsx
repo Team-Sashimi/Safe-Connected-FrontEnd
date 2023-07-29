@@ -105,6 +105,9 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
                 <DeleteEvent token={token} eventID={eventID} />
               </>
             )}
+            {userRole === "Client" && (
+              <ClientSignUp token={token} eventID={eventID} />
+            )}
           </Flex>
         </Flex>
         <Flex justifyContent="center">

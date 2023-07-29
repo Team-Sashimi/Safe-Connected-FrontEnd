@@ -35,7 +35,7 @@ import dayjs from "dayjs";
 import SideBar from "./SideBar";
 import MainDashBoard from "./MainDashBoard";
 
-export const Main = ({ username, token, userRole, handleLogout }) => {
+export const Main = ({ username, token, userRole, language, handleLogout }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [managerEvents, setManagerEvents] = useState([]);
 
@@ -56,7 +56,7 @@ export const Main = ({ username, token, userRole, handleLogout }) => {
     navigate(`/event/${eventID}`);
   };
 
-  console.log(managerEvents);
+  console.log(language);
 
   return (
     <>
@@ -65,7 +65,7 @@ export const Main = ({ username, token, userRole, handleLogout }) => {
         marginLeft={["5%", "10%", "15%"]} // Adjust the left margin for different screen sizes
         marginTop="2.5vh"
       >
-        <Container h="100vh">
+        <Container h="100%">
           <Flex
             direction="column" // Display the elements beneath each other
             w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
@@ -78,7 +78,7 @@ export const Main = ({ username, token, userRole, handleLogout }) => {
             overflow="hidden" // Prevent content from overflowing
           >
             <Heading mb="1" fontSize="lg" color="yellow.200">
-              GETTING STARTED{" "}
+              GETTING STARTED
             </Heading>
             <Text fontSize="small" color="yellow.200">
               Safely register clients.
