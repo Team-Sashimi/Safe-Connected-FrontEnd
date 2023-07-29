@@ -12,6 +12,7 @@ import Create from "./components/Create";
 import SearchEvents from "./components/SearchEvents";
 import LoginRole from "./components/LoginRole";
 import SideBar from "./components/SideBar";
+import BottomBar from "./components/BottomBar";
 
 import ManagerEvents from "./components/ManagerEvents";
 import EditEventDetails from "./components/EditEventDetails";
@@ -69,126 +70,129 @@ function App() {
   return (
     <>
       <Navbar handleLogout={handleLogout} />
-      <Flex bgColor="gray.800" h="92vh">
+      {/* <Flex bgColor="gray.800" h="92vh">
         <SideBar userRole={userRole} />
-        <Flex flex="1" flexDirection="column" h="92vh">
-          {token ? (
-            <>
+        <Flex flex="1" flexDirection="column" h="92vh"> */}
+      <Center h="100vh" bgColor="gray.800">
+        {token ? (
+          <>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Main
+                    username={username}
+                    token={token}
+                    userRole={userRole}
+                    language={language}
+                    handleLogout={handleLogout}
+                  />
+                }
+              />
+              <Route
+                path="/create/"
+                element={
+                  <Create
+                    username={username}
+                    token={token}
+                    userRole={userRole}
+                  />
+                }
+              />
+              <Route
+                path="/search-events"
+                element={
+                  <SearchEvents
+                    username={username}
+                    token={token}
+                    userRole={userRole}
+                    orgDetails={orgDetails}
+                    language={language}
+                  />
+                }
+              />
+              <Route
+                path="/clients"
+                element={
+                  <ClientList
+                    username={username}
+                    token={token}
+                    orgDetails={orgDetails}
+                  />
+                }
+              />
+              <Route
+                path="/your-events"
+                element={
+                  <ManagerEvents
+                    username={username}
+                    token={token}
+                    userRole={userRole}
+                    orgDetails={orgDetails}
+                  />
+                }
+              />
+              <Route
+                path="/edit-event/:eventID"
+                element={
+                  <EditEventDetails
+                    username={username}
+                    token={token}
+                    userRole={userRole}
+                    orgDetails={orgDetails}
+                  />
+                }
+              />
+              <Route
+                path="/event/:eventID"
+                element={
+                  <EventDetails
+                    username={username}
+                    token={token}
+                    userRole={userRole}
+                    orgDetails={orgDetails}
+                    language={language}
+                  />
+                }
+              />
+              <Route
+                path="/account"
+                element={
+                  <UserProfile
+                    username={username}
+                    token={token}
+                    userRole={userRole}
+                    orgDetails={orgDetails}
+                    language={language}
+                  />
+                }
+              />
+              <Route
+                path="/edit-account"
+                element={
+                  <EditUserProfile
+                    username={username}
+                    token={token}
+                    userRole={userRole}
+                    language={language}
+                  />
+                }
+              />
+            </Routes>
+          </>
+        ) : (
+          <>
+            <Center flex="1">
               <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <Main
-                      username={username}
-                      token={token}
-                      userRole={userRole}
-                      language={language}
-                      handleLogout={handleLogout}
-                    />
-                  }
-                />
-                <Route
-                  path="/create/"
-                  element={
-                    <Create
-                      username={username}
-                      token={token}
-                      userRole={userRole}
-                    />
-                  }
-                />
-                <Route
-                  path="/search-events"
-                  element={
-                    <SearchEvents
-                      username={username}
-                      token={token}
-                      userRole={userRole}
-                      orgDetails={orgDetails}
-                      language={language}
-                    />
-                  }
-                />
-                <Route
-                  path="/clients"
-                  element={
-                    <ClientList
-                      username={username}
-                      token={token}
-                      orgDetails={orgDetails}
-                    />
-                  }
-                />
-                <Route
-                  path="/your-events"
-                  element={
-                    <ManagerEvents
-                      username={username}
-                      token={token}
-                      userRole={userRole}
-                      orgDetails={orgDetails}
-                    />
-                  }
-                />
-                <Route
-                  path="/edit-event/:eventID"
-                  element={
-                    <EditEventDetails
-                      username={username}
-                      token={token}
-                      userRole={userRole}
-                      orgDetails={orgDetails}
-                    />
-                  }
-                />
-                <Route
-                  path="/event/:eventID"
-                  element={
-                    <EventDetails
-                      username={username}
-                      token={token}
-                      userRole={userRole}
-                      orgDetails={orgDetails}
-                      language={language}
-                    />
-                  }
-                />
-                <Route
-                  path="/account"
-                  element={
-                    <UserProfile
-                      username={username}
-                      token={token}
-                      userRole={userRole}
-                      orgDetails={orgDetails}
-                      language={language}
-                    />
-                  }
-                />
-                <Route
-                  path="/edit-account"
-                  element={
-                    <EditUserProfile
-                      username={username}
-                      token={token}
-                      userRole={userRole}
-                      language={language}
-                    />
-                  }
-                />
+                <Route path="/" element={<LoginRole setUser={setUser} />} />
               </Routes>
-            </>
-          ) : (
-            <>
-              <Center flex="1">
-                <Routes>
-                  <Route path="/" element={<LoginRole setUser={setUser} />} />
-                </Routes>
-              </Center>
-            </>
-          )}
-        </Flex>
-      </Flex>
+            </Center>
+          </>
+        )}
+        <BottomBar />
+      </Center>
+      {/* </Flex>
+      </Flex> */}
     </>
   );
 }

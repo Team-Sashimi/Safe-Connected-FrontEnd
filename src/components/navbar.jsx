@@ -6,25 +6,32 @@ import {
   Link,
   Button,
   Center,
+  Icon,
 } from "@chakra-ui/react";
-import cnctr_nav from "../assets/cnctr_nav.svg";
+import { FiHome, FiLogOut, FiUser, FiPlus, FiCalendar } from "react-icons/fi";
+
+import cnctr_yellow from "../assets/cnctr_yellow.svg";
 
 export const Navbar = ({ handleLogout }) => {
   return (
     <Box
-      bgColor="yellow.200"
-      borderRadius="15p"
-      as="nav"
-      role="navigation"
-      bg="bg.accent.default"
+      as="navvy"
+      position="fixed"
+      top="4"
+      left="6%"
+      right="6%"
+      height="5%"
+      // background="gray.200"
+      borderRadius="xl"
+      p="1"
+      mt="4"
     >
-      <Container maxW="100vh">
-        <Flex pt="2" justifyContent="center" alignItems="center" minH="8vh">
-          <Link href="/">
-            <img src={cnctr_nav} alt="Logo" width="120px" height="60px" />
-          </Link>
-        </Flex>
-      </Container>
+      <Flex justify="space-between" align="center" h="100%">
+        <Link href="/">
+          <img src={cnctr_yellow} alt="Logo" width="90px" height="60px" />
+        </Link>
+        <Icon as={FiLogOut} color="yellow.200" boxSize="5" />
+      </Flex>
     </Box>
   );
 };
