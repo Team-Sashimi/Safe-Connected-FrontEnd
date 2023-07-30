@@ -22,7 +22,8 @@ import {
   AlertDialogOverlay,
   SimpleGrid,
 } from "@chakra-ui/react";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { Link } from "react-router-dom";
 import MapBoxEdit from "./MapBoxEdit";
 
@@ -38,7 +39,7 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
   const [streetName, setStreetName] = useState("");
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
-  const [privacy, setPrivacy] = useState("");
+  const [privacy, setPrivacy] = useState(true, false);
   const [language, setLanguage] = useState("");
   const [capacity, setCapacity] = useState("");
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
@@ -110,10 +111,11 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
         setStreetName("");
         setCity("");
         setZip("");
-        setPrivacy("");
+        setPrivacy(privacy);
         setLanguage("");
         setCapacity("");
         setIsAlertOpen(true);
+        window.location.reload();
       })
       .catch((error) => {
         console.error(error);
@@ -196,6 +198,7 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
             Event Title
           </FormLabel>
           <Input
+            border="none"
             placeholder="Name of Event"
             value={eventTitle}
             type="text"
@@ -207,13 +210,13 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
             Event Date
           </FormLabel>
           <Input
+            border="none"
             placeholder="Pick a date"
             value={eventDate}
             type="date"
             mt="-20px"
             size="xs"
-            variant="filled"
-            color="blackAlpha.800"
+            color="whiteAlpha.800"
             onChange={(e) => handleChange("eventDate", e)}
           />
           <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
