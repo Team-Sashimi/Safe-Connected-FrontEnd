@@ -134,7 +134,7 @@ const CreateEvent = ({ token, username }) => {
   // console.log(selectedSuggestion.context[2].text);
 
   return (
-    <Container h="30vh" mt="13vh">
+    <Container h="30vh" w="90%" mt="13vh">
       <Flex
         direction="column"
         w="100%"
@@ -164,39 +164,16 @@ const CreateEvent = ({ token, username }) => {
             Event Date
           </FormLabel>
           <Input
+            style={{ filter: "invert(1)", color: "white" }}
             placeholder="Pick a date"
             type="date"
             mt="-20px"
             size="xs"
-            variant="filled"
-            color="blackAlpha.800"
+            // variant="filled"
+            color="whiteAlpha.800"
             onChange={(e) => handleChange("eventDate", e)}
           />
-          <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
-            Start Time:
-          </FormLabel>
-          <Input
-            type="time"
-            mt="-20px"
-            size="xs"
-            variant="filled"
-            color="blackAlpha.800"
-            onChange={(e) => handleChange("startTime", e)}
-          />
-        </FormControl>
 
-        <FormControl>
-          <FormLabel color="yellow.200" fontSize="10px" mb="1">
-            End Time:
-          </FormLabel>
-          <Input
-            type="time"
-            mt="-20px"
-            size="xs"
-            variant="filled"
-            color="blackAlpha.800"
-            onChange={(e) => handleChange("endTime", e)}
-          />
           <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
             Is your event private?
           </FormLabel>
@@ -210,6 +187,32 @@ const CreateEvent = ({ token, username }) => {
             <option value="True">Yes</option>
             <option value="False">No</option>
           </Select>
+        </FormControl>
+
+        <FormControl>
+          <FormLabel color="yellow.200" fontSize="10px" mb="1">
+            Start Time:
+          </FormLabel>
+          <Input
+            type="time"
+            mt="-20px"
+            size="xs"
+            variant="filled"
+            color="blackAlpha.800"
+            onChange={(e) => handleChange("startTime", e)}
+          />
+          <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+            End Time:
+          </FormLabel>
+          <Input
+            type="time"
+            mt="-20px"
+            size="xs"
+            variant="filled"
+            color="blackAlpha.800"
+            onChange={(e) => handleChange("endTime", e)}
+          />
+
           <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
             Capacity
           </FormLabel>

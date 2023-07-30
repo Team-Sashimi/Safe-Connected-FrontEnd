@@ -45,7 +45,7 @@ const UserProfile = ({ token, username, userRole, orgDetails }) => {
         spacing={4}
         borderRadius="20px"
         alignItems="center"
-        maxChildHeight="100px"
+        // maxChildHeight="100px"
       >
         <Box
           // backgroundColor="gray.200"

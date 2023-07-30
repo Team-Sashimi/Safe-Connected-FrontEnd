@@ -19,7 +19,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [userLanguage, setUserLanguage] = useState("");
+  const [language, setLanguage] = useState("");
   const navigate = useNavigate();
 
   const handleEditAccount = (e) => {
@@ -31,7 +31,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
           first_name: firstName,
           last_name: lastName,
           email: email,
-          language: userLanguage,
+          language: language,
         },
         {
           headers: {
@@ -43,13 +43,15 @@ const EditUserProfile = ({ token, username, userRole }) => {
         console.log("you edited your profile");
         setFirstName("");
         setLastName("");
-        setUserLanguage("");
+        setLanguage("");
         navigate("/account");
       })
       .catch((error) => {
         console.log("error");
       });
   };
+
+  console.log(language);
 
   return (
     <>
@@ -62,26 +64,26 @@ const EditUserProfile = ({ token, username, userRole }) => {
           border="solid"
           // borderColor="yellow.200"
         >
-          <UploadFile token={token} username={username} />
+          {/* <UploadFile token={token} username={username} /> */}
         </Flex>
         <SimpleGrid columns={1} spacing={4}>
           <FormControl>
             <FormLabel color="yellow.200" fontSize="10px" mb="1">
-              Event Title
+              First Name
             </FormLabel>
             <Input
-              placeholder="Name of Event"
+              placeholder="Enter name..."
               type="text"
               size="xs"
               color="whiteAlpha.800"
               onChange={(e) => setFirstName(e.target.value)}
             />
             <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
-              Event Date
+              Last Name{" "}
             </FormLabel>
             <Input
-              placeholder="Pick a date"
-              type="date"
+              placeholder="Enter last name..."
+              type="text"
               mt="-20px"
               size="xs"
               variant="filled"
@@ -97,7 +99,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
               size="xs"
               variant="filled"
               color="blackAlpha.800"
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={(e) => setLanguage(e.target.value)}
             >
               <option value="en">English</option>
               <option value="es">Spanish</option>
