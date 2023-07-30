@@ -62,7 +62,7 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
       <Container mt="2">
         <Flex
           direction="column" // Display the elements beneath each other
-          w="100%"
+          w="300px"
           h="200px"
           borderRadius={15}
           border="solid"
@@ -75,8 +75,10 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
           <Heading color="yellow.200" as="h4" size="md" mt="10">
             {eventDetails.event_title}
           </Heading>
-          <Text color="yellow.200">{eventDetails.general_notes}</Text>
-          <br></br>
+          <Text fontSize="10px" mb="5" color="yellow.200">
+            {eventDetails.general_notes}
+          </Text>
+
           <Text fontSize="12px" color="yellow.200">
             {eventDetails.start_time && eventDetails.end_time ? (
               <Text color="yellow.200">

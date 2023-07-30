@@ -73,6 +73,7 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
         setEventStreet(res.data.street_name);
         setEventAddress(res.data.full_address);
         setEventDetails(res.data);
+        setCity(res.data.zipcode);
       });
   }, [token, eventID]);
 
@@ -169,9 +170,7 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
     }
   };
 
-  // console.log(selectedSuggestion);
-  // console.log(eventID);
-  console.log(eventDetails.privacy);
+  console.log(selectedSuggestion);
 
   return (
     <Container h="30vh" mt="13vh">
