@@ -19,6 +19,7 @@ import UploadFile from "./UploadFile";
 const UserProfile = ({ token, username, userRole, orgDetails }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [userDetails, setUserDetails] = useState([]);
+  const [avatar, setAvatar] = useState([]);
 
   useEffect(() => {
     axios
@@ -32,8 +33,19 @@ const UserProfile = ({ token, username, userRole, orgDetails }) => {
       });
   }, [token]);
 
+  // useEffect(() => {
+  //   axios
+  //     .get(`${baseURL}uploads/`, {
+  //       headers: {
+  //         Authorization: `Token ${token}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setAvatar(res.data);
+  //     });
+  // }, [token]);
+
   console.log(userDetails);
-  console.log(orgDetails);
   return (
     <>
       <SimpleGrid

@@ -44,6 +44,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
         setFirstName("");
         setLastName("");
         setLanguage("");
+        setEmail("");
         navigate("/account");
       })
       .catch((error) => {
@@ -51,7 +52,10 @@ const EditUserProfile = ({ token, username, userRole }) => {
       });
   };
 
+  console.log(firstName);
+  console.log(lastName);
   console.log(language);
+  console.log(email);
 
   return (
     <>
@@ -64,7 +68,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
           border="solid"
           // borderColor="yellow.200"
         >
-          {/* <UploadFile token={token} username={username} /> */}
+          <UploadFile token={token} username={username} />
         </Flex>
         <SimpleGrid columns={1} spacing={4}>
           <FormControl>
@@ -103,6 +107,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
             >
               <option value="en">English</option>
               <option value="es">Spanish</option>
+              <option value="fr">French</option>
             </Select>
             <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
               Email

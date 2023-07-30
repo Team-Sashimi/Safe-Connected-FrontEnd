@@ -142,8 +142,8 @@ const MapBoxEdit = ({
             onChange={(e) => handleAddressSearch(e.target.value)}
             color="white"
             bg="gray.800"
-            px="2" // Reduce horizontal padding
-            py="1" // Reduce vertical padding
+            px="2"
+            py="1"
           />
         </InputGroup>
 

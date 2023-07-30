@@ -64,6 +64,12 @@ export const Main = ({ username, token, userRole, language }) => {
   };
 
   console.log(language);
+  console.log(userRole);
+
+  // endpoint to upload a user avatar. i need the PK loaded for me. request.user.pk
+  // that way i can just use the endpoint user/image instead of user/pk/image.
+  // what endpoint should i use to view the users image. the endpoint should allow a GET.
+  // when posting a user avatar, i can't get the user PK.
 
   return (
     <>
