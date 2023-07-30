@@ -283,3 +283,109 @@ export const Main = ({ username, token, userRole, language }) => {
 //     </Flex>
 //   );
 // };
+
+// most recent!
+// return (
+//   <>
+//     <Flex
+//       direction="column"
+//       marginLeft={["5%", "10%", "15%"]} // Adjust the left margin for different screen sizes
+//       marginTop="12vh"
+//     >
+//       <Container h="100%" w="100%">
+//         <Flex
+//           direction="column" // Display the elements beneath each other
+//           w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
+//           h={["150px", "200px", "250px"]}
+//           borderRadius="15"
+//           border="solid"
+//           // borderColor="yellow.200"
+//           align="flex-end" // Right-align the items horizontally
+//           justify="center" // Right-align the items vertically
+//           overflow="hidden" // Prevent content from overflowing
+//         >
+//           <Heading
+//             css={{
+//               letterSpacing: "0.1em", // Adjust the letter spacing value as per your preference
+//             }}
+//             mb="2"
+//             fontSize="xl"
+//             color="yellow.200"
+//           >
+//             GETTING STARTED
+//           </Heading>
+//           <Text fontSize="small" color="whiteAlpha.500">
+//             Safely register clients.
+//           </Text>
+//           <Text fontSize="small" color="whiteAlpha.500">
+//             Create & manage events.
+//           </Text>
+//           <Text fontSize="small" color="whiteAlpha.500">
+//             Language translation built in.
+//           </Text>
+//         </Flex>
+//         <Flex
+//           direction="column" // Display the elements beneath each other
+//           w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
+//           h={["200px", "250px", "300px"]} // Adjust the height to make the accordion smaller
+//           borderRadius="15"
+//           border="solid"
+//           // borderColor="yellow.200"
+//           align="flex-end" // Right-align the items horizontally
+//           justify="center" // Right-align the items vertically
+//           overflow="hidden" // Prevent content from overflowing
+//         >
+//           <Heading
+//             css={{
+//               letterSpacing: "0.1em", // Adjust the letter spacing value as per your preference
+//             }}
+//             mb="3"
+//             fontSize="lg"
+//             color="yellow.200"
+//           >
+//             CREATED EVENTS
+//           </Heading>
+//           {managerEvents.slice(0, 5).map((event) => (
+//             <Text
+//               fontSize="small"
+//               color="whiteAlpha.500"
+//               key={event.id}
+//               ml="auto"
+//               onClick={() => handleEventDetails(event.id)}
+//             >
+//               {event.event_title}
+//             </Text>
+//           ))}
+//         </Flex>
+//         <Flex
+//           direction="column"
+//           align="flex-end" // Right-align the items horizontally
+//           justify="flex-end" // Right-align the items vertically
+//           overflow="hidden"
+//         >
+//           <Heading
+//             css={{
+//               letterSpacing: "0.1em", // Adjust the letter spacing value as per your preference
+//             }}
+//             mb="3"
+//             fontSize="lg"
+//             color="yellow.200"
+//           >
+//             REGISTERED CLIENTS
+//           </Heading>
+//           {managerEvents.slice(0, 5).map((event) => (
+//             <Text
+//               fontSize="small"
+//               color="whiteAlpha.500"
+//               key={event.id}
+//               ml="auto"
+//             >
+//               {event.event_title}
+//             </Text>
+//           ))}
+//         </Flex>
+//       </Container>
+//     </Flex>
+//   </>
+// );
+// };

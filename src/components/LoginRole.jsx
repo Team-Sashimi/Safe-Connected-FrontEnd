@@ -57,7 +57,7 @@ const LoginRole = ({ setUser }) => {
 
   return (
     <>
-      <Container h="30vh" w="90%" mt="45vh">
+      <Container w="90%" mt="45vh">
         <Stack as={Box} textAlign={"center"} spacing={{ base: 2, md: 2 }}>
           <Center>
             <Box>
@@ -81,8 +81,6 @@ const LoginRole = ({ setUser }) => {
             direction="column"
             w="50&"
             h="100%"
-            borderRadius="15"
-            border="solid"
             mt="-10"
             // borderColor="yellow.200"
           >
@@ -126,8 +124,6 @@ const LoginRole = ({ setUser }) => {
                 mt="4"
                 size="sm"
                 type="submit"
-                color="yellow.200"
-                colorScheme="whiteAlpha"
                 onClick={handleSubmit}
                 cursor="pointer"
               >

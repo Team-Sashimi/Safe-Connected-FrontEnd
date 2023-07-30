@@ -12,7 +12,7 @@ const BottomBar = ({ username, token, userRole }) => {
       bottom="0"
       w="100%"
       height="8%"
-      bgColor="yellow.200"
+      bgGradient="linear-gradient(159.02deg, #faf189 14.25%, #faf17e 56.45%, #faf189 86.14%)"
       boxShadow="lg"
       borderTopRadius="xl"
       p="1"

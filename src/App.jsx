@@ -74,7 +74,11 @@ function App() {
       {/* <Flex bgColor="gray.800" h="92vh">
         <SideBar userRole={userRole} />
         <Flex flex="1" flexDirection="column" h="92vh"> */}
-      <Center h="100vh" bgColor="gray.800" alignItems="flex-start">
+      <Center
+        h="100vh"
+        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+        alignItems="flex-start"
+      >
         {token ? (
           <>
             <Routes>
