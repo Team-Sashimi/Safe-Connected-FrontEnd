@@ -11,6 +11,10 @@ import {
   Input,
   Button,
   Image,
+  Container,
+  Flex,
+  SimpleGrid,
+  Select,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import cnctr_yellow from "../assets/cnctr_yellow.svg";
@@ -53,85 +57,86 @@ const LoginRole = ({ setUser }) => {
 
   return (
     <>
-      <Center w="100%" h="92vh" bgColor="gray.800">
+      <Container h="30vh" w="90%" mt="45vh">
         <Stack as={Box} textAlign={"center"} spacing={{ base: 2, md: 2 }}>
           <Center>
             <Box>
-              <Image
-                src={cnctr_yellow}
-                alt="Logo"
-                width="600px"
-                height="600px"
-              />
-
               <Heading
                 mt="-120px"
-                mb="50px"
+                mb="20px"
                 fontWeight={600}
-                fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
+                fontSize="30px"
                 lineHeight={"110%"}
-                color={"whiteAlpha.800"}
+                color={"yellow.200"}
               >
                 Safe. Connected. <br />
-                <Text as={"span"} color={"whiteAlpha.800"}>
+                <Text as={"span"} color={"yellow.200"}>
                   Resources & Services.
                 </Text>
               </Heading>
             </Box>
           </Center>
-          <form onSubmit={handleSubmit}>
-            <FormControl>
-              <Center>
-                <FormLabel color="yellow.200" htmlFor="name" mr="20px">
-                  Username:{" "}
-                </FormLabel>
-                <Input
-                  type="text"
-                  name="name"
-                  id="name"
-                  width="250px"
-                  value={username}
-                  color="white"
-                  // as the value in input changes, it's setting the value to setUserName
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                />
-              </Center>
-              <Center mt="6">
-                <FormLabel
-                  mt="4"
-                  color="yellow.200"
-                  htmlFor="password"
-                  mr="20px"
-                >
-                  Password:{" "}
-                </FormLabel>
-                <Input
-                  type="password"
-                  name="password-name"
-                  id="password-register"
-                  width="250px"
-                  color="white"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </Center>
 
-              <Box>
-                <Button
-                  mt="10"
-                  onClick={handleSubmit}
-                  type="submit"
-                  value="Log In"
-                >
-                  Login
-                </Button>
-              </Box>
+          <Flex
+            direction="column"
+            w="50&"
+            h="100%"
+            borderRadius="15"
+            border="solid"
+            mt="-10"
+            // borderColor="yellow.200"
+          >
+            <Box>
+              <Text fontSize="12px" color={"whiteAlpha.800"}>
+                Login below, or email <strong>safenconnected@gmail.com</strong>{" "}
+                to register your organization.
+              </Text>
+            </Box>
+          </Flex>
+          <SimpleGrid mt="5" columns={1} spacing={4}>
+            <FormControl>
+              <FormLabel color="yellow.200" fontSize="12px" mb="1">
+                Username:
+              </FormLabel>
+              <Input
+                placeholder="Enter username..."
+                id="username"
+                type="text"
+                size="sm"
+                color="whiteAlpha.800"
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <FormLabel color="yellow.200" fontSize="12px" mt="5" mb="1">
+                Password
+              </FormLabel>
+              <Input
+                placeholder="Enter password..."
+                id="password"
+                type="password"
+                size="sm"
+                color="whiteAlpha.800"
+                onChange={(e) => setPassword(e.target.value)}
+                required={true}
+              />
             </FormControl>
-          </form>
+          </SimpleGrid>
+          <FormControl>
+            <Center>
+              <Button
+                mt="4"
+                size="sm"
+                type="submit"
+                color="yellow.200"
+                colorScheme="whiteAlpha"
+                onClick={handleSubmit}
+                cursor="pointer"
+              >
+                Login{" "}
+              </Button>
+            </Center>
+          </FormControl>
         </Stack>
-      </Center>
+      </Container>
     </>
   );
 };

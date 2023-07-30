@@ -183,11 +183,9 @@ function App() {
           </>
         ) : (
           <>
-            <Center flex="1">
-              <Routes>
-                <Route path="/" element={<LoginRole setUser={setUser} />} />
-              </Routes>
-            </Center>
+            <Routes>
+              <Route path="/" element={<LoginRole setUser={setUser} />} />
+            </Routes>
           </>
         )}
       </Center>

@@ -10,12 +10,11 @@ import {
 } from "@chakra-ui/react";
 import { FiHome, FiLogOut, FiUser, FiPlus, FiCalendar } from "react-icons/fi";
 
-import cnctr_yellow from "../assets/cnctr_yellow.svg";
+import connected_new from "../assets/connected_new.svg";
 
 export const Navbar = ({ handleLogout }) => {
   return (
     <Box
-      as="navvy"
       position="fixed"
       top="4"
       left="6%"
@@ -28,7 +27,7 @@ export const Navbar = ({ handleLogout }) => {
     >
       <Flex justify="space-between" align="center" h="100%">
         <Link href="/">
-          <img src={cnctr_yellow} alt="Logo" width="90px" height="60px" />
+          <img src={connected_new} alt="Logo" width="120px" height="60px" />
         </Link>
         <Icon
           onClick={handleLogout}
