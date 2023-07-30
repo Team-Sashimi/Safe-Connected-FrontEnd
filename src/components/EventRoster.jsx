@@ -91,7 +91,7 @@ const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
                         alignItems="center"
                         justifyContent="center"
                       >
-                        <Flex direction="column" alignItems="center" ml="4">
+                        <Flex direction="column" alignItems="center">
                           <Avatar
                             size="sm"
                             name={event_attendees}

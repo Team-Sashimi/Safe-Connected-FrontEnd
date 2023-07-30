@@ -22,7 +22,7 @@ import moment from "moment";
 
 import { Link } from "react-router-dom";
 
-const EventDetails = ({ token, username, userRole, orgDetails }) => {
+const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
   const [eventDetails, setEventDetails] = useState([]);
   const [eventRoster, setEventRoster] = useState([]);
   const [eventAddress, setEventAddress] = useState("");
@@ -35,7 +35,7 @@ const EventDetails = ({ token, username, userRole, orgDetails }) => {
 
   useEffect(() => {
     axios
-      .get(`${baseURL}event/${eventID}/details`, {
+      .get(`${baseURL}${language}/event/${eventID}/details`, {
         headers: {
           Authorization: `Token ${token}`,
         },

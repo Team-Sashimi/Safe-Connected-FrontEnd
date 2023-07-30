@@ -115,7 +115,14 @@ export const Main = ({ username, token, userRole, language }) => {
             justify="center" // Right-align the items vertically
             overflow="hidden" // Prevent content from overflowing
           >
-            <Heading mb="3" fontSize="lg" color="yellow.200">
+            <Heading
+              css={{
+                letterSpacing: "0.1em", // Adjust the letter spacing value as per your preference
+              }}
+              mb="3"
+              fontSize="lg"
+              color="yellow.200"
+            >
               CREATED EVENTS
             </Heading>
             {managerEvents.slice(0, 5).map((event) => (
@@ -136,7 +143,14 @@ export const Main = ({ username, token, userRole, language }) => {
             justify="flex-end" // Right-align the items vertically
             overflow="hidden"
           >
-            <Heading mb="3" fontSize="lg" color="yellow.200">
+            <Heading
+              css={{
+                letterSpacing: "0.1em", // Adjust the letter spacing value as per your preference
+              }}
+              mb="3"
+              fontSize="lg"
+              color="yellow.200"
+            >
               REGISTERED CLIENTS
             </Heading>
             {managerEvents.slice(0, 5).map((event) => (
