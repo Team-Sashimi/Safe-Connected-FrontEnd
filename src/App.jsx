@@ -4,7 +4,7 @@ import axios from "axios";
 import { Flex, Center, Button } from "@chakra-ui/react";
 import useLocalStorageState from "use-local-storage-state";
 import { Routes, Route, Link } from "react-router-dom";
-import { Main } from "./components/Main";
+import Main from "./components/Main";
 import { Navbar } from "./components/navbar";
 import ClientList from "./components/ClientList";
 import Create from "./components/Create";

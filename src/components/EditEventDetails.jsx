@@ -179,7 +179,7 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
         w="100%"
         h="100%"
         borderRadius="15"
-        border="solid"
+        // border="solid"
         // borderColor="yellow.200"
       >
         <MapBoxEdit

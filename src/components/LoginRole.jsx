@@ -94,7 +94,7 @@ const LoginRole = ({ setUser }) => {
           <SimpleGrid mt="5" columns={1} spacing={4}>
             <FormControl>
               <FormLabel color="yellow.200" fontSize="12px" mb="1">
-                Username:
+                Username
               </FormLabel>
               <Input
                 placeholder="Enter username..."

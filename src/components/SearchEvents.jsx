@@ -27,7 +27,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
 
   useEffect(() => {
     axios
-      .get(`${baseURL}${language}/event/all`, {
+      .get(`${baseURL}${language}/event/all/`, {
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -71,7 +71,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
     setCurrentPage(page);
   };
 
-  console.log(allEvents);
+  console.log(`${baseURL}${language}/event/all/`);
 
   return (
     <Flex mt="12">

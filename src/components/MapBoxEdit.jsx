@@ -124,7 +124,7 @@ const MapBoxEdit = ({
         {/* <FormLabel fontWeight="bold" color="yellow.200" fontSize="10px" mt="2">
         LOCATION:
       </FormLabel> */}
-        <Box borderRadius="md" height="150px" width="100%" ref={mapContainer} />
+        <Box borderRadius="lg" height="150px" width="100%" ref={mapContainer} />
 
         <InputGroup size="xs" mt="2">
           <InputLeftElement pointerEvents="none">
@@ -134,14 +134,14 @@ const MapBoxEdit = ({
             border="none"
             justifyContent="flex-end"
             type="text"
-            width="80%"
+            width="100%"
             size="xs"
             fontSize="xs"
             placeholder="Start typing address"
             value={searchQuery}
             onChange={(e) => handleAddressSearch(e.target.value)}
             color="white"
-            bg="gray.800"
+            // bg="gray.800"
             px="2"
             py="1"
           />

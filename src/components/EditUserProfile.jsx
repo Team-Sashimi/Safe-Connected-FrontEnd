@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
@@ -11,7 +11,10 @@ import {
   SimpleGrid,
   Button,
   Center,
+  Avatar,
+  InputGroup,
 } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
 import UploadFile from "./UploadFile";
 
 const EditUserProfile = ({ token, username, userRole }) => {
@@ -19,11 +22,15 @@ const EditUserProfile = ({ token, username, userRole }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [language, setLanguage] = useState("");
+  const [language, setLanguage] = useState("en", "es", "fr");
+  const [avatar, setAvatar] = useState("");
+  const [userDetails, setUserDetails] = useState([]);
+
   const navigate = useNavigate();
 
   const handleEditAccount = (e) => {
     e.preventDefault();
+
     axios
       .patch(
         `${baseURL}auth/users/me/`,
@@ -32,6 +39,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
           last_name: lastName,
           email: email,
           language: language,
+          user_avatar: avatar,
         },
         {
           headers: {
@@ -52,10 +60,34 @@ const EditUserProfile = ({ token, username, userRole }) => {
       });
   };
 
-  console.log(firstName);
-  console.log(lastName);
-  console.log(language);
-  console.log(email);
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setAvatar(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
+  useEffect(() => {
+    axios
+      .get(`${baseURL}auth/users/me/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        setUserDetails(res.data);
+      });
+  }, [token]);
+
+  console.log(userDetails);
+
+  console.log(avatar);
 
   return (
     <>
@@ -68,7 +100,12 @@ const EditUserProfile = ({ token, username, userRole }) => {
           border="solid"
           // borderColor="yellow.200"
         >
-          <UploadFile token={token} username={username} />
+          <Center>
+            <Avatar size="xl" name={username} mb="10" src={avatar} />
+            <InputGroup>
+              <Input border="none" type="file" onChange={handleFileChange} />
+            </InputGroup>
+          </Center>
         </Flex>
         <SimpleGrid columns={1} spacing={4}>
           <FormControl>
@@ -80,6 +117,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
               type="text"
               size="xs"
               color="whiteAlpha.800"
+              value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
             <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">

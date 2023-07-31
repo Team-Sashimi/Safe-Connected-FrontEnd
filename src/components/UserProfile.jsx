@@ -70,7 +70,7 @@ const UserProfile = ({ token, username, userRole, orgDetails }) => {
               size="xl"
               name={username}
               mb="5"
-              // src="https://example.com/avatar.jpg"
+              src={userDetails.user_avatar}
             />
           </Center>
           <Center>

@@ -1,50 +1,29 @@
-import {
-  Container,
-  Flex,
-  Heading,
-  Box,
-  Center,
-  Text,
-  Input,
-  Button,
-  Grid,
-  Avatar,
-  InputGroup,
-  InputLeftElement,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-  Icon,
-  SimpleGrid,
-} from "@chakra-ui/react";
-
-import { useParams, useNavigate } from "react-router-dom";
-
-import { PhoneIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
-import { FiUsers, FiEdit2, FiUser, FiPlus, FiCalendar } from "react-icons/fi";
-
-import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import dayjs from "dayjs";
-import SideBar from "./SideBar";
-import MainDashBoard from "./MainDashBoard";
+import { useNavigate } from "react-router-dom";
+import {
+  Flex,
+  Text,
+  SimpleGrid,
+  Spacer,
+  TableContainer,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+  Tfoot,
+  Heading,
+} from "@chakra-ui/react";
+import { FiCalendar } from "react-icons/fi";
 
-export const Main = ({ username, token, userRole, language }) => {
+const Main = ({ username, token, userRole }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [managerEvents, setManagerEvents] = useState([]);
   const [eventID, setEventID] = useState("");
   const navigate = useNavigate();
+
   useEffect(() => {
     axios
       .get(`${baseURL}event/organizer/list/`, {
@@ -54,6 +33,9 @@ export const Main = ({ username, token, userRole, language }) => {
       })
       .then((res) => {
         setManagerEvents(res.data);
+      })
+      .catch((error) => {
+        console.log("Error fetching manager events:", error);
       });
   }, [token]);
 
@@ -63,118 +45,108 @@ export const Main = ({ username, token, userRole, language }) => {
     setEventID(eventID);
   };
 
-  console.log(language);
-  console.log(userRole);
-
-  // endpoint to upload a user avatar. i need the PK loaded for me. request.user.pk
-  // that way i can just use the endpoint user/image instead of user/pk/image.
-  // what endpoint should i use to view the users image. the endpoint should allow a GET.
-  // when posting a user avatar, i can't get the user PK.
-
   return (
-    <>
-      <Flex
-        direction="column"
-        marginLeft={["5%", "10%", "15%"]} // Adjust the left margin for different screen sizes
-        marginTop="12vh"
-      >
-        <Container h="100%" w="100%">
-          <Flex
-            direction="column" // Display the elements beneath each other
-            w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
-            h={["150px", "200px", "250px"]}
-            borderRadius="15"
-            border="solid"
-            // borderColor="yellow.200"
-            align="flex-end" // Right-align the items horizontally
-            justify="center" // Right-align the items vertically
-            overflow="hidden" // Prevent content from overflowing
-          >
-            <Heading
-              css={{
-                letterSpacing: "0.1em", // Adjust the letter spacing value as per your preference
-              }}
-              mb="2"
-              fontSize="xl"
-              color="yellow.200"
-            >
-              GETTING STARTED
-            </Heading>
-            <Text fontSize="small" color="whiteAlpha.500">
-              Safely register clients.
-            </Text>
-            <Text fontSize="small" color="whiteAlpha.500">
-              Create & manage events.
-            </Text>
-            <Text fontSize="small" color="whiteAlpha.500">
-              Language translation built in.
-            </Text>
-          </Flex>
-          <Flex
-            direction="column" // Display the elements beneath each other
-            w={["100%", "80%", "500px"]} // Adjust the width for different screen sizes
-            h={["200px", "250px", "300px"]} // Adjust the height to make the accordion smaller
-            borderRadius="15"
-            border="solid"
-            // borderColor="yellow.200"
-            align="flex-end" // Right-align the items horizontally
-            justify="center" // Right-align the items vertically
-            overflow="hidden" // Prevent content from overflowing
-          >
-            <Heading
-              css={{
-                letterSpacing: "0.1em", // Adjust the letter spacing value as per your preference
-              }}
-              mb="3"
-              fontSize="lg"
-              color="yellow.200"
-            >
-              CREATED EVENTS
-            </Heading>
-            {managerEvents.slice(0, 5).map((event) => (
-              <Text
-                fontSize="small"
-                color="whiteAlpha.500"
-                key={event.id}
-                ml="auto"
-                onClick={() => handleEventDetails(event.id)}
-              >
-                {event.event_title}
-              </Text>
-            ))}
-          </Flex>
-          <Flex
-            direction="column"
-            align="flex-end" // Right-align the items horizontally
-            justify="flex-end" // Right-align the items vertically
-            overflow="hidden"
-          >
-            <Heading
-              css={{
-                letterSpacing: "0.1em", // Adjust the letter spacing value as per your preference
-              }}
-              mb="3"
-              fontSize="lg"
-              color="yellow.200"
-            >
-              REGISTERED CLIENTS
-            </Heading>
-            {managerEvents.slice(0, 5).map((event) => (
-              <Text
-                fontSize="small"
-                color="whiteAlpha.500"
-                key={event.id}
-                ml="auto"
-              >
-                {event.event_title}
-              </Text>
-            ))}
-          </Flex>
-        </Container>
-      </Flex>
-    </>
+    <Flex
+      w="300px"
+      flexDirection="column"
+      h="100%"
+      pt={{ base: "100px", md: "75px" }}
+    >
+      <SimpleGrid columns={{ sm: 1, md: 2, xl: 4 }} spacing="10px">
+        {/* MiniStatistics Card */}
+        <Flex
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          // bg="blue.500"
+          boxShadow="md"
+          borderRadius="lg"
+          p="1px"
+        >
+          <Text fontSize="md" color="white" fontWeight="bold" mb="3" pb="2px">
+            Welcome! {username}
+          </Text>
+          <Text fontSize="xs" color="#fff">
+            Create Events | Manage Clients | Built in Translation
+          </Text>
+        </Flex>
+        <Flex
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          bg="blue.500"
+          boxShadow="md"
+          borderRadius="lg"
+        >
+          {/* <Text fontSize="sm" color="#fff" fontWeight="bold">
+            Manage Clients
+          </Text>
+          <Text fontSize="sm" color="#fff" fontWeight="bold">
+            Content Translation.
+          </Text> */}
+        </Flex>
+        <Spacer></Spacer>
+        <Spacer></Spacer>
+        <TableContainer>
+          <Table size="sm">
+            <Thead>
+              <Tr>
+                <Th color="yellow.200">My Events</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td color="gray.400" fontSize="12px">
+                  Event Title
+                </Td>
+              </Tr>
+              <Tr>
+                <Td color="gray.400" fontSize="12px">
+                  Event Title 2
+                </Td>
+              </Tr>
+              <Tr>
+                <Td color="gray.400" fontSize="12px">
+                  Event Title 3
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </TableContainer>
+        <Spacer></Spacer>
+        <Spacer></Spacer>
+        <TableContainer>
+          <Table size="sm">
+            <Thead>
+              <Tr>
+                <Th color="yellow.200">My Clients</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td color="gray.400" fontSize="12px">
+                  Client
+                </Td>
+              </Tr>
+              <Tr>
+                <Td color="gray.400" fontSize="12px">
+                  Client 2
+                </Td>
+              </Tr>
+              <Tr>
+                <Td color="gray.400" fontSize="12px">
+                  Client 2
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </SimpleGrid>
+    </Flex>
   );
 };
+
+export default Main;
 
 // pretty good.
 
@@ -389,3 +361,50 @@ export const Main = ({ username, token, userRole, language }) => {
 //   </>
 // );
 // };
+
+//  {/* MiniStatistics Card */}
+//  <Flex
+//  flexDirection="column"
+//  alignItems="center"
+//  justifyContent="center"
+//  // bg="blue.500"
+//  boxShadow="lg"
+//  borderRadius="lg"
+//  p="20px"
+// >
+//  <Text
+//    h="150px"
+//    fontSize="md"
+//    color="gray.400"
+//    fontWeight="bold"
+//    mb="auto"
+//  >
+//    Your Events
+//  </Text>
+//  <Spacer />
+//  <Flex align="center">
+//    <Text
+//      fontSize="sm"
+//      color="#fff"
+//      fontWeight="bold"
+//      cursor="pointer"
+//      transition="all .3s ease"
+//      my={{ base: "1.5rem", lg: "0px" }}
+//      _hover={{ me: "4px" }}
+//      mr="3"
+//    >
+//      Manage
+//    </Text>
+//    <FiCalendar
+//      w="20px"
+//      h="20px"
+//      color="#fff"
+//      fontSize="2xl"
+//      transition="all .3s ease"
+//      mx=".3rem"
+//      cursor="pointer"
+//      pt="4px"
+//      _hover={{ transform: "translateX(20%)" }}
+//    />
+//  </Flex>
+// </Flex>

@@ -139,9 +139,9 @@ const CreateEvent = ({ token, username }) => {
         direction="column"
         w="100%"
         h="100%"
-        borderRadius="15"
-        border="solid"
-        // borderColor="yellow.200"
+        borderRadius="20"
+        // border="solid"
+        // borderColor="none"
       >
         <SearchMapBox
           token={token}
@@ -157,36 +157,39 @@ const CreateEvent = ({ token, username }) => {
             placeholder="Name of Event"
             type="text"
             size="xs"
-            color="whiteAlpha.800"
+            color="grey.800"
+            variant="filled"
             onChange={(e) => handleChange("eventTitle", e)}
           />
           <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
             Event Date
           </FormLabel>
           <Input
-            style={{ filter: "invert(1)", color: "white" }}
+            // style={{ filter: "invert(1)", color: "white" }}
             placeholder="Pick a date"
             type="date"
             mt="-20px"
             size="xs"
-            // variant="filled"
-            color="whiteAlpha.800"
+            border="none"
+            variant="filled"
+            color="gray.800"
             onChange={(e) => handleChange("eventDate", e)}
           />
-
-          <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
-            Is your event private?
-          </FormLabel>
-          <Select
-            placeholder="Choose below"
-            size="xs"
-            variant="filled"
-            color="blackAlpha.800"
-            onChange={(e) => handleChange("privacy", e)}
-          >
-            <option value="True">Yes</option>
-            <option value="False">No</option>
-          </Select>
+          <FormControl>
+            <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+              Is your event private?
+            </FormLabel>
+            <Select
+              placeholder="Choose below"
+              size="xs"
+              variant="filled"
+              color="blackAlpha.800"
+              onChange={(e) => handleChange("privacy", e)}
+            >
+              <option value="True">Yes</option>
+              <option value="False">No</option>
+            </Select>
+          </FormControl>
         </FormControl>
 
         <FormControl>
