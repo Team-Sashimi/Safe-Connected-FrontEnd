@@ -158,7 +158,7 @@ const CreateEvent = ({ token, username }) => {
             type="text"
             size="xs"
             color="grey.800"
-            variant="filled"
+            bg="white"
             onChange={(e) => handleChange("eventTitle", e)}
           />
           <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
@@ -171,8 +171,8 @@ const CreateEvent = ({ token, username }) => {
             mt="-20px"
             size="xs"
             border="none"
-            variant="filled"
-            color="gray.800"
+            bg="white"
+            color="grey.800"
             onChange={(e) => handleChange("eventDate", e)}
           />
           <FormControl>
@@ -182,8 +182,7 @@ const CreateEvent = ({ token, username }) => {
             <Select
               placeholder="Choose below"
               size="xs"
-              variant="filled"
-              color="blackAlpha.800"
+              bg="white"
               onChange={(e) => handleChange("privacy", e)}
             >
               <option value="True">Yes</option>
@@ -200,7 +199,7 @@ const CreateEvent = ({ token, username }) => {
             type="time"
             mt="-20px"
             size="xs"
-            variant="filled"
+            bg="white"
             color="blackAlpha.800"
             onChange={(e) => handleChange("startTime", e)}
           />
@@ -211,7 +210,7 @@ const CreateEvent = ({ token, username }) => {
             type="time"
             mt="-20px"
             size="xs"
-            variant="filled"
+            bg="white"
             color="blackAlpha.800"
             onChange={(e) => handleChange("endTime", e)}
           />
@@ -222,7 +221,7 @@ const CreateEvent = ({ token, username }) => {
           <Input
             placeholder="Choose below"
             size="xs"
-            variant="filled"
+            bg="white"
             color="blackAlpha.800"
             onChange={(e) => handleChange("capacity", e)}
           />
@@ -236,7 +235,7 @@ const CreateEvent = ({ token, username }) => {
         <Textarea
           placeholder="Event details..."
           size="xs"
-          variant="filled"
+          bg="white"
           color="blackAlpha.800"
           onChange={(e) => handleChange("generalNotes", e)}
         />

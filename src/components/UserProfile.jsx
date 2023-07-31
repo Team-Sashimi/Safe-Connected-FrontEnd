@@ -78,12 +78,13 @@ const UserProfile = ({ token, username, userRole, orgDetails }) => {
               <Heading mt="4" size="lg" color="yellow.200">
                 {userDetails.first_name} {userDetails.last_name}
               </Heading>
-              <Heading mt="4" size="sm" color="yellow.200">
-                {userRole} at {orgDetails.org_name}
-              </Heading>
-              <Heading mt="1" size="sm" color="yellow.200">
+              <Heading mt="1" size="sm" color="gray.400">
                 {userDetails.email}
               </Heading>
+              <Heading mt="4" size="sm" color="yellow.200">
+                {userRole}
+              </Heading>
+
               <Link to="/edit-account">
                 <Button size="xs" backgroundColor="yellow.200" m="4">
                   Edit Info

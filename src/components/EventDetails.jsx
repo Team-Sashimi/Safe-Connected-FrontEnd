@@ -65,12 +65,12 @@ const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
           w="300px"
           h="200px"
           borderRadius={15}
-          border="solid"
+          // border="solid"
           // borderColor="yellow.200"
           mb="5"
-          align="center" // Right-align the items horizontally
-          justify="center" // Right-align the items vertically
-          overflow="auto" // Prevent content from overflowing
+          align="center"
+          justify="center"
+          overflow="auto"
         >
           <Heading color="yellow.200" as="h4" size="md" mt="10">
             {eventDetails.event_title}

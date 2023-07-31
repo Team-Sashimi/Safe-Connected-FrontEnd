@@ -23,7 +23,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [language, setLanguage] = useState("en", "es", "fr");
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState(null);
   const [userDetails, setUserDetails] = useState([]);
 
   const navigate = useNavigate();
@@ -44,6 +44,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
         {
           headers: {
             Authorization: `Token ${token}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       )
@@ -53,6 +54,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
         setLastName("");
         setLanguage("");
         setEmail("");
+        setAvatar(avatar);
         navigate("/account");
       })
       .catch((error) => {
@@ -62,32 +64,27 @@ const EditUserProfile = ({ token, username, userRole }) => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      setAvatar(reader.result);
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
+    setAvatar(file);
   };
 
   useEffect(() => {
     axios
-      .get(`${baseURL}auth/users/me/`, {
+      .get(`${baseURL}auth/users/me`, {
         headers: {
           Authorization: `Token ${token}`,
         },
       })
       .then((res) => {
+        setFirstName(res.data.first_name);
+        setLastName(res.data.last_name);
+        setLanguage(res.data.language);
+        setEmail(res.data.email);
+        setAvatar(res.data);
         setUserDetails(res.data);
       });
   }, [token]);
 
   console.log(userDetails);
-
-  console.log(avatar);
 
   return (
     <>
@@ -101,10 +98,18 @@ const EditUserProfile = ({ token, username, userRole }) => {
           // borderColor="yellow.200"
         >
           <Center>
-            <Avatar size="xl" name={username} mb="10" src={avatar} />
-            <InputGroup>
-              <Input border="none" type="file" onChange={handleFileChange} />
-            </InputGroup>
+            <Flex direction="column">
+              <Avatar size="xl" name={username} mb="10" src={avatar} />
+              <InputGroup>
+                <Input
+                  size="xs"
+                  border="none"
+                  color="white"
+                  type="file"
+                  onChange={handleFileChange}
+                />
+              </InputGroup>
+            </Flex>
           </Center>
         </Flex>
         <SimpleGrid columns={1} spacing={4}>
@@ -116,7 +121,8 @@ const EditUserProfile = ({ token, username, userRole }) => {
               placeholder="Enter name..."
               type="text"
               size="xs"
-              color="whiteAlpha.800"
+              bg="white"
+              color="grey.800"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
@@ -128,8 +134,8 @@ const EditUserProfile = ({ token, username, userRole }) => {
               type="text"
               mt="-20px"
               size="xs"
-              variant="filled"
-              color="blackAlpha.800"
+              bg="white"
+              color="grey.800"
               onChange={(e) => setLastName(e.target.value)}
             />
 
@@ -139,8 +145,8 @@ const EditUserProfile = ({ token, username, userRole }) => {
             <Select
               placeholder="Choose below"
               size="xs"
-              variant="filled"
-              color="blackAlpha.800"
+              bg="white"
+              color="grey.800"
               onChange={(e) => setLanguage(e.target.value)}
             >
               <option value="en">English</option>
@@ -153,8 +159,8 @@ const EditUserProfile = ({ token, username, userRole }) => {
             <Input
               placeholder="Enter email..."
               size="xs"
-              variant="filled"
-              color="blackAlpha.800"
+              bg="white"
+              color="grey.800"
               onChange={(e) => setEmail(e.target.value)}
             />
           </FormControl>

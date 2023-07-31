@@ -15,24 +15,39 @@ import {
   Td,
   Tfoot,
   Heading,
+  Avatar,
 } from "@chakra-ui/react";
 import { FiCalendar } from "react-icons/fi";
 
-const Main = ({ username, token, userRole }) => {
+const Main = ({ username, token, userRole, language }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [managerEvents, setManagerEvents] = useState([]);
+  const [members, setMembers] = useState([]);
   const [eventID, setEventID] = useState("");
+  const [memberID, setMemberID] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`${baseURL}event/organizer/list/`, {
+      .get(`${baseURL}${language}/event/organizer/list/`, {
         headers: {
           Authorization: `Token ${token}`,
         },
       })
       .then((res) => {
         setManagerEvents(res.data);
+        axios
+          .get(`${baseURL}org/1/clients/`, {
+            headers: {
+              Authorization: `Token ${token}`,
+            },
+          })
+          .then((res) => {
+            setMembers(res.data);
+          })
+          .catch((error) => {
+            console.log("Error fetching clients data:", error);
+          });
       })
       .catch((error) => {
         console.log("Error fetching manager events:", error);
@@ -44,6 +59,14 @@ const Main = ({ username, token, userRole }) => {
     navigate(`/event/${eventID}`);
     setEventID(eventID);
   };
+
+  const handleMemberProfile = (memberID) => {
+    console.log(`hi this is a member with an id of: ${memberID}`);
+    navigate(`/member/${memberID}`);
+    setEventID(eventID);
+  };
+
+  console.log(members);
 
   return (
     <Flex
@@ -63,7 +86,13 @@ const Main = ({ username, token, userRole }) => {
           borderRadius="lg"
           p="1px"
         >
-          <Text fontSize="md" color="white" fontWeight="bold" mb="3" pb="2px">
+          <Text
+            fontSize="md"
+            color="yellow.200"
+            fontWeight="bold"
+            mb="3"
+            pb="2px"
+          >
             Welcome! {username}
           </Text>
           <Text fontSize="xs" color="#fff">
@@ -77,14 +106,7 @@ const Main = ({ username, token, userRole }) => {
           bg="blue.500"
           boxShadow="md"
           borderRadius="lg"
-        >
-          {/* <Text fontSize="sm" color="#fff" fontWeight="bold">
-            Manage Clients
-          </Text>
-          <Text fontSize="sm" color="#fff" fontWeight="bold">
-            Content Translation.
-          </Text> */}
-        </Flex>
+        ></Flex>
         <Spacer></Spacer>
         <Spacer></Spacer>
         <TableContainer>
@@ -95,21 +117,13 @@ const Main = ({ username, token, userRole }) => {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td color="gray.400" fontSize="12px">
-                  Event Title
-                </Td>
-              </Tr>
-              <Tr>
-                <Td color="gray.400" fontSize="12px">
-                  Event Title 2
-                </Td>
-              </Tr>
-              <Tr>
-                <Td color="gray.400" fontSize="12px">
-                  Event Title 3
-                </Td>
-              </Tr>
+              {managerEvents.map((event) => (
+                <Tr key={event.id} onClick={() => handleEventDetails(event.id)}>
+                  <Td color="gray.400" fontSize="12px" fontWeight="bold">
+                    {event.event_title}
+                  </Td>
+                </Tr>
+              ))}
             </Tbody>
           </Table>
         </TableContainer>
@@ -119,25 +133,35 @@ const Main = ({ username, token, userRole }) => {
           <Table size="sm">
             <Thead>
               <Tr>
-                <Th color="yellow.200">My Clients</Th>
+                <Th color="yellow.200">Organization Members</Th>
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td color="gray.400" fontSize="12px">
-                  Client
-                </Td>
-              </Tr>
-              <Tr>
-                <Td color="gray.400" fontSize="12px">
-                  Client 2
-                </Td>
-              </Tr>
-              <Tr>
-                <Td color="gray.400" fontSize="12px">
-                  Client 2
-                </Td>
-              </Tr>
+              {members.map((member) => (
+                <Tr
+                  key={member.id}
+                  onClick={() => handleMemberProfile(member.member)}
+                >
+                  <Td
+                    _hover={{ color: "yellow" }} // Apply the hover effect using _hover prop
+                    color="gray.400"
+                    fontSize="12px"
+                    fontWeight="bold"
+                  >
+                    <Flex align="center">
+                      {" "}
+                      {/* Wrap Avatar and name inside Flex */}
+                      <Avatar
+                        size="sm"
+                        src={member.user_avatar}
+                        name={member.member_full_name}
+                        mr="2"
+                      />
+                      <span>{member.member_full_name}</span>
+                    </Flex>
+                  </Td>
+                </Tr>
+              ))}
             </Tbody>
           </Table>
         </TableContainer>
@@ -147,6 +171,21 @@ const Main = ({ username, token, userRole }) => {
 };
 
 export default Main;
+
+// useEffect(() => {
+//   axios
+//     .get(`${baseURL}${language}/event/organizer/list/`, {
+//       headers: {
+//         Authorization: `Token ${token}`,
+//       },
+//     })
+//     .then((res) => {
+//       setManagerEvents(res.data);
+//     })
+//     .catch((error) => {
+//       console.log("Error fetching manager events:", error);
+//     });
+// }, [token]);
 
 // pretty good.
 

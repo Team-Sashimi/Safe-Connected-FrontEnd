@@ -43,7 +43,7 @@ const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
         direction="column"
         justify="center"
         p={4}
-        bgColor="gray.800"
+        // bgColor="gray.800"
         w="100%"
         h="auto"
       >

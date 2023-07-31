@@ -13,16 +13,15 @@ import {
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
-import UploadFile from "./UploadFile";
 
 const ClientProfile = ({ token, username, userRole, orgDetails }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [profile, setProfile] = useState([]);
-  const { userID } = useParams();
+  const { memberID } = useParams();
 
   useEffect(() => {
     axios
-      .get(`${baseURL}user/${userID}/`, {
+      .get(`${baseURL}user/${memberID}/`, {
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -36,7 +35,7 @@ const ClientProfile = ({ token, username, userRole, orgDetails }) => {
 
   return (
     <>
-      <Center bgColor="gray.800" h="100vh">
+      <Center h="100vh">
         <Box>
           <Center>
             {/* <UploadFile token={token} username={username} /> */}

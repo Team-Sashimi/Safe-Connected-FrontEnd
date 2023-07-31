@@ -20,6 +20,7 @@ import EventDetails from "./components/EventDetails";
 
 import UserProfile from "./components/UserProfile";
 import EditUserProfile from "./components/EditUserProfile";
+import ClientProfile from "./components/ClientProfile";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
@@ -122,6 +123,17 @@ function App() {
                   <ClientList
                     username={username}
                     token={token}
+                    orgDetails={orgDetails}
+                  />
+                }
+              />
+              <Route
+                path="/member/:memberID"
+                element={
+                  <ClientProfile
+                    username={username}
+                    token={token}
+                    userRole={userRole}
                     orgDetails={orgDetails}
                   />
                 }

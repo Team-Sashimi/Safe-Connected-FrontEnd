@@ -10,7 +10,13 @@ import {
   SimpleGrid,
   Avatar,
   Icon,
+  Select,
+  InputGroup,
+  InputLeftElement,
+  Input,
 } from "@chakra-ui/react";
+
+import { SearchIcon } from "@chakra-ui/icons";
 
 import { ArrowBackIcon, ArrowForwardIcon, WarningIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
@@ -21,27 +27,26 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
   const [allStreets, setAllStreets] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 5; // Reduce the number of events per page for smaller screens
+
   const navigate = useNavigate();
 
   const baseURL = "https://safe-connected.onrender.com/";
 
   useEffect(() => {
     axios
-      .get(`${baseURL}${language}/event/all/`, {
+      .get(`${baseURL}${language}/org/1/events`, {
         headers: {
           Authorization: `Token ${token}`,
         },
       })
       .then((res) => {
-        const sortedEvents = res.data.sort(
-          (a, b) => new Date(b.event_date) - new Date(a.event_date)
-        );
-        setAllEvents(sortedEvents);
-
+        setAllEvents(res.data);
         const streetNamesArray = res.data.map((e) => e.full_address);
         setAllStreets(streetNamesArray);
       });
   }, [token]);
+
+  // /?event_title=<searchtext>
 
   const handleEventDetails = (eventID) => {
     console.log(`hi this is the event id: ${eventID}`);
@@ -71,7 +76,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
     setCurrentPage(page);
   };
 
-  console.log(`${baseURL}${language}/event/all/`);
+  console.log(allEvents);
 
   return (
     <Flex mt="12">
@@ -89,6 +94,25 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
         <Heading color="yellow.200" size="md" mb="4" mr="4">
           Browse Events
         </Heading>
+        <InputGroup size="xs" mt="2">
+          <InputLeftElement pointerEvents="none">
+            <SearchIcon color="gray.300" />
+          </InputLeftElement>
+          <Input
+            border="none"
+            justifyContent="flex-end"
+            type="text"
+            width="100%"
+            size="xs"
+            fontSize="xs"
+            placeholder="Search by keywords"
+            // value={searchQuery}
+            // onChange={(e) => handleEventSearch(e.target.value)}
+            color="white"
+            px="2"
+            py="1"
+          />
+        </InputGroup>
         <SimpleGrid columns={2} spacing={4}>
           {eventsForPage.map((event) => (
             <Box
@@ -109,9 +133,9 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
                   size="sm"
                   mt="5"
                   color="yellow.200"
-                  fontSize="8px"
+                  fontSize="10px"
                 >
-                  MANAGE
+                  SEE MORE
                 </Text>
               ) : (
                 <Text
