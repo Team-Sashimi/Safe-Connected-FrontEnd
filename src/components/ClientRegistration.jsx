@@ -95,10 +95,10 @@ const ClientRegistration = ({ token }) => {
       h="100vh"
       bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
     >
-      <Container h="30vh" w="75%" mt="10vh">
+      <Container h="30vh" w="75%" mt="12vh">
         <Flex
           w="100%"
-          h="100%"
+          h="80%"
           borderRadius="15"
           justifyContent="center"
           flexDirection="column"
@@ -127,7 +127,7 @@ const ClientRegistration = ({ token }) => {
               </label>
             </Flex>
           </Center>
-          <Text mt="2" color="white">
+          <Text mt="2" fontSize="12px" color="white">
             Update your avatar
           </Text>{" "}
         </Flex>

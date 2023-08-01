@@ -57,12 +57,12 @@ const LoginRole = ({ setUser }) => {
 
   return (
     <>
-      <Container w="90%" h="100vh" mt="45vh">
+      <Container w="90%" h="100%">
         <Stack as={Box} textAlign={"center"} spacing={{ base: 2, md: 2 }}>
           <Center>
             <Box>
               <Heading
-                mt="-120px"
+                mt="130px"
                 mb="20px"
                 fontWeight={600}
                 fontSize="30px"
@@ -85,7 +85,7 @@ const LoginRole = ({ setUser }) => {
             // borderColor="yellow.200"
           >
             <Box>
-              <Text fontSize="12px" color={"whiteAlpha.800"}>
+              <Text mt="10" fontSize="12px" color={"whiteAlpha.800"}>
                 Login below, or email <strong>safenconnected@gmail.com</strong>{" "}
                 to register your organization.
               </Text>
