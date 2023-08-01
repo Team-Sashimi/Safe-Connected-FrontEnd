@@ -129,7 +129,7 @@ const EditUserProfile = ({ token, username, userRole, setUserLanguage }) => {
                 </label>
               </Flex>
             </Center>
-            <Text mt="2" color="white">
+            <Text fontSize="12px" mt="2" color="yellow.200">
               Update your avatar
             </Text>{" "}
             {/* Text component now appears below the Avatar, Input Group, and Icon */}

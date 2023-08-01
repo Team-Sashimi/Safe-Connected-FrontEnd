@@ -35,6 +35,7 @@ import { FiCalendar } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import SideBar from "./SideBar";
 import dayjs from "dayjs";
+import landing_03 from "../assets/landing_03.svg";
 
 const Main = ({ username, token, userRole, language }) => {
   const baseURL = "https://safe-connected.onrender.com/";
@@ -212,59 +213,206 @@ const Main = ({ username, token, userRole, language }) => {
         </Box>
         <Box
           // bg="yellow"
-          h="500px"
+          h="600px"
           w="150px"
-          ml="20px"
+          mr="20px"
           position="absolute"
           right="0"
-          mt="15"
-        >
-          <Flex
-            direction="column"
-            justifyContent="space-evenly"
-            h="90%"
-            alignItems="center"
-          >
-            <Box
-              // border="2px solid white"
-              borderRadius="50px"
-              h="100px"
-              w="100px"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Avatar
-                size="xl"
-                src="https://safeconnectedstatic.s3.amazonaws.com/media/avatarcws_CYOdYKF.jpeg"
-                alt="Avatar"
-                borderRadius="50px"
-              />
-            </Box>
-            <Box
-              // border="2px solid white"
-              borderRadius="4px"
-              h="100px"
-              w="100px"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Avatar
-                size="xl"
-                src="https://safeconnectedstatic.s3.amazonaws.com/media/Screenshot_2023-07-31_at_4.00.20_PM.png"
-                alt="Avatar"
-                borderRadius="4px"
-              />
-            </Box>
-          </Flex>
-        </Box>
+          mt="5"
+          backgroundImage={`url(${landing_03})`}
+          backgroundSize="cover"
+          backgroundPosition="center"
+        ></Box>
       </Flex>
     </>
   );
 };
 
 export default Main;
+
+// return (
+//   <>
+//     <Flex
+//       flexDirection="column"
+//       h="100vh"
+//       bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+//       pt="75px"
+//       alignItems="flex-start"
+//     >
+//       <Box ml="2" overflow="auto" maxHeight="500px">
+//         <SimpleGrid columns={1} spacing={1}>
+//           {userRole === "Manager" && (
+//             <Card bgColor="none" h="200px" w="200px" overflow="hidden">
+//               <CardHeader>
+//                 <Heading color="white" size="sm" fontSize="16px" mt="1">
+//                   {" "}
+//                   Add Events
+//                 </Heading>
+//               </CardHeader>
+//               <CardBody>
+//                 <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
+//                   Create events for your organization.
+//                 </Text>
+//                 <Link to="/create">
+//                   <Button mt="10" size="sm">
+//                     Create
+//                   </Button>
+//                 </Link>
+//               </CardBody>
+//             </Card>
+//           )}
+
+//           {userRole === "Manager" && (
+//             <Card bgColor="none" h="200px" w="200px" overflow="hidden">
+//               <CardHeader>
+//                 <Heading color="white" size="sm" fontSize="16px" mt="1">
+//                   {" "}
+//                   Register Clients
+//                 </Heading>
+//               </CardHeader>
+//               <CardBody>
+//                 <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
+//                   Safely register your clients to view and sign up for your
+//                   events.
+//                 </Text>
+//                 <Link to="/register-client">
+//                   <Button mt="7" size="sm">
+//                     Register
+//                   </Button>
+//                 </Link>
+//               </CardBody>
+//             </Card>
+//           )}
+
+//           {userRole === "Manager" && (
+//             <Card bgColor="none" h="200px" w="200px" overflow="hidden">
+//               <CardHeader>
+//                 <Heading color="white" size="sm" fontSize="16px" mt="1">
+//                   View your events and clients.
+//                 </Heading>
+//               </CardHeader>
+//               <CardBody>
+//                 <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
+//                   Edit your events or update client information here.
+//                 </Text>
+//                 <Link to="/view-events-clients">
+//                   <Button mt="7" size="sm">
+//                     View here
+//                   </Button>
+//                 </Link>
+//               </CardBody>
+//             </Card>
+//           )}
+
+//           {userRole === "Client" && (
+//             <Card
+//               mt="15px"
+//               bgColor="none"
+//               h="200px"
+//               w="200px"
+//               overflow="hidden"
+//             >
+//               <CardHeader>
+//                 <Heading color="white" size="sm" fontSize="16px" mt="1">
+//                   View events you've signed up for!
+//                 </Heading>
+//               </CardHeader>
+//               <CardBody>
+//                 <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
+//                   Check details, cancel your sign up, or contact the
+//                   organization!
+//                 </Text>
+//                 <Link to="/view-events-clients">
+//                   <Button mt="7" size="sm">
+//                     Your Events
+//                   </Button>
+//                 </Link>
+//               </CardBody>
+//             </Card>
+//           )}
+
+//           {userRole === "Client" && (
+//             <Card
+//               mt="15"
+//               bgColor="none"
+//               h="200px"
+//               w="200px"
+//               overflow="hidden"
+//             >
+//               <CardHeader>
+//                 <Heading color="white" size="sm" fontSize="16px" mt="1">
+//                   Check out events offered by your organization.
+//                 </Heading>
+//               </CardHeader>
+//               <CardBody>
+//                 <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
+//                   A full list of events, from education to finance.
+//                 </Text>
+//                 <Link to="/all-events">
+//                   <Button mt="5" size="sm">
+//                     Browse Now
+//                   </Button>
+//                 </Link>
+//               </CardBody>
+//             </Card>
+//           )}
+//         </SimpleGrid>
+//       </Box>
+//       <Box
+//         // bg="yellow"
+//         h="500px"
+//         w="150px"
+//         ml="20px"
+//         position="absolute"
+//         right="0"
+//         mt="15"
+//       >
+//         <Flex
+//           direction="column"
+//           justifyContent="space-evenly"
+//           h="90%"
+//           alignItems="center"
+//         >
+//           <Box
+//             // border="2px solid white"
+//             borderRadius="50px"
+//             h="100px"
+//             w="100px"
+//             display="flex"
+//             justifyContent="center"
+//             alignItems="center"
+//           >
+//             <Avatar
+//               size="xl"
+//               src="https://safeconnectedstatic.s3.amazonaws.com/media/avatarcws_CYOdYKF.jpeg"
+//               alt="Avatar"
+//               borderRadius="50px"
+//             />
+//           </Box>
+//           <Box
+//             // border="2px solid white"
+//             borderRadius="50px"
+//             h="100px"
+//             w="100px"
+//             display="flex"
+//             justifyContent="center"
+//             alignItems="center"
+//           >
+//             <Avatar
+//               size="xl"
+//               src="https://safeconnectedstatic.s3.amazonaws.com/media/Screenshot_2023-07-31_at_4.00.20_PM.png"
+//               alt="Avatar"
+//               borderRadius="50px"
+//             />
+//           </Box>
+//         </Flex>
+//       </Box>
+//     </Flex>
+//   </>
+// );
+// };
+
+// export default Main;
 
 //   return (
 //     <Flex
