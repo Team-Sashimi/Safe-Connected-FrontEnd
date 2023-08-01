@@ -5,348 +5,336 @@ import {
   Container,
   Box,
   Heading,
-  Input,
-  Center,
   Text,
   Button,
   SimpleGrid,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
   Avatar,
+  Icon,
+  Select,
   InputGroup,
   InputLeftElement,
+  Input,
 } from "@chakra-ui/react";
-import MapBoxAll from "./MapBoxAll";
 
+import { SearchIcon } from "@chakra-ui/icons";
+
+import { ArrowBackIcon, ArrowForwardIcon, WarningIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 
-const SearchEvents = ({ token, username, userRole, orgDetails }) => {
+const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
   const [allEvents, setAllEvents] = useState([]);
   const [allStreets, setAllStreets] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const eventsPerPage = 10;
+  const [eventTypeFilter, setEventTypeFilter] = useState(null);
+  const [publishedFilter, setPublishedFilter] = useState(null);
+
   const navigate = useNavigate();
 
   const baseURL = "https://safe-connected.onrender.com/";
 
   useEffect(() => {
     axios
-      .get(`${baseURL}event/all`, {
+      .get(`${baseURL}${language}/org/1/events`, {
         headers: {
           Authorization: `Token ${token}`,
         },
       })
       .then((res) => {
-        const sortedEvents = res.data.sort(
-          (a, b) => new Date(b.event_date) - new Date(a.event_date)
-        );
-        setAllEvents(sortedEvents);
-
+        setAllEvents(res.data);
         const streetNamesArray = res.data.map((e) => e.full_address);
         setAllStreets(streetNamesArray);
       });
   }, [token]);
-
-  // Calculate the index of the last event to display on the current page
-  const indexOfLastEvent = currentPage * eventsPerPage;
-  // Calculate the index of the first event to display on the current page
-  const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
-  // Get the events for the current page
-  const currentEvents = allEvents.slice(indexOfFirstEvent, indexOfLastEvent);
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
 
   const handleEventDetails = (eventID) => {
     console.log(`hi this is the event id: ${eventID}`);
     navigate(`/event/${eventID}`);
   };
 
-  const formatToRegularTime = (militaryTime) => {
-    const [hours, minutes] = militaryTime.split(":");
-    return new Date(0, 0, 0, hours, minutes).toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+  const handleShowAllEvents = () => {
+    setShowAllEvents(true);
   };
 
-  // console.log(searchResult);
   console.log(allEvents);
 
   return (
-    <Center bgColor="gray.800" h="100%">
-      <Container as="container-for-events" h="100%" maxW="900px">
-        <Center>
-          <Heading mt="75px" mb="5" color="yellow.200">
-            BROWSE EVENTS
+    <SimpleGrid
+      h="100vh"
+      alignContent="center"
+      bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #1E2065 56.45%, #020515 86.14%)"
+      columns={1}
+      rows={5} // Changed rows to 5 to accommodate headline and 3 Select inputs
+      spacing={1}
+    >
+      <Box height="10px" />
+
+      <Box textAlign="center">
+        {userRole === "Client" && (
+          <Heading color="white" as="h1" size="md">
+            Browse, Sort & Signup For Events
           </Heading>
-        </Center>
-        {/* 
-        <MapBoxAll token={token} username={username} allStreets={allStreets} /> */}
-        <Box>
-          <Flex m="4" direction="column" align="center">
-            <Heading mt="5" color="yellow.200">
-              {/* {username} Events */}
-            </Heading>
-            <Flex mt="3">
-              <Box mr="2">
-                {Array.from({
-                  length: Math.ceil(allEvents.length / eventsPerPage),
-                }).map((_, index) => (
-                  <Button
-                    m="2"
-                    key={index}
-                    onClick={() => handlePageChange(index + 1)}
-                  >
-                    Sorting - {index + 1}
-                  </Button>
-                ))}
-              </Box>
-            </Flex>
-            {userRole === "Manager" && (
-              <Link to="/create">
-                <Button mt="5" backgroundColor="yellow.200">
-                  Create an Event
-                </Button>
-              </Link>
-            )}
-          </Flex>
-        </Box>
-        <Center>
-          <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} spacing="5" mt="10">
-            {currentEvents.map((event) => (
+        )}
+        {userRole === "Manager" && (
+          <Heading color="white" as="h1" size="md">
+            Browse, Sort & Manage Events
+          </Heading>
+        )}
+      </Box>
+
+      <Flex mt="4" justifyContent="center" alignItems="center">
+        <Select
+          size="sm"
+          borderRadius="lg"
+          placeholder="Event Type"
+          color="yellow.200"
+          fontSize="10px"
+          w="100px"
+          mx={2}
+          onChange={(e) => setEventTypeFilter(e.target.value)}
+        >
+          <option value="1">Health</option>
+          <option value="2">Finance</option>
+          <option value="3">Education</option>
+        </Select>
+        {userRole === "Manager" && (
+          <Select
+            size="sm"
+            borderRadius="lg"
+            placeholder="Published"
+            color="yellow.200"
+            fontSize="10px"
+            w="100px"
+            mx={2}
+            onChange={(e) => setPublishedFilter(e.target.value)}
+          >
+            <option value="True">Published for all</option>
+            <option value="False">Save for later</option>
+          </Select>
+        )}
+        {/* {userRole === "Client" && (
+          <Select
+            size="sm"
+            borderRadius="lg"
+            placeholder="Signed Up"
+            color="yellow.200"
+            fontSize="10px"
+            w="100px"
+            mx={2}
+            onChange={(e) => setPublishedFilter(e.target.value)}
+          >
+            <option value="True">Attending</option>
+            <option value="False">Not Attending</option>
+          </Select>
+        )} */}
+        <Button
+          mx={2}
+          variant="none"
+          borderRadius="lg"
+          color="yellow.200"
+          fontSize="10px"
+          size="sm"
+          colorScheme="blue"
+          onClick={handleShowAllEvents}
+        >
+          Show All
+        </Button>
+      </Flex>
+      <Box mt="3" overflow="auto" maxHeight="410px">
+        <Flex direction="column" justifyContent="center" alignItems="center">
+          {allEvents
+            .filter((event) => {
+              if (eventTypeFilter) {
+                return event.event_type === parseInt(eventTypeFilter);
+              }
+              return true;
+            })
+            .filter((event) => {
+              if (publishedFilter !== null) {
+                return event.privacy === (publishedFilter === "True");
+              }
+              return true;
+            })
+            .map((event) => (
               <Box
                 key={event.id}
-                display="flex"
-                alignItems="center"
-                borderLeft="1px solid white"
-                pl="4"
-                m="10"
+                cursor="pointer"
+                p={4}
+                mb="2"
+                bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+                color="whiteAlpha.800"
+                height="80px"
+                w="300px"
+                boxShadow="md"
+                rounded="md"
+                overflow="auto"
+                onClick={() => handleEventDetails(event.id)}
               >
-                <br></br>
+                <Heading fontSize="14px" mb="2">
+                  {event.event_title} |{" "}
+                  {dayjs(event.event_date).format("MMMM D, YYYY")}{" "}
+                </Heading>
 
-                <Box ml="4">
-                  {" "}
-                  <Heading color="whiteAlpha.800" as="h4" size="md">
-                    {event.event_title}
-                  </Heading>
-                  <Text color="whiteAlpha.800">{event.general_notes}</Text>
-                  <Text color="whiteAlpha.800">
-                    {dayjs(event.event_date).format("MMMM D, YYYY")}
-                    <br />
-                    {formatToRegularTime(event.end_time)}-{" "}
-                    {formatToRegularTime(event.start_time)}
-                    {/* Start Time: {dayjs(event.start_time).format("HH:mm")} */}
-                  </Text>
-                  <Text color="whiteAlpha.800">{event.privacy}</Text>
-                  <Heading
-                    onClick={() => handleEventDetails(event.id)}
-                    cursor="pointer"
-                    size="md"
-                    mt="5"
-                    color="yellow.200"
-                  >
-                    LEARN MORE
-                  </Heading>
-                </Box>
+                <Text fontWeight="bold" fontSize="10px">
+                  {event.general_notes}
+                </Text>
               </Box>
             ))}
-          </SimpleGrid>
-        </Center>
-      </Container>
-    </Center>
+          <Box></Box>
+          {/* <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
+          <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
+          <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
+          <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
+          <Box mb="2" bg="tomato" height="80px" w="300px"></Box> */}
+        </Flex>
+      </Box>
+    </SimpleGrid>
   );
 };
 
 export default SearchEvents;
 
-// console.log(allEvents);
-// console.log(allStreets);
-// console.log(orgDetails);
+// /?event_title=<searchtext>
 
-// const handleSearch = () => {
-//   axios
-//     .get(`https://safe-connected.onrender.com/?${searchQuery}=`)
-//     .then((response) => {
-//       setSearchResult(response.data);
-//     })
-//     .catch((error) => {
-//       console.error("Error fetching data:", error);
-//       setSearchResult(null);
-//     });
-// };
-
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-// import {
-//   Flex,
-//   Container,
-//   Box,
-//   Heading,
-//   Input,
-//   Center,
-//   Text,
-//   Button,
-//   SimpleGrid,
-//   Menu,
-//   MenuButton,
-//   MenuList,
-//   MenuItem,
-//   MenuItemOption,
-//   MenuGroup,
-//   MenuOptionGroup,
-//   MenuDivider,
-//   Avatar,
-//   InputGroup,
-//   InputLeftElement,
-// } from "@chakra-ui/react";
-// import MapBoxAll from "./MapBoxAll";
-
-// import { PhoneIcon, SearchIcon, ChevronDownIcon } from "@chakra-ui/icons";
-
-// import { Link } from "react-router-dom";
-// import dayjs from "dayjs";
-
-// const SearchEvents = ({ token, username, userRole, orgDetails }) => {
-//   const [allEvents, setAllEvents] = useState([]);
-//   const [allStreets, setAllStreets] = useState([]);
-//   const [searchQuery, setSearchQuery] = useState("");
-//   const [searchResult, setSearchResult] = useState(null);
-
-//   const navigate = useNavigate();
-//   const baseURL = "https://safe-connected.onrender.com/";
-
-//   useEffect(() => {
-//     axios
-//       .get(`${baseURL}event/all`, {
-//         headers: {
-//           Authorization: `Token ${token}`,
-//         },
-//       })
-//       .then((res) => {
-//         setAllEvents(res.data);
-//         const streetNamesArray = res.data.map((e) => e.full_address);
-//         setAllStreets(streetNamesArray);
-//       });
-//   }, [token]);
-
-//   const handleEventDetails = (eventID) => {
-//     console.log(`hi this is the event id: ${eventID}`);
-//     navigate(`/event/${eventID}`);
-//   };
-
-//   console.log(searchResult);
-
-//   return (
-//     <Center bgColor="gray.800" h="100%">
-//       <Container as="container-for-events" h="100%" maxW="900px">
-//         <Center>
-//           <Heading mt="20" mb="5" color="yellow.200">
-//             BROWSE EVENTS
-//           </Heading>
-//         </Center>
-
-//         <MapBoxAll token={token} username={username} allStreets={allStreets} />
-//         <Box>
-//           <Flex m="4" direction="column" align="center">
-//             <InputGroup size="lg">
-//               <InputLeftElement size="large" pointerEvents="none">
-//                 <SearchIcon size="lg" color="gray.300" />
-//               </InputLeftElement>
-//               <Input
-//                 type="text"
-//                 width="800px"
-//                 placeholder=""
-//                 // value={searchQuery}
-//                 // onChange={(e) => setSearchQuery(e.target.value)}
-//                 color="white"
-//                 size="lg"
-//               />
-//             </InputGroup>
-//             <Heading mt="5" color="yellow.200">
-//               {/* {username} Events */}
-//             </Heading>
-//             <Flex mt="3">
-//               <Box mr="2">
-//                 <Menu>
-//                   <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-//                     Date
-//                   </MenuButton>
-//                   <MenuList>
-//                     <MenuItem>Most Recent</MenuItem>
-//                     <MenuItem>Most Recently Added</MenuItem>
-//                   </MenuList>
-//                 </Menu>
-//               </Box>
-//             </Flex>
-//             {userRole === "Manager" && (
-//               <Link to="/create">
-//                 <Button mt="5" backgroundColor="yellow.200">
-//                   Create an Event
-//                 </Button>
-//               </Link>
-//             )}
-//           </Flex>
-//         </Box>
-//         <Center>
-//           <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} spacing="5" mt="10">
-//             {allEvents.map((event) => (
-//               <Box
-//                 key={event.id}
-//                 display="flex"
-//                 alignItems="center" // Align items vertically in the center
-//                 borderLeft="1px solid white"
-//                 pl="4"
-//                 m="10"
+// demo code
+// return (
+//   <Flex mt="12">
+//     <Box
+//       width="90%"
+//       height="80vh"
+//       m="5%"
+//       p={4}
+//       textAlign="right"
+//       marginLeft="20px"
+//       color="white" // White text color
+//       borderRadius="md" // Rounded corners
+//       overflow="auto" // Enable scroll if contents overflow
+//     >
+//       <Heading color="yellow.200" size="md" mb="4" mr="4">
+//         Browse Events
+//       </Heading>
+//       <InputGroup size="xs" mt="2">
+//         <InputLeftElement pointerEvents="none">
+//           <SearchIcon color="gray.300" />
+//         </InputLeftElement>
+//         <Input
+//           border="none"
+//           justifyContent="flex-end"
+//           type="text"
+//           width="100%"
+//           size="xs"
+//           fontSize="xs"
+//           placeholder="Search by keywords"
+//           // value={searchQuery}
+//           // onChange={(e) => handleEventSearch(e.target.value)}
+//           color="white"
+//           px="2"
+//           py="1"
+//         />
+//       </InputGroup>
+//       <SimpleGrid columns={2} spacing={4}>
+//         {eventsForPage.map((event) => (
+//           <Box
+//             key={event.id}
+//             p={4}
+//             bg="transparent" // Transparent background for individual event boxes
+//             boxShadow="md"
+//             rounded="md"
+//           >
+//             <Heading fontSize="12px">{event.event_title}</Heading>
+//             <Text fontWeight="bold" fontSize="10px">
+//               {dayjs(event.event_date).format("MMMM D, YYYY")}
+//             </Text>
+//             {userRole === "Manager" ? (
+//               <Text
+//                 onClick={() => handleEventDetails(event.id)}
+//                 cursor="pointer"
+//                 size="sm"
+//                 mt="5"
+//                 color="yellow.200"
+//                 fontSize="10px"
 //               >
-//                 <br></br>
-//                 <Avatar
-//                   size="xl"
-//                   name={orgDetails.name}
-//                   mb="10"
-//                   // src={fileUpload}
-//                 />
-//                 <Box ml="4">
-//                   {" "}
-//                   {/* Add margin to create space between Avatar and content */}
-//                   <Heading color="whiteAlpha.800" as="h4" size="md">
-//                     {event.event_title}
-//                   </Heading>
-//                   <Text color="whiteAlpha.800">{event.general_notes}</Text>
-//                   <Text color="whiteAlpha.800">
-//                     {dayjs(event.event_date).format("MMMM D, YYYY")}
-//                     <br />
-//                     {event.start_time} - {event.end_time}
-//                     <br />
-//                     {/* Start Time: {dayjs(event.start_time).format("HH:mm")} */}
-//                   </Text>
-//                   <Text color="whiteAlpha.800">{event.privacy}</Text>
-//                   <Heading
-//                     onClick={() => handleEventDetails(event.id)}
-//                     cursor="pointer"
-//                     size="md"
-//                     mt="5"
-//                     color="yellow.200"
-//                   >
-//                     LEARN MORE
-//                   </Heading>
-//                 </Box>
-//               </Box>
-//             ))}
-//           </SimpleGrid>
-//         </Center>
-//       </Container>
-//     </Center>
-//   );
+//                 SEE MORE
+//               </Text>
+//             ) : (
+//               <Text
+//                 onClick={() => handleEventDetails(event.id)}
+//                 cursor="pointer"
+//                 size="sm"
+//                 mt="5"
+//                 color="yellow.200"
+//                 fontSize="8px"
+//               >
+//                 LEARN MORE
+//               </Text>
+//             )}
+//           </Box>
+//         ))}
+//       </SimpleGrid>
+
+//       <Box mt="-5vh">
+//         {currentPage > 1 && (
+//           <Button
+//             size="xs"
+//             onClick={() => handlePageChange(currentPage - 1)}
+//             mr={2}
+//           >
+//             <Icon as={ArrowBackIcon} />
+//           </Button>
+//         )}
+//         {currentPage < totalPages && (
+//           <Button size="xs" onClick={() => handlePageChange(currentPage + 1)}>
+//             <Icon as={ArrowForwardIcon} />
+//           </Button>
+//         )}
+//       </Box>
+//     </Box>
+//   </Flex>
+// );
 // };
 
-// export default SearchEvents;
+// {
+//   eventsForPage.map((event) => (
+//     <Box
+//       key={event.id}
+//       p={4}
+//       bg="transparent" // Transparent background for individual event boxes
+//       boxShadow="md"
+//       rounded="md"
+//     >
+//       <Heading fontSize="12px">{event.event_title}</Heading>
+//       <Text fontWeight="bold" fontSize="10px">
+//         {dayjs(event.event_date).format("MMMM D, YYYY")}
+//       </Text>
+
+//       <Text
+//         onClick={() => handleEventDetails(event.id)}
+//         cursor="pointer"
+//         size="sm"
+//         mt="5"
+//         color="yellow.200"
+//         fontSize="10px"
+//       >
+//         SEE MORE
+//       </Text>
+//     </Box>
+//   ));
+// }
+
+// const itemsPerPage = 7; // Number of items to show per page, adjusted to 5
+// const totalPages = Math.ceil(allEvents.length / itemsPerPage);
+
+// // Calculate the start and end index of the items to display on the current page
+// const startIndex = (currentPage - 1) * itemsPerPage;
+// const endIndex = startIndex + itemsPerPage;
+
+// // Get the events for the current page
+// const eventsForPage = allEvents.slice(startIndex, endIndex);
+
+// // Function to handle pagination
+// const handlePageChange = (page) => {
+//   setCurrentPage(page);
+// };
+
+// const [allStreets, setAllStreets] = useState([]);
+// const [currentPage, setCurrentPage] = useState(1);
+// const eventsPerPage = 5; // Reduce the number of events per page for smaller screens

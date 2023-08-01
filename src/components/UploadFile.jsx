@@ -3,6 +3,7 @@ import axios from "axios";
 import { Center, InputGroup, Avatar, Input } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import useLocalStorageState from "use-local-storage-state";
+//session storage instead of local storage
 
 import { Link } from "react-router-dom";
 

@@ -55,7 +55,7 @@ const DeleteEvent = ({ token }) => {
   return (
     <>
       <>
-        <Button colorScheme="red" m="3" onClick={handleDelete}>
+        <Button size="xs" colorScheme="red" m="3" p="2" onClick={handleDelete}>
           Delete
         </Button>
         <AlertDialog isOpen={isOpen} onClose={onClose}>

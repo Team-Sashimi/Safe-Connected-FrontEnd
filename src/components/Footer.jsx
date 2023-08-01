@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export const Footer = () => {
   return (
     <Box
+      pos="sticky"
       bgColor="yellow.200"
       as="footer"
       role="contentinfo"

@@ -20,8 +20,10 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
+  SimpleGrid,
 } from "@chakra-ui/react";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { Link } from "react-router-dom";
 import MapBoxEdit from "./MapBoxEdit";
 
@@ -37,7 +39,7 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
   const [streetName, setStreetName] = useState("");
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
-  const [privacy, setPrivacy] = useState("");
+  const [privacy, setPrivacy] = useState(true, false);
   const [language, setLanguage] = useState("");
   const [capacity, setCapacity] = useState("");
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
@@ -71,8 +73,9 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
         setEventStreet(res.data.street_name);
         setEventAddress(res.data.full_address);
         setEventDetails(res.data);
+        setCity(res.data.zipcode);
       });
-  }, [token]);
+  }, [token, eventID]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -109,10 +112,11 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
         setStreetName("");
         setCity("");
         setZip("");
-        setPrivacy("");
+        setPrivacy(privacy);
         setLanguage("");
         setCapacity("");
         setIsAlertOpen(true);
+        window.location.reload();
       })
       .catch((error) => {
         console.error(error);
@@ -167,12 +171,21 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
   };
 
   console.log(selectedSuggestion);
-  console.log(eventID);
 
   return (
-    <>
-      <Center bgColor="gray.800" h="92vh">
-        <Container as="container-for-events" h="100%" maxW="900px">
+    <Flex
+      h="100vh"
+      bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+    >
+      <Container h="30vh" mt="13vh">
+        <Flex
+          direction="column"
+          w="100%"
+          h="100%"
+          borderRadius="15"
+          // border="solid"
+          // borderColor="yellow.200"
+        >
           <MapBoxEdit
             token={token}
             username={username}
@@ -181,139 +194,120 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
             eventStNumber={eventStNumber}
             eventStreet={eventStreet}
           />
-        </Container>
-        <Flex my="8" maxWidth="800px">
-          {/* First Column */}
-          <Box m="4" mr="100px">
-            <form onSubmit={handleSubmit}>
-              <FormControl>
-                <FormLabel color="yellow.200">Event Title</FormLabel>
-                <Input
-                  my="2"
-                  value={eventTitle}
-                  placeholder="Name of Event"
-                  size="md"
-                  color="whiteAlpha.600"
-                  onChange={(e) => handleChange("eventTitle", e)}
-                />
-                <FormLabel mt="4" color="yellow.200">
-                  General Notes
-                </FormLabel>
-                <Textarea
-                  my="2"
-                  value={generalNotes}
-                  color="whiteAlpha.600"
-                  placeholder="General Notes"
-                  size="md"
-                  onChange={(e) => handleChange("generalNotes", e)}
-                />
-                <FormLabel color="yellow.200" mt="4">
-                  Select Language
-                </FormLabel>
-                <Select
-                  color="whiteAlpha.600"
-                  placeholder="Languages"
-                  value={language}
-                  onChange={(e) => handleChange("language", e)}
-                >
-                  <option value="1">English</option>
-                  <option value="2">Spanish</option>
-                  <option value="3">French</option>
-                </Select>
-                <FormLabel color="yellow.200" mt="4">
-                  Is your event private?
-                </FormLabel>
-                <Select
-                  placeholder="Choose below"
-                  color="whiteAlpha.600"
-                  value={privacy}
-                  onChange={(e) => handleChange("privacy", e)}
-                >
-                  <option value="True">Yes</option>
-                  <option value="False">No</option>
-                </Select>
-              </FormControl>
-            </form>
-          </Box>
-          {/* Second Column */}
-          <Box ml="4">
-            <FormControl>
-              <FormLabel color="yellow.200" mt="4">
-                Event Date
-              </FormLabel>
-              <Input
-                color="whiteAlpha.600"
-                value={eventDate}
-                size="md"
-                type="date"
-                onChange={(e) => handleChange("eventDate", e)}
-              />
-              <FormLabel color="yellow.200" mt="4">
-                Start Time:
-              </FormLabel>
-              <Input
-                color="whiteAlpha.600"
-                value={endTime}
-                size="md"
-                type="time"
-                onChange={(e) => handleChange("startTime", e)}
-              />
-              <FormLabel color="yellow.200" mt="4">
-                End Time:
-              </FormLabel>
-              <Input
-                color="whiteAlpha.600"
-                value={startTime}
-                size="md"
-                type="time"
-                onChange={(e) => handleChange("endTime", e)}
-              />
-              <FormLabel color="yellow.200" mt="4">
-                Capacity
-              </FormLabel>
-              <Input
-                size="md"
-                value={capacity}
-                color="whiteAlpha.600"
-                onChange={(e) => handleChange("capacity", e)}
-              />
-            </FormControl>
+        </Flex>
+        <SimpleGrid columns={2} spacing={4}>
+          <FormControl>
+            <FormLabel color="yellow.200" fontSize="10px" mb="1">
+              Event Title
+            </FormLabel>
+            <Input
+              border="none"
+              placeholder="Name of Event"
+              value={eventTitle}
+              type="text"
+              size="xs"
+              color="grey.800"
+              bg="white"
+              onChange={(e) => handleChange("eventTitle", e)}
+            />
+            <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+              Event Date
+            </FormLabel>
+            <Input
+              border="none"
+              placeholder="Pick a date"
+              value={eventDate}
+              type="date"
+              mt="-20px"
+              size="xs"
+              color="grey.800"
+              bg="white"
+              onChange={(e) => handleChange("eventDate", e)}
+            />
+            <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+              Start Time:
+            </FormLabel>
+            <Input
+              type="time"
+              value={startTime}
+              mt="-20px"
+              size="xs"
+              color="grey.800"
+              bg="white"
+              onChange={(e) => handleChange("startTime", e)}
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormLabel color="yellow.200" fontSize="10px" mb="1">
+              End Time:
+            </FormLabel>
+            <Input
+              type="time"
+              value={endTime}
+              mt="-20px"
+              size="xs"
+              color="grey.800"
+              bg="white"
+              onChange={(e) => handleChange("endTime", e)}
+            />
+            <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+              Is your event private?
+            </FormLabel>
+            <Select
+              placeholder="Choose below"
+              size="xs"
+              value={privacy}
+              color="grey.800"
+              bg="white"
+              onChange={(e) => handleChange("privacy", e)}
+            >
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </Select>
+            <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+              Capacity
+            </FormLabel>
+            <Input
+              placeholder="Choose below"
+              value={capacity}
+              size="xs"
+              color="grey.800"
+              bg="white"
+              onChange={(e) => handleChange("capacity", e)}
+            />
+          </FormControl>
+        </SimpleGrid>
+
+        <FormControl>
+          <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+            General Notes
+          </FormLabel>
+          <Textarea
+            placeholder="Event details..."
+            value={generalNotes}
+            size="xs"
+            color="grey.800"
+            bg="white"
+            onChange={(e) => handleChange("generalNotes", e)}
+          />
+        </FormControl>
+        <FormControl>
+          <Center>
             <Button
-              mt="6"
-              size="md"
+              mt="4"
+              size="xs"
               type="submit"
+              colorScheme="green"
               onClick={handleSubmit}
               cursor="pointer"
             >
-              Submit
+              Update
             </Button>
-            <AlertDialog
-              isOpen={isAlertOpen}
-              leastDestructiveRef={null}
-              onClose={handleCloseAlert}
-            >
-              <AlertDialogOverlay>
-                <AlertDialogContent>
-                  <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                    Success
-                  </AlertDialogHeader>
-
-                  <AlertDialogBody>
-                    The patch request has been successful.
-                  </AlertDialogBody>
-
-                  <AlertDialogFooter>
-                    <Button ref={null} onClick={handleCloseAlert}>
-                      Close
-                    </Button>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialogOverlay>
-            </AlertDialog>
-          </Box>
-        </Flex>
-      </Center>
-    </>
+          </Center>
+        </FormControl>
+      </Container>
+    </Flex>
   );
 };
 

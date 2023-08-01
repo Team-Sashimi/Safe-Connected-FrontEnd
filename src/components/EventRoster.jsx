@@ -28,6 +28,7 @@ const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
         },
       })
       .then((res) => {
+        console.log(res.data);
         setEventRoster(res.data.event_attendees);
         setSignUpCount(res.data.event_attendees.length);
       });
@@ -43,9 +44,9 @@ const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
         direction="column"
         justify="center"
         p={4}
-        bgColor="gray.800"
+        // bgColor="gray.800"
         w="100%"
-        h="100%"
+        h="auto"
       >
         <Box
           w="100%"
@@ -54,20 +55,21 @@ const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
           flexDirection="column"
           alignItems="center"
         >
-          <Heading size="md" color="yellow.200">
+          <Heading size="xs" color="yellow.200">
             People Who Signed Up
           </Heading>
           {userRole === "Client" && (
             <Box mt={4}>
+              {/* The progress bar */}
               <Progress
                 value={(eventRoster.length / progress) * 150}
                 colorScheme="yellow"
                 size="lg"
                 height="32px"
-                width="600px"
+                width={{ base: "100%", sm: "70%", md: "50%", lg: "600px" }}
               />
               <Center>
-                <Text mt={2} color="white">
+                <Text fontSize="10px" mt={2} color="white">
                   {signUpCount} out of {progress} people have signed up for this
                   event.
                 </Text>
@@ -76,28 +78,40 @@ const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
           )}
           {userRole === "Manager" && (
             <Box>
-              <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} spacing="5" mt="10">
-                {eventRoster.length > 0 ? (
-                  eventRoster.map((event_attendees, index) => (
-                    <Box
-                      key={index}
-                      display="flex"
-                      alignItems="center"
-                      pl="4"
-                      m="10"
-                    >
-                      <Flex direction="column" alignItems="center" ml="4">
-                        <Avatar size="xl" name={event_attendees} mb="3" />
+              {/* The grid */}
+              <SimpleGrid
+                columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
+                spacing="5"
+              >
+                <Center>
+                  {eventRoster.length > 0 ? (
+                    eventRoster.map((event_attendees, index) => (
+                      <Box
+                        key={index}
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        <Flex direction="column" alignItems="center">
+                          <Avatar
+                            size="sm"
+                            name={event_attendees}
+                            mt="4"
+                            mb="1"
+                          />
 
-                        <Heading color="whiteAlpha.800" as="h4" size="md">
-                          {event_attendees}
-                        </Heading>
-                      </Flex>
-                    </Box>
-                  ))
-                ) : (
-                  <Text color="white">No one has signed up yet</Text>
-                )}
+                          <Text color="whiteAlpha.800" as="h4" fontSize="10px">
+                            {event_attendees}
+                          </Text>
+                        </Flex>
+                      </Box>
+                    ))
+                  ) : (
+                    <Text fontSize="xs" color="white" mt="2">
+                      No one has signed up yet
+                    </Text>
+                  )}
+                </Center>
               </SimpleGrid>
             </Box>
           )}
