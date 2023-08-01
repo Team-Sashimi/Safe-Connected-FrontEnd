@@ -35,7 +35,7 @@ import { FiCalendar } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import SideBar from "./SideBar";
 import dayjs from "dayjs";
-import landing_03 from "../assets/landing_03.svg";
+import landing_04 from "../assets/landing_04-01.svg";
 
 const Main = ({ username, token, userRole, language }) => {
   const baseURL = "https://safe-connected.onrender.com/";
@@ -201,7 +201,7 @@ const Main = ({ username, token, userRole, language }) => {
                   <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
                     A full list of events, from education to finance.
                   </Text>
-                  <Link to="/all-events">
+                  <Link to="/search-events">
                     <Button mt="5" size="sm">
                       Browse Now
                     </Button>
@@ -219,7 +219,7 @@ const Main = ({ username, token, userRole, language }) => {
           position="absolute"
           right="0"
           mt="5"
-          backgroundImage={`url(${landing_03})`}
+          backgroundImage={`url(${landing_04})`}
           backgroundSize="cover"
           backgroundPosition="center"
         ></Box>

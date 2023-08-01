@@ -71,7 +71,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
       <Box textAlign="center">
         {userRole === "Client" && (
           <Heading color="white" as="h1" size="md">
-            Browse, Sort & Signup
+            Your Organizations Events
           </Heading>
         )}
         {userRole === "Manager" && (
@@ -126,7 +126,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
             <option value="False">Not Attending</option>
           </Select>
         )} */}
-        <Button
+        {/* <Button
           mx={2}
           variant="none"
           borderRadius="lg"
@@ -137,7 +137,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
           onClick={handleShowAllEvents}
         >
           Show All
-        </Button>
+        </Button> */}
       </Flex>
       <Box mt="3" overflow="auto" maxHeight="410px">
         <Flex direction="column" justifyContent="center" alignItems="center">

@@ -33,29 +33,56 @@ const BottomBar = ({ username, token, userRole }) => {
             </Text>
           </Flex>
         </Link>
-        <Link to="/search-events">
-          <Flex flexDirection="column" align="center">
-            <Icon
-              as={FiList}
-              color={
-                location.pathname === "/search-events"
-                  ? "grey.600"
-                  : "green.500"
-              }
-              boxSize="5"
-            />
-            <Text
-              color={
-                location.pathname === "/search-events"
-                  ? "grey.600"
-                  : "green.500"
-              }
-              fontSize="10px"
-            >
-              Events
-            </Text>
-          </Flex>
-        </Link>
+        {userRole === "Client" && (
+          <Link to="/all-events">
+            <Flex flexDirection="column" align="center">
+              <Icon
+                as={FiList}
+                color={
+                  location.pathname === "/search-events"
+                    ? "grey.600"
+                    : "green.500"
+                }
+                boxSize="5"
+              />
+              <Text
+                color={
+                  location.pathname === "/search-events"
+                    ? "grey.600"
+                    : "green.500"
+                }
+                fontSize="10px"
+              >
+                Events
+              </Text>
+            </Flex>
+          </Link>
+        )}
+        {userRole === "Manager" && (
+          <Link to="/search-events">
+            <Flex flexDirection="column" align="center">
+              <Icon
+                as={FiList}
+                color={
+                  location.pathname === "/search-events"
+                    ? "grey.600"
+                    : "green.500"
+                }
+                boxSize="5"
+              />
+              <Text
+                color={
+                  location.pathname === "/search-events"
+                    ? "grey.600"
+                    : "green.500"
+                }
+                fontSize="10px"
+              >
+                Events
+              </Text>
+            </Flex>
+          </Link>
+        )}
         <Link to="/account">
           <Flex flexDirection="column" align="center">
             <Icon
