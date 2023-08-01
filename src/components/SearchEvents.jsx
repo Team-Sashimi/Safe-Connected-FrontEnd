@@ -71,7 +71,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
       <Box textAlign="center">
         {userRole === "Client" && (
           <Heading color="white" as="h1" size="md">
-            Browse, Sort & Signup For Events
+            Browse, Sort & Signup
           </Heading>
         )}
         {userRole === "Manager" && (

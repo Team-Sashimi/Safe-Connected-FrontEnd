@@ -23,7 +23,7 @@ export default function NavItem({ icon, title, description, active, navSize }) {
           backgroundColor={active && "#AEC8CA"}
           p={3}
           borderRadius={8}
-          _hover={{ textDecor: "none", backgroundColor: "#AEC8CA" }}
+          _hover={{ textDecor: "none", backgroundColor: "" }}
           w={navSize == "large" && "100%"}
         >
           <MenuButton w="100%">

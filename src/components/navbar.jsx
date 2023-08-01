@@ -29,16 +29,24 @@ export const Navbar = ({ handleLogout }) => {
         <Link href="/">
           <img src={connected_yellow} alt="Logo" width="120px" height="60px" />
         </Link>
-        <Icon
-          onClick={handleLogout}
-          as={FiLogOut}
-          color="yellow.200"
-          boxSize="4"
-        />
+        <Link to="/">
+          <Button size="xs" onClick={handleLogout}>
+            Log Out
+          </Button>
+        </Link>
       </Flex>
     </Box>
   );
 };
+
+{
+  /* <Icon
+onClick={handleLogout}
+as={FiLogOut}
+color="yellow.200"
+boxSize="8"
+/> */
+}
 
 // export const Navbar = ({ handleLogout }) => {
 //   return (

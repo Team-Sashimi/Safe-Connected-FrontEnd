@@ -225,13 +225,6 @@ const Main = ({ username, token, userRole, language }) => {
             h="90%"
             alignItems="center"
           >
-            <Heading fontSize="12px" color="yellow.200">
-              Connected{" "}
-            </Heading>
-            <Heading color="yellow.200" mt="-5" fontSize="12px">
-              {" "}
-              Organizations
-            </Heading>
             <Box
               // border="2px solid white"
               borderRadius="50px"
@@ -264,17 +257,6 @@ const Main = ({ username, token, userRole, language }) => {
                 borderRadius="4px"
               />
             </Box>
-            {/* <Box
-              border="2px solid white"
-              borderRadius="4px"
-              h="100px"
-              w="100px"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Text color="white">Content 3</Text>
-            </Box> */}
           </Flex>
         </Box>
       </Flex>
