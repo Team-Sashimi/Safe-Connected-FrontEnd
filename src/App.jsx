@@ -192,7 +192,7 @@ function App() {
                     username={username}
                     token={token}
                     userRole={userRole}
-                    language={language}
+                    setUserLanguage={setLanguage}
                   />
                 }
               />
