@@ -200,7 +200,7 @@ const Main = ({ username, token, userRole, language }) => {
                   <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
                     A full list of events, from education to finance.
                   </Text>
-                  <Link to="/view-events-clients">
+                  <Link to="/all-events">
                     <Button mt="5" size="sm">
                       Browse Now
                     </Button>
@@ -226,25 +226,30 @@ const Main = ({ username, token, userRole, language }) => {
             alignItems="center"
           >
             <Heading fontSize="12px" color="yellow.200">
-              Some Connected{" "}
+              Connected{" "}
             </Heading>
             <Heading color="yellow.200" mt="-5" fontSize="12px">
               {" "}
               Organizations
             </Heading>
             <Box
-              border="2px solid white"
-              borderRadius="4px"
+              // border="2px solid white"
+              borderRadius="50px"
               h="100px"
               w="100px"
               display="flex"
               justifyContent="center"
               alignItems="center"
             >
-              <Text color="white">Content 1</Text>
+              <Avatar
+                size="xl"
+                src="https://safeconnectedstatic.s3.amazonaws.com/media/avatarcws_CYOdYKF.jpeg"
+                alt="Avatar"
+                borderRadius="50px"
+              />
             </Box>
             <Box
-              border="2px solid white"
+              // border="2px solid white"
               borderRadius="4px"
               h="100px"
               w="100px"
@@ -252,13 +257,14 @@ const Main = ({ username, token, userRole, language }) => {
               justifyContent="center"
               alignItems="center"
             >
-              <Image
-                src="https://safeconnectedstatic.s3.amazonaws.com/media/avatarcws_CYOdYKF.jpeg"
+              <Avatar
+                size="xl"
+                src="https://safeconnectedstatic.s3.amazonaws.com/media/Screenshot_2023-07-31_at_4.00.20_PM.png"
                 alt="Avatar"
                 borderRadius="4px"
               />
             </Box>
-            <Box
+            {/* <Box
               border="2px solid white"
               borderRadius="4px"
               h="100px"
@@ -268,7 +274,7 @@ const Main = ({ username, token, userRole, language }) => {
               alignItems="center"
             >
               <Text color="white">Content 3</Text>
-            </Box>
+            </Box> */}
           </Flex>
         </Box>
       </Flex>

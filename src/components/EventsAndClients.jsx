@@ -123,7 +123,13 @@ const EventsAndClients = ({
       h="100vh"
       pt="60px"
     >
-      <SimpleGrid columns={{ sm: 1, md: 2, xl: 4 }} m="5" spacing="10px">
+      <SimpleGrid
+        overflow="auto"
+        maxHeight="500px"
+        columns={{ sm: 1, md: 2, xl: 4 }}
+        m="5"
+        spacing="10px"
+      >
         {/* MiniStatistics Card */}
         <Flex
           flexDirection="column"
@@ -159,7 +165,7 @@ const EventsAndClients = ({
         </Flex>
         <Flex
           flexDirection="column"
-          alignItems="flex-start"
+          alignItems="center"
           justifyContent="center"
           // bg="blue.500"
           boxShadow="md"

@@ -26,6 +26,7 @@ import ClientRegistration from "./components/ClientRegistration";
 import { Container } from "@chakra-ui/react";
 import EventsAndClients from "./components/EventsAndClients";
 import OrgProfile from "./components/OrgProfile";
+import AllEvents from "./components/AllEvents";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
@@ -75,13 +76,11 @@ function App() {
 
   return (
     <>
+      <Navbar handleLogout={handleLogout} />
       <Box
         h="100vh"
         bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
       >
-        <Navbar handleLogout={handleLogout} />
-        <BottomBar userRole={userRole} />
-
         {token ? (
           <>
             <Routes>
@@ -221,6 +220,18 @@ function App() {
                 }
               />
               <Route
+                path="/all-events"
+                element={
+                  <AllEvents
+                    username={username}
+                    token={token}
+                    userRole={userRole}
+                    language={language}
+                    orgDetails={orgDetails}
+                  />
+                }
+              />
+              <Route
                 path="/org/:orgID"
                 element={
                   <OrgProfile
@@ -242,6 +253,7 @@ function App() {
           </>
         )}
       </Box>
+      <BottomBar userRole={userRole} />
       {/* </Center> */}
       {/* </Flex>
       </Flex> */}

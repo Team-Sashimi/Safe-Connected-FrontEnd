@@ -96,19 +96,36 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
           <option value="2">Finance</option>
           <option value="3">Education</option>
         </Select>
-        <Select
-          size="sm"
-          borderRadius="lg"
-          placeholder="Published"
-          color="yellow.200"
-          fontSize="10px"
-          w="100px"
-          mx={2}
-          onChange={(e) => setPublishedFilter(e.target.value)}
-        >
-          <option value="True">Published for all</option>
-          <option value="False">Save for later</option>
-        </Select>
+        {userRole === "Manager" && (
+          <Select
+            size="sm"
+            borderRadius="lg"
+            placeholder="Published"
+            color="yellow.200"
+            fontSize="10px"
+            w="100px"
+            mx={2}
+            onChange={(e) => setPublishedFilter(e.target.value)}
+          >
+            <option value="True">Published for all</option>
+            <option value="False">Save for later</option>
+          </Select>
+        )}
+        {/* {userRole === "Client" && (
+          <Select
+            size="sm"
+            borderRadius="lg"
+            placeholder="Signed Up"
+            color="yellow.200"
+            fontSize="10px"
+            w="100px"
+            mx={2}
+            onChange={(e) => setPublishedFilter(e.target.value)}
+          >
+            <option value="True">Attending</option>
+            <option value="False">Not Attending</option>
+          </Select>
+        )} */}
         <Button
           mx={2}
           variant="none"
@@ -163,11 +180,11 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
               </Box>
             ))}
           <Box></Box>
+          {/* <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
           <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
           <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
           <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
-          <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
-          <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
+          <Box mb="2" bg="tomato" height="80px" w="300px"></Box> */}
         </Flex>
       </Box>
     </SimpleGrid>

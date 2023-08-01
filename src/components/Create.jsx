@@ -36,12 +36,15 @@ const CreateEvent = ({ token, username }) => {
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
   const { eventID } = useParams();
   const [currentPage, setCurrentPage] = useState(0);
+  const [isDraftSaving, setIsDraftSaving] = useState(true);
+  const [eventType, setEventType] = useState("");
 
   const navigate = useNavigate();
   const baseURL = "https://safe-connected.onrender.com/";
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const privacyValue = isDraftSaving ? false : true;
     axios
       .post(
         `${baseURL}event/create/`,
@@ -55,9 +58,10 @@ const CreateEvent = ({ token, username }) => {
           street_name: selectedSuggestion.text,
           city: selectedSuggestion.context[2].text,
           zipcode: selectedSuggestion.context[1].text,
-          privacy: privacy,
+          privacy: privacyValue,
           event_language: language,
           max_attendees: capacity,
+          event_type: eventType,
         },
         {
           headers: {
@@ -79,11 +83,19 @@ const CreateEvent = ({ token, username }) => {
         setPrivacy("");
         setLanguage("");
         setCapacity("");
+        setEventType("");
         navigate("/");
       })
       .catch((error) => {
         console.error(error);
       });
+  };
+
+  const handleSaveToDraft = (e) => {
+    e.preventDefault();
+    setIsDraftSaving(false); // Set the state to true when the "Save to draft" button is clicked
+    handleSubmit(e); // Call the existing handleSubmit function to make the POST request
+    setIsDraftSaving(true); // Reset the state to false after the draft is saved
   };
 
   const handleChange = (userInput, e) => {
@@ -124,6 +136,10 @@ const CreateEvent = ({ token, username }) => {
     }
     if (userInput === "capacity") {
       setCapacity(e.target.value);
+    }
+    if (userInput === "eventType") {
+      setEventType(e.target.value);
+      console.log(eventType);
     }
   };
 
@@ -187,9 +203,9 @@ const CreateEvent = ({ token, username }) => {
                 placeholder="Choose below"
                 size="xs"
                 bg="white"
-                onChange={(e) => handleChange("privacy", e)}
+                onChange={(e) => handleChange("eventType", e)}
               >
-                <option value="true">Health</option>
+                <option value="1">Health</option>
                 <option value="2">Finance</option>
                 <option value="3">Education</option>
               </Select>
@@ -262,7 +278,7 @@ const CreateEvent = ({ token, username }) => {
               ml="2"
               size="xs"
               type="submit"
-              onClick={handleSubmit}
+              onClick={handleSaveToDraft}
               cursor="pointer"
             >
               Save to draft
