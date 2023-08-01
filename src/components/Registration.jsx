@@ -27,7 +27,127 @@ const Registration = ({ setUserRole }) => {
   };
 
   return (
-    <>
+    <Flex
+      h="100vh"
+      bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+    >
+      <Container h="30vh" w="75%" mt="13vh">
+        <Flex
+          w="100%"
+          h="100%"
+          borderRadius="15"
+          justifyContent="center"
+          flexDirection="column" // Use flexDirection to stack elements vertically
+          alignItems="center" // Use alignItems to center elements horizontally
+        >
+          <Center>
+            <Flex direction="">
+              <Avatar size="xl" name={username} src={avatar} />
+
+              {/* Hidden file input */}
+              <label>
+                <InputGroup display="none">
+                  <Input
+                    size="xs"
+                    border="none"
+                    color="black"
+                    type="file"
+                    onChange={handleFileChange}
+                  />
+                </InputGroup>
+                <Icon
+                  color="white"
+                  as={FiImage}
+                  boxSize="24px"
+                  cursor="pointer"
+                />
+              </label>
+            </Flex>
+          </Center>
+          <Text mt="2" color="white">
+            Update your avatar
+          </Text>{" "}
+          {/* Text component now appears below the Avatar, Input Group, and Icon */}
+        </Flex>
+        <SimpleGrid columns={1} spacing={4}>
+          <FormControl>
+            <FormLabel color="yellow.200" fontSize="10px" mb="1">
+              First Name
+            </FormLabel>
+            <Input
+              placeholder="Enter name..."
+              type="text"
+              size="xs"
+              bg="white"
+              color="grey.800"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+              Last Name{" "}
+            </FormLabel>
+            <Input
+              placeholder="Enter last name..."
+              type="text"
+              mt="-20px"
+              size="xs"
+              bg="white"
+              color="grey.800"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+
+            <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+              Choose Language{" "}
+            </FormLabel>
+            <Select
+              placeholder="Choose below"
+              size="xs"
+              bg="white"
+              color="grey.800"
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+            >
+              <option value="en">English</option>
+              <option value="es">Spanish</option>
+              <option value="fr">French</option>
+            </Select>
+            <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+              Email
+            </FormLabel>
+            <Input
+              placeholder="Enter email..."
+              size="xs"
+              bg="white"
+              color="grey.800"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </FormControl>
+        </SimpleGrid>
+        <FormControl>
+          <Center>
+            <Button
+              mt="4"
+              size="xs"
+              type="submit"
+              colorScheme="green"
+              onClick={handleEditAccount}
+              cursor="pointer"
+            >
+              Update Profile
+            </Button>
+          </Center>
+        </FormControl>
+      </Container>
+    </Flex>
+  );
+};
+
+export default Registration;
+
+{
+  /* <>
       <Box>
         <Heading
           fontWeight={600}
@@ -83,8 +203,5 @@ const Registration = ({ setUserRole }) => {
           </div>
         </form>
       </Box>
-    </>
-  );
-};
-
-export default Registration;
+    </> */
+}
