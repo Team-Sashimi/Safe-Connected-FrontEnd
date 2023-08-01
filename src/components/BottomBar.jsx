@@ -26,7 +26,7 @@ const BottomBar = ({ username, token, userRole }) => {
               boxSize="5"
             />
             <Text
-              color={location.pathname === "/account" ? "white" : "yellow.200"}
+              color={location.pathname === "/" ? "white" : "yellow.200"}
               fontSize="10px"
             >
               Home
@@ -43,7 +43,9 @@ const BottomBar = ({ username, token, userRole }) => {
               boxSize="5"
             />
             <Text
-              color={location.pathname === "/account" ? "white" : "yellow.200"}
+              color={
+                location.pathname === "/search-events" ? "white" : "yellow.200"
+              }
               fontSize="10px"
             >
               Events

@@ -25,6 +25,11 @@ import {
   TabPanel,
   TabPanels,
   Center,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Image,
 } from "@chakra-ui/react";
 import { FiCalendar } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -39,33 +44,6 @@ const Main = ({ username, token, userRole, language }) => {
   const [memberID, setMemberID] = useState("");
   const [clientEvents, setClientEvents] = useState([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    axios
-      .get(`${baseURL}${language}/event/organizer/list/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        setManagerEvents(res.data);
-        axios
-          .get(`${baseURL}org/1/clients/`, {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          })
-          .then((res) => {
-            setMembers(res.data);
-          })
-          .catch((error) => {
-            console.log("Error fetching clients data:", error);
-          });
-      })
-      .catch((error) => {
-        console.log("Error fetching manager events:", error);
-      });
-  }, [token]);
 
   useEffect(() => {
     axios
@@ -106,105 +84,133 @@ const Main = ({ username, token, userRole, language }) => {
 
   return (
     <>
-      {" "}
       <Flex
         flexDirection="column"
         h="100vh"
         bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
-        pt="90px"
+        pt="75px"
+        alignItems="flex-start"
       >
-        <Tabs isFitted variant="enclosed" size="sm">
-          <TabList>
-            <Tab fontSize="xs" color="whiteAlpha.600">
-              Events
-            </Tab>
-            <Tab fontSize="xs" color="whiteAlpha.600">
-              Members
-            </Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <Center>
-                <TableContainer w="40vh">
-                  <Table size="sm">
-                    <Thead>
-                      <Tr>
-                        <Th color="yellow.200" fontSize="14px">
-                          My Events
-                        </Th>
-                        <Th color="yellow.200" fontSize="14px">
-                          Date
-                        </Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {managerEvents.map((event) => (
-                        <Tr
-                          key={event.id}
-                          onClick={() => handleEventDetails(event.id)}
-                        >
-                          <Td
-                            color="gray.400"
-                            fontSize="12px"
-                            fontWeight="bold"
-                          >
-                            {event.event_title}
-                          </Td>
-                          <Td color="gray.400" fontSize="12px">
-                            {dayjs(event.event_date).format("MM/DD/YY")}
-                          </Td>
-                        </Tr>
-                      ))}
-                    </Tbody>
-                  </Table>
-                </TableContainer>
-              </Center>
-            </TabPanel>
-            <TabPanel>
-              <Center>
-                <TableContainer w="35vh">
-                  <Table size="sm">
-                    <Thead>
-                      <Tr>
-                        <Th color="yellow.200" fontSize="14">
-                          Organization Members
-                        </Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {members.map((member) => (
-                        <Tr
-                          key={member.id}
-                          onClick={() => handleMemberProfile(member.member)}
-                        >
-                          <Td
-                            _hover={{ color: "yellow" }} // Apply the hover effect using _hover prop
-                            color="gray.400"
-                            fontSize="12px"
-                            fontWeight="bold"
-                          >
-                            <Flex align="center">
-                              {" "}
-                              {/* Wrap Avatar and name inside Flex */}
-                              <Avatar
-                                size="sm"
-                                src={member.user_avatar}
-                                name={member.member_full_name}
-                                mr="2"
-                              />
-                              <span>{member.member_full_name}</span>
-                              {/* <span>{member.member}</span> */}
-                            </Flex>
-                          </Td>
-                        </Tr>
-                      ))}
-                    </Tbody>
-                  </Table>
-                </TableContainer>
-              </Center>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+        <Box ml="2" overflow="auto" maxHeight="500px">
+          <SimpleGrid columns={1} spacing={1}>
+            <Card bgColor="none" h="200px" w="200px" overflow="hidden">
+              <CardHeader>
+                <Heading color="white" size="sm" fontSize="16px" mt="1">
+                  {" "}
+                  Add Events
+                </Heading>
+              </CardHeader>
+              <CardBody>
+                <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
+                  Create events for your organization.
+                </Text>
+                <Link to="/create">
+                  <Button mt="10" size="sm">
+                    Create
+                  </Button>
+                </Link>
+              </CardBody>
+            </Card>
+
+            <Card bgColor="none" h="200px" w="200px" overflow="hidden">
+              <CardHeader>
+                <Heading color="white" size="sm" fontSize="16px" mt="1">
+                  {" "}
+                  Register Clients
+                </Heading>
+              </CardHeader>
+              <CardBody>
+                <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
+                  Safely register your clients to view and sign up for your
+                  events.
+                </Text>
+                <Link to="/register-client">
+                  <Button mt="7" size="sm">
+                    Register
+                  </Button>
+                </Link>
+              </CardBody>
+            </Card>
+
+            <Card bgColor="none" h="200px" w="200px" overflow="hidden">
+              <CardHeader>
+                <Heading color="white" size="sm" fontSize="16px" mt="1">
+                  View your events and clients.
+                </Heading>
+              </CardHeader>
+              <CardBody>
+                <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
+                  Edit your events or update client information here.
+                </Text>
+                <Link to="/view-events-clients">
+                  <Button mt="7" size="sm">
+                    View here
+                  </Button>
+                </Link>
+              </CardBody>
+            </Card>
+          </SimpleGrid>
+        </Box>
+        <Box
+          // bg="yellow"
+          h="500px"
+          w="150px"
+          ml="20px"
+          position="absolute"
+          right="0"
+        >
+          <Flex
+            direction="column"
+            justifyContent="space-evenly"
+            h="90%"
+            alignItems="center"
+          >
+            <Heading fontSize="12px" color="yellow.200">
+              Some Connected{" "}
+            </Heading>
+            <Heading color="yellow.200" mt="-5" fontSize="12px">
+              {" "}
+              Organizations
+            </Heading>
+            <Box
+              border="2px solid white"
+              borderRadius="4px"
+              h="100px"
+              w="100px"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Text color="white">Content 1</Text>
+            </Box>
+            <Box
+              border="2px solid white"
+              borderRadius="4px"
+              h="100px"
+              w="100px"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Image
+                src="https://safeconnectedstatic.s3.amazonaws.com/media/avatarcws_CYOdYKF.jpeg"
+                alt="Avatar"
+                borderRadius="4px"
+              />
+            </Box>
+            <Box
+              border="2px solid white"
+              borderRadius="4px"
+              h="100px"
+              w="100px"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Text color="white">Content 3</Text>
+            </Box>
+          </Flex>
+        </Box>
       </Flex>
     </>
   );
@@ -829,6 +835,115 @@ export default Main;
 //         </Link>
 //       </Box>
 //     </SimpleGrid>
+//   </>
+// );
+// };
+
+// export default Main;
+
+/////tabs
+// return (
+//   <>
+//     {" "}
+//     <Flex
+//       flexDirection="column"
+//       h="100vh"
+//       bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+//       pt="90px"
+//     >
+//       <Tabs isFitted variant="enclosed" size="sm">
+//         <TabList>
+//           <Tab fontSize="xs" color="whiteAlpha.600">
+//             Events
+//           </Tab>
+//           <Tab fontSize="xs" color="whiteAlpha.600">
+//             Members
+//           </Tab>
+//         </TabList>
+//         <TabPanels>
+//           <TabPanel>
+//             <Center>
+//               <TableContainer w="40vh">
+//                 <Table size="sm">
+//                   <Thead>
+//                     <Tr>
+//                       <Th color="yellow.200" fontSize="14px">
+//                         My Events
+//                       </Th>
+//                       <Th color="yellow.200" fontSize="14px">
+//                         Date
+//                       </Th>
+//                     </Tr>
+//                   </Thead>
+//                   <Tbody>
+//                     {managerEvents.map((event) => (
+//                       <Tr
+//                         key={event.id}
+//                         onClick={() => handleEventDetails(event.id)}
+//                       >
+//                         <Td
+//                           color="gray.400"
+//                           fontSize="12px"
+//                           fontWeight="bold"
+//                         >
+//                           {event.event_title}
+//                         </Td>
+//                         <Td color="gray.400" fontSize="12px">
+//                           {dayjs(event.event_date).format("MM/DD/YY")}
+//                         </Td>
+//                       </Tr>
+//                     ))}
+//                   </Tbody>
+//                 </Table>
+//               </TableContainer>
+//             </Center>
+//           </TabPanel>
+//           <TabPanel>
+//             <Center>
+//               <TableContainer w="35vh">
+//                 <Table size="sm">
+//                   <Thead>
+//                     <Tr>
+//                       <Th color="yellow.200" fontSize="14">
+//                         Organization Members
+//                       </Th>
+//                     </Tr>
+//                   </Thead>
+//                   <Tbody>
+//                     {members.map((member) => (
+//                       <Tr
+//                         key={member.id}
+//                         onClick={() => handleMemberProfile(member.member)}
+//                       >
+//                         <Td
+//                           _hover={{ color: "yellow" }} // Apply the hover effect using _hover prop
+//                           color="gray.400"
+//                           fontSize="12px"
+//                           fontWeight="bold"
+//                         >
+//                           <Flex align="center">
+//                             {" "}
+//                             {/* Wrap Avatar and name inside Flex */}
+//                             <Avatar
+//                               size="sm"
+//                               src={member.user_avatar}
+//                               name={member.member_full_name}
+//                               mr="2"
+//                             />
+//                             <span>{member.member_full_name}</span>
+//                             {/* <span>{member.member}</span> */}
+//                           </Flex>
+//                         </Td>
+//                       </Tr>
+//                     ))}
+//                   </Tbody>
+//                 </Table>
+//               </TableContainer>
+//             </Center>
+//           </TabPanel>
+//         </TabPanels>
+//       </Tabs>
+//     </Flex>
 //   </>
 // );
 // };

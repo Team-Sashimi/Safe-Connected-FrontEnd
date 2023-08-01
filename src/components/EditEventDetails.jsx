@@ -173,136 +173,141 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
   console.log(selectedSuggestion);
 
   return (
-    <Container h="30vh" mt="13vh">
-      <Flex
-        direction="column"
-        w="100%"
-        h="100%"
-        borderRadius="15"
-        // border="solid"
-        // borderColor="yellow.200"
-      >
-        <MapBoxEdit
-          token={token}
-          username={username}
-          setSelectedSuggestion={setSelectedSuggestion}
-          eventAddress={eventAddress}
-          eventStNumber={eventStNumber}
-          eventStreet={eventStreet}
-        />
-      </Flex>
-      <SimpleGrid columns={2} spacing={4}>
-        <FormControl>
-          <FormLabel color="yellow.200" fontSize="10px" mb="1">
-            Event Title
-          </FormLabel>
-          <Input
-            border="none"
-            placeholder="Name of Event"
-            value={eventTitle}
-            type="text"
-            size="xs"
-            color="grey.800"
-            bg="white"
-            onChange={(e) => handleChange("eventTitle", e)}
+    <Flex
+      h="100vh"
+      bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+    >
+      <Container h="30vh" mt="13vh">
+        <Flex
+          direction="column"
+          w="100%"
+          h="100%"
+          borderRadius="15"
+          // border="solid"
+          // borderColor="yellow.200"
+        >
+          <MapBoxEdit
+            token={token}
+            username={username}
+            setSelectedSuggestion={setSelectedSuggestion}
+            eventAddress={eventAddress}
+            eventStNumber={eventStNumber}
+            eventStreet={eventStreet}
           />
-          <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
-            Event Date
-          </FormLabel>
-          <Input
-            border="none"
-            placeholder="Pick a date"
-            value={eventDate}
-            type="date"
-            mt="-20px"
-            size="xs"
-            color="grey.800"
-            bg="white"
-            onChange={(e) => handleChange("eventDate", e)}
-          />
-          <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
-            Start Time:
-          </FormLabel>
-          <Input
-            type="time"
-            value={startTime}
-            mt="-20px"
-            size="xs"
-            color="grey.800"
-            bg="white"
-            onChange={(e) => handleChange("startTime", e)}
-          />
-        </FormControl>
+        </Flex>
+        <SimpleGrid columns={2} spacing={4}>
+          <FormControl>
+            <FormLabel color="yellow.200" fontSize="10px" mb="1">
+              Event Title
+            </FormLabel>
+            <Input
+              border="none"
+              placeholder="Name of Event"
+              value={eventTitle}
+              type="text"
+              size="xs"
+              color="grey.800"
+              bg="white"
+              onChange={(e) => handleChange("eventTitle", e)}
+            />
+            <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+              Event Date
+            </FormLabel>
+            <Input
+              border="none"
+              placeholder="Pick a date"
+              value={eventDate}
+              type="date"
+              mt="-20px"
+              size="xs"
+              color="grey.800"
+              bg="white"
+              onChange={(e) => handleChange("eventDate", e)}
+            />
+            <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+              Start Time:
+            </FormLabel>
+            <Input
+              type="time"
+              value={startTime}
+              mt="-20px"
+              size="xs"
+              color="grey.800"
+              bg="white"
+              onChange={(e) => handleChange("startTime", e)}
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormLabel color="yellow.200" fontSize="10px" mb="1">
+              End Time:
+            </FormLabel>
+            <Input
+              type="time"
+              value={endTime}
+              mt="-20px"
+              size="xs"
+              color="grey.800"
+              bg="white"
+              onChange={(e) => handleChange("endTime", e)}
+            />
+            <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+              Is your event private?
+            </FormLabel>
+            <Select
+              placeholder="Choose below"
+              size="xs"
+              value={privacy}
+              color="grey.800"
+              bg="white"
+              onChange={(e) => handleChange("privacy", e)}
+            >
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </Select>
+            <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
+              Capacity
+            </FormLabel>
+            <Input
+              placeholder="Choose below"
+              value={capacity}
+              size="xs"
+              color="grey.800"
+              bg="white"
+              onChange={(e) => handleChange("capacity", e)}
+            />
+          </FormControl>
+        </SimpleGrid>
 
         <FormControl>
-          <FormLabel color="yellow.200" fontSize="10px" mb="1">
-            End Time:
-          </FormLabel>
-          <Input
-            type="time"
-            value={endTime}
-            mt="-20px"
-            size="xs"
-            color="grey.800"
-            bg="white"
-            onChange={(e) => handleChange("endTime", e)}
-          />
           <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
-            Is your event private?
+            General Notes
           </FormLabel>
-          <Select
-            placeholder="Choose below"
-            size="xs"
-            value={privacy}
-            color="grey.800"
-            bg="white"
-            onChange={(e) => handleChange("privacy", e)}
-          >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </Select>
-          <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
-            Capacity
-          </FormLabel>
-          <Input
-            placeholder="Choose below"
-            value={capacity}
+          <Textarea
+            placeholder="Event details..."
+            value={generalNotes}
             size="xs"
             color="grey.800"
             bg="white"
-            onChange={(e) => handleChange("capacity", e)}
+            onChange={(e) => handleChange("generalNotes", e)}
           />
         </FormControl>
-      </SimpleGrid>
-
-      <FormControl>
-        <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
-          General Notes
-        </FormLabel>
-        <Textarea
-          placeholder="Event details..."
-          value={generalNotes}
-          size="xs"
-          color="grey.800"
-          bg="white"
-          onChange={(e) => handleChange("generalNotes", e)}
-        />
-      </FormControl>
-      <FormControl>
-        <Center>
-          <Button
-            mt="4"
-            size="xs"
-            type="submit"
-            colorScheme="green"
-            onClick={handleSubmit}
-            cursor="pointer"
-          >
-            Update
-          </Button>
-        </Center>
-      </FormControl>
-    </Container>
+        <FormControl>
+          <Center>
+            <Button
+              mt="4"
+              size="xs"
+              type="submit"
+              colorScheme="green"
+              onClick={handleSubmit}
+              cursor="pointer"
+            >
+              Update
+            </Button>
+          </Center>
+        </FormControl>
+      </Container>
+    </Flex>
   );
 };
 

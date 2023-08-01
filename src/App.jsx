@@ -24,6 +24,7 @@ import ClientProfile from "./components/ClientProfile";
 import ClientRegistration from "./components/ClientRegistration";
 
 import { Container } from "@chakra-ui/react";
+import EventsAndClients from "./components/EventsAndClients";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
@@ -199,6 +200,17 @@ function App() {
               path="/register-client"
               element={
                 <ClientRegistration
+                  username={username}
+                  token={token}
+                  userRole={userRole}
+                  language={language}
+                />
+              }
+            />
+            <Route
+              path="/view-events-clients"
+              element={
+                <EventsAndClients
                   username={username}
                   token={token}
                   userRole={userRole}

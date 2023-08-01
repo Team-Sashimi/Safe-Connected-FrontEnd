@@ -35,7 +35,10 @@ const ClientProfile = ({ token, username, userRole, orgDetails }) => {
 
   return (
     <>
-      <Center h="100vh">
+      <Center
+        h="100vh"
+        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+      >
         <Box>
           <Center>
             {/* <UploadFile token={token} username={username} /> */}
@@ -43,7 +46,7 @@ const ClientProfile = ({ token, username, userRole, orgDetails }) => {
               size="xl"
               name={profile.full_name}
               mb="5"
-              // src="https://example.com/avatar.jpg"
+              src={profile.user_avatar}
             />
           </Center>
           <Center>

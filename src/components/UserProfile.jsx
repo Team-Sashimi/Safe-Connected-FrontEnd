@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
-import UploadFile from "./UploadFile";
 
 const UserProfile = ({ token, username, userRole, orgDetails }) => {
   const baseURL = "https://safe-connected.onrender.com/";
@@ -32,18 +31,6 @@ const UserProfile = ({ token, username, userRole, orgDetails }) => {
         setUserDetails(res.data);
       });
   }, [token]);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`${baseURL}uploads/`, {
-  //       headers: {
-  //         Authorization: `Token ${token}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setAvatar(res.data);
-  //     });
-  // }, [token]);
 
   console.log(userDetails);
   return (

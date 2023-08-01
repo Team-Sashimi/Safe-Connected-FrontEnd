@@ -82,20 +82,27 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
     <SimpleGrid
       h="100vh"
       alignContent="center"
-      bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+      bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #1E2065 56.45%, #020515 86.14%)"
       columns={1}
       rows={5} // Changed rows to 5 to accommodate headline and 3 Select inputs
       spacing={1}
     >
-      <Box height="40px" />
+      <Box height="10px" />
 
       <Box textAlign="center">
-        <Heading color="white" as="h1" size="md">
-          Browse, filter and signup for events{" "}
-        </Heading>
+        {userRole === "Client" && (
+          <Heading color="white" as="h1" size="md">
+            Browse, Sort & Signup For Events
+          </Heading>
+        )}
+        {userRole === "Manager" && (
+          <Heading color="white" as="h1" size="md">
+            Browse, Sort & Manage Events
+          </Heading>
+        )}
       </Box>
 
-      <Flex mt="5" justifyContent="center" alignItems="center">
+      <Flex mt="4" justifyContent="center" alignItems="center">
         <Select
           size="sm"
           borderRadius="lg"
@@ -122,17 +129,41 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
           <option value="False">Save for later</option>
         </Select>
       </Flex>
-      <Flex
-        mt="2"
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Box mt="5" mb="2" bg="red" height="80px" w="300px"></Box>
-        <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
-        <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
-        <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
-      </Flex>
+      <Box mt="3" overflow="auto" maxHeight="410px">
+        <Flex direction="column" justifyContent="center" alignItems="center">
+          {allEvents.map((event) => (
+            <Box
+              key={event.id}
+              cursor="pointer"
+              p={4}
+              mb="2"
+              bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+              color="whiteAlpha.800"
+              height="80px"
+              w="300px"
+              boxShadow="md"
+              rounded="md"
+              overflow="auto"
+              onClick={() => handleEventDetails(event.id)}
+            >
+              <Heading fontSize="14px" mb="2">
+                {event.event_title} |{" "}
+                {dayjs(event.event_date).format("MMMM D, YYYY")}{" "}
+              </Heading>
+
+              <Text fontWeight="bold" fontSize="10px">
+                {event.general_notes}
+              </Text>
+            </Box>
+          ))}
+          <Box></Box>
+          <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
+          <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
+          <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
+          <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
+          <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
+        </Flex>
+      </Box>
     </SimpleGrid>
   );
 };
@@ -235,3 +266,31 @@ export default SearchEvents;
 //   </Flex>
 // );
 // };
+
+// {
+//   eventsForPage.map((event) => (
+//     <Box
+//       key={event.id}
+//       p={4}
+//       bg="transparent" // Transparent background for individual event boxes
+//       boxShadow="md"
+//       rounded="md"
+//     >
+//       <Heading fontSize="12px">{event.event_title}</Heading>
+//       <Text fontWeight="bold" fontSize="10px">
+//         {dayjs(event.event_date).format("MMMM D, YYYY")}
+//       </Text>
+
+//       <Text
+//         onClick={() => handleEventDetails(event.id)}
+//         cursor="pointer"
+//         size="sm"
+//         mt="5"
+//         color="yellow.200"
+//         fontSize="10px"
+//       >
+//         SEE MORE
+//       </Text>
+//     </Box>
+//   ));
+// }
