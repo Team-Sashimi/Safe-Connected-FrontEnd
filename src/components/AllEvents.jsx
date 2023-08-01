@@ -157,14 +157,11 @@ const AllEvents = ({ username, token, userRole, language }) => {
                   overflow="auto"
                   onClick={() => handleEventDetails(event.id)}
                 >
-                  <Heading fontSize="14px" mb="2">
-                    {event.event_title} |{" "}
-                    {dayjs(event.event_date).format("MM/DD/YYYY")}{" "}
-                  </Heading>
-
+                  <Heading fontSize="14px">{event.event_title}</Heading>
                   <Text fontWeight="bold" fontSize="10px">
-                    {event.general_notes}
+                    {dayjs(event.event_date).format("MM/DD/YYYY")}{" "}
                   </Text>
+                  <Text fontSize="10px">{event.general_notes}</Text>
                 </Box>
               ))}
             <Box></Box>

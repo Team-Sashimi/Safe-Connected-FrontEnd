@@ -28,6 +28,7 @@ const SearchMapBox = ({ token, setSelectedSuggestion }) => {
   const [zoom, setZoom] = useState(9);
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+
   //   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
 
   const [marker, setMarker] = useState(null);

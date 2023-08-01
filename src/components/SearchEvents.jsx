@@ -96,7 +96,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
           <option value="2">Finance</option>
           <option value="3">Education</option>
         </Select>
-        {userRole === "Manager" && (
+        {/* {userRole === "Manager" && (
           <Select
             size="sm"
             borderRadius="lg"
@@ -110,7 +110,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
             <option value="True">Published for all</option>
             <option value="False">Save for later</option>
           </Select>
-        )}
+        )} */}
         {/* {userRole === "Client" && (
           <Select
             size="sm"
