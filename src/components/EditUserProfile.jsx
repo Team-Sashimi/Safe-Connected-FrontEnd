@@ -19,7 +19,7 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 import { FiImage } from "react-icons/fi";
 
-const EditUserProfile = ({ token, username, userRole }) => {
+const EditUserProfile = ({ token, username, userRole, setUserLanguage }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -53,6 +53,7 @@ const EditUserProfile = ({ token, username, userRole }) => {
       )
       .then((res) => {
         console.log("you edited your profile");
+        setUserLanguage(language);
         setFirstName("");
         setLastName("");
         setLanguage("");
