@@ -37,17 +37,17 @@ const ManagerEvents = ({ token, username, userRole, orgDetails }) => {
       });
   }, [token]);
 
-  useEffect(() => {
-    axios
-      .get(`${baseURL}client/event/list/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        setClientEvents(res.data);
-      });
-  }, [token]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${baseURL}client/event/list/`, {
+  //       headers: {
+  //         Authorization: `Token ${token}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setClientEvents(res.data);
+  //     });
+  // }, [token]);
 
   const handleEventDetails = (eventID) => {
     console.log(`hi this is the event id: ${eventID}`);
@@ -71,67 +71,81 @@ const ManagerEvents = ({ token, username, userRole, orgDetails }) => {
     indexOfLastEvent
   );
 
+  const formatToRegularTime = (militaryTime) => {
+    const [hours, minutes] = militaryTime.split(":");
+    return new Date(0, 0, 0, hours, minutes).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
   return (
     <>
-      <Center bgColor="gray.800" h="92vh">
-        <SimpleGrid columns={{ sm: 1, md: 2, lg: 2 }} spacing="5" mt="10">
-          {currentEvents.map((event) => (
-            <Box
-              key={event.id}
-              display="flex"
-              alignItems="center"
-              borderLeft="1px solid white"
-              pl="4"
-              m="10"
-            >
-              <br />
-              <Avatar size="xl" name={username} mb="10" />
-              <Box ml="4">
-                {" "}
-                <Heading color="whiteAlpha.800" as="h4" size="md">
-                  {event.event_title}
-                </Heading>
-                <Text color="whiteAlpha.800">{event.general_notes}</Text>
-                <Text color="whiteAlpha.800">
-                  {dayjs(event.event_date).format("MMMM D, YYYY")}
-                  <br />
-                  {event.start_time} - {event.end_time}
-                  <br />
-                </Text>
-                <Text color="whiteAlpha.800">{event.privacy}</Text>
-                <Heading
-                  onClick={() => handleEventDetails(event.id)}
-                  cursor="pointer"
-                  size="md"
-                  mt="5"
-                  color="yellow.200"
-                >
-                  LEARN MORE
-                </Heading>
-              </Box>
+      <SimpleGrid
+        columns="1"
+        rows="3"
+        h="100vh"
+        alignContent="center"
+        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+      >
+        {currentEvents.map((event) => (
+          <Box
+            key={event.id}
+            display="flex"
+            alignItems="center"
+            borderLeft="1px solid white"
+            pl="4"
+            m="10"
+          >
+            <br />
+            <Box ml="4">
+              {" "}
+              <Heading color="whiteAlpha.800" as="h4" size="md" mb="2">
+                {event.event_title}
+              </Heading>
+              <Text fontSize="12px" color="whiteAlpha.800" mb="2">
+                {event.general_notes}
+              </Text>
+              <Text fontSize="10px" fontWeight="bold" color="whiteAlpha.800">
+                {dayjs(event.event_date).format("MMMM D, YYYY")}
+              </Text>
+              <Text mt="3" color="whiteAlpha.800">
+                {formatToRegularTime(event.start_time)} -{" "}
+                {formatToRegularTime(event.end_time)}
+                <br />
+              </Text>
+              <Text color="whiteAlpha.800">{event.privacy}</Text>
+              <Heading
+                onClick={() => handleEventDetails(event.id)}
+                cursor="pointer"
+                size="md"
+                mt="5"
+                color="yellow.200"
+              >
+                EDIT
+              </Heading>
             </Box>
-          ))}
-        </SimpleGrid>
-        <Center>
-          <Flex mt="5" justifyContent="center">
-            <Button
-              disabled={currentPage === 1}
-              onClick={handlePreviousPage}
-              mr="2"
-              colorScheme="teal"
-            >
-              Previous
-            </Button>
-            <Button
-              disabled={currentEvents.length < eventsPerPage}
-              onClick={handleNextPage}
-              ml="2"
-              colorScheme="teal"
-            >
-              Next
-            </Button>
-          </Flex>
-        </Center>
+          </Box>
+        ))}
+      </SimpleGrid>
+      <Center>
+        <Flex mt="5" justifyContent="center">
+          <Button
+            disabled={currentPage === 1}
+            onClick={handlePreviousPage}
+            mr="2"
+            colorScheme="teal"
+          >
+            Previous
+          </Button>
+          <Button
+            disabled={currentEvents.length < eventsPerPage}
+            onClick={handleNextPage}
+            ml="2"
+            colorScheme="teal"
+          >
+            Next
+          </Button>
+        </Flex>
       </Center>
     </>
   );

@@ -202,7 +202,8 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
             value={eventTitle}
             type="text"
             size="xs"
-            color="whiteAlpha.800"
+            color="grey.800"
+            bg="white"
             onChange={(e) => handleChange("eventTitle", e)}
           />
           <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
@@ -215,7 +216,8 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
             type="date"
             mt="-20px"
             size="xs"
-            color="whiteAlpha.800"
+            color="grey.800"
+            bg="white"
             onChange={(e) => handleChange("eventDate", e)}
           />
           <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
@@ -226,8 +228,8 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
             value={startTime}
             mt="-20px"
             size="xs"
-            variant="filled"
-            color="blackAlpha.800"
+            color="grey.800"
+            bg="white"
             onChange={(e) => handleChange("startTime", e)}
           />
         </FormControl>
@@ -241,8 +243,8 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
             value={endTime}
             mt="-20px"
             size="xs"
-            variant="filled"
-            color="blackAlpha.800"
+            color="grey.800"
+            bg="white"
             onChange={(e) => handleChange("endTime", e)}
           />
           <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
@@ -252,8 +254,8 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
             placeholder="Choose below"
             size="xs"
             value={privacy}
-            variant="filled"
-            color="blackAlpha.800"
+            color="grey.800"
+            bg="white"
             onChange={(e) => handleChange("privacy", e)}
           >
             <option value="true">Yes</option>
@@ -266,8 +268,8 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
             placeholder="Choose below"
             value={capacity}
             size="xs"
-            variant="filled"
-            color="blackAlpha.800"
+            color="grey.800"
+            bg="white"
             onChange={(e) => handleChange("capacity", e)}
           />
         </FormControl>
@@ -281,8 +283,8 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
           placeholder="Event details..."
           value={generalNotes}
           size="xs"
-          variant="filled"
-          color="blackAlpha.800"
+          color="grey.800"
+          bg="white"
           onChange={(e) => handleChange("generalNotes", e)}
         />
       </FormControl>

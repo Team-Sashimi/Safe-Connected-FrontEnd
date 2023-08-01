@@ -79,99 +79,159 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
   console.log(allEvents);
 
   return (
-    <Flex mt="12">
-      <Box
-        width="90%"
-        height="80vh"
-        m="5%"
-        p={4}
-        textAlign="right"
-        marginLeft="20px"
-        color="white" // White text color
-        borderRadius="md" // Rounded corners
-        overflow="auto" // Enable scroll if contents overflow
-      >
-        <Heading color="yellow.200" size="md" mb="4" mr="4">
-          Browse Events
-        </Heading>
-        <InputGroup size="xs" mt="2">
-          <InputLeftElement pointerEvents="none">
-            <SearchIcon color="gray.300" />
-          </InputLeftElement>
-          <Input
-            border="none"
-            justifyContent="flex-end"
-            type="text"
-            width="100%"
-            size="xs"
-            fontSize="xs"
-            placeholder="Search by keywords"
-            // value={searchQuery}
-            // onChange={(e) => handleEventSearch(e.target.value)}
-            color="white"
-            px="2"
-            py="1"
-          />
-        </InputGroup>
-        <SimpleGrid columns={2} spacing={4}>
-          {eventsForPage.map((event) => (
-            <Box
-              key={event.id}
-              p={4}
-              bg="transparent" // Transparent background for individual event boxes
-              boxShadow="md"
-              rounded="md"
-            >
-              <Heading fontSize="12px">{event.event_title}</Heading>
-              <Text fontWeight="bold" fontSize="10px">
-                {dayjs(event.event_date).format("MMMM D, YYYY")}
-              </Text>
-              {userRole === "Manager" ? (
-                <Text
-                  onClick={() => handleEventDetails(event.id)}
-                  cursor="pointer"
-                  size="sm"
-                  mt="5"
-                  color="yellow.200"
-                  fontSize="10px"
-                >
-                  SEE MORE
-                </Text>
-              ) : (
-                <Text
-                  onClick={() => handleEventDetails(event.id)}
-                  cursor="pointer"
-                  size="sm"
-                  mt="5"
-                  color="yellow.200"
-                  fontSize="8px"
-                >
-                  LEARN MORE
-                </Text>
-              )}
-            </Box>
-          ))}
-        </SimpleGrid>
+    <SimpleGrid
+      h="100vh"
+      alignContent="center"
+      bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+      columns={1}
+      rows={5} // Changed rows to 5 to accommodate headline and 3 Select inputs
+      spacing={1}
+    >
+      <Box height="40px" />
 
-        <Box mt="-5vh">
-          {currentPage > 1 && (
-            <Button
-              size="xs"
-              onClick={() => handlePageChange(currentPage - 1)}
-              mr={2}
-            >
-              <Icon as={ArrowBackIcon} />
-            </Button>
-          )}
-          {currentPage < totalPages && (
-            <Button size="xs" onClick={() => handlePageChange(currentPage + 1)}>
-              <Icon as={ArrowForwardIcon} />
-            </Button>
-          )}
-        </Box>
+      <Box textAlign="center">
+        <Heading color="white" as="h1" size="md">
+          Browse, filter and signup for events{" "}
+        </Heading>
       </Box>
-    </Flex>
+
+      <Flex mt="5" justifyContent="center" alignItems="center">
+        <Select
+          size="sm"
+          borderRadius="lg"
+          placeholder="Event Type"
+          color="yellow.200"
+          fontSize="10px"
+          w="100px"
+          mx={2}
+        >
+          <option value="1">Health</option>
+          <option value="2">Finance</option>
+          <option value="3">Education</option>
+        </Select>
+        <Select
+          size="sm"
+          borderRadius="lg"
+          placeholder="Published"
+          color="yellow.200"
+          fontSize="10px"
+          w="100px"
+          mx={2}
+        >
+          <option value="True">Published for all</option>
+          <option value="False">Save for later</option>
+        </Select>
+      </Flex>
+      <Flex
+        mt="2"
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Box mt="5" mb="2" bg="red" height="80px" w="300px"></Box>
+        <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
+        <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
+        <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
+      </Flex>
+    </SimpleGrid>
   );
 };
 
 export default SearchEvents;
+
+// demo code
+// return (
+//   <Flex mt="12">
+//     <Box
+//       width="90%"
+//       height="80vh"
+//       m="5%"
+//       p={4}
+//       textAlign="right"
+//       marginLeft="20px"
+//       color="white" // White text color
+//       borderRadius="md" // Rounded corners
+//       overflow="auto" // Enable scroll if contents overflow
+//     >
+//       <Heading color="yellow.200" size="md" mb="4" mr="4">
+//         Browse Events
+//       </Heading>
+//       <InputGroup size="xs" mt="2">
+//         <InputLeftElement pointerEvents="none">
+//           <SearchIcon color="gray.300" />
+//         </InputLeftElement>
+//         <Input
+//           border="none"
+//           justifyContent="flex-end"
+//           type="text"
+//           width="100%"
+//           size="xs"
+//           fontSize="xs"
+//           placeholder="Search by keywords"
+//           // value={searchQuery}
+//           // onChange={(e) => handleEventSearch(e.target.value)}
+//           color="white"
+//           px="2"
+//           py="1"
+//         />
+//       </InputGroup>
+//       <SimpleGrid columns={2} spacing={4}>
+//         {eventsForPage.map((event) => (
+//           <Box
+//             key={event.id}
+//             p={4}
+//             bg="transparent" // Transparent background for individual event boxes
+//             boxShadow="md"
+//             rounded="md"
+//           >
+//             <Heading fontSize="12px">{event.event_title}</Heading>
+//             <Text fontWeight="bold" fontSize="10px">
+//               {dayjs(event.event_date).format("MMMM D, YYYY")}
+//             </Text>
+//             {userRole === "Manager" ? (
+//               <Text
+//                 onClick={() => handleEventDetails(event.id)}
+//                 cursor="pointer"
+//                 size="sm"
+//                 mt="5"
+//                 color="yellow.200"
+//                 fontSize="10px"
+//               >
+//                 SEE MORE
+//               </Text>
+//             ) : (
+//               <Text
+//                 onClick={() => handleEventDetails(event.id)}
+//                 cursor="pointer"
+//                 size="sm"
+//                 mt="5"
+//                 color="yellow.200"
+//                 fontSize="8px"
+//               >
+//                 LEARN MORE
+//               </Text>
+//             )}
+//           </Box>
+//         ))}
+//       </SimpleGrid>
+
+//       <Box mt="-5vh">
+//         {currentPage > 1 && (
+//           <Button
+//             size="xs"
+//             onClick={() => handlePageChange(currentPage - 1)}
+//             mr={2}
+//           >
+//             <Icon as={ArrowBackIcon} />
+//           </Button>
+//         )}
+//         {currentPage < totalPages && (
+//           <Button size="xs" onClick={() => handlePageChange(currentPage + 1)}>
+//             <Icon as={ArrowForwardIcon} />
+//           </Button>
+//         )}
+//       </Box>
+//     </Box>
+//   </Flex>
+// );
+// };

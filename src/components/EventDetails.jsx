@@ -57,71 +57,77 @@ const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
     });
   };
 
+  console.log(eventDetails);
+
   return (
-    <Flex direction="column" marginTop="10vh">
-      <Container mt="2">
-        <Flex
-          direction="column" // Display the elements beneath each other
-          w="300px"
-          h="200px"
-          borderRadius={15}
-          // border="solid"
-          // borderColor="yellow.200"
-          mb="5"
-          align="center"
-          justify="center"
-          overflow="auto"
-        >
-          <Heading color="yellow.200" as="h4" size="md" mt="10">
-            {eventDetails.event_title}
-          </Heading>
-          <Text fontSize="10px" mb="5" color="yellow.200">
-            {eventDetails.general_notes}
-          </Text>
+    <Flex
+      bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+      direction="column"
+      h="100vh"
+      alignItems="center"
+    >
+      <Flex
+        mt="20"
+        direction="column" // Display the elements beneath each other
+        w="300px"
+        h="200px"
+        borderRadius={15}
+        // border="solid"
+        // borderColor="yellow.200"
+        mb="5"
+        align="center"
+        justify="center"
+        overflow="auto"
+      >
+        <Heading color="yellow.200" as="h4" size="md" mt="10">
+          {eventDetails.event_title}
+        </Heading>
+        <Text fontSize="10px" mb="5" color="yellow.200">
+          {eventDetails.general_notes}
+        </Text>
 
-          <Text fontSize="12px" color="yellow.200">
-            {eventDetails.start_time && eventDetails.end_time ? (
-              <Text color="yellow.200">
-                {formatToRegularTime(eventDetails.end_time)} -{" "}
-                {formatToRegularTime(eventDetails.start_time)}
-              </Text>
-            ) : (
-              <Text color="yellow.200">Time not available</Text>
-            )}
-          </Text>
+        <Text fontSize="12px" color="yellow.200">
+          {eventDetails.start_time && eventDetails.end_time ? (
+            <Text color="yellow.200">
+              {formatToRegularTime(eventDetails.start_time)} -{" "}
+              {formatToRegularTime(eventDetails.end_time)}
+            </Text>
+          ) : (
+            <Text color="yellow.200">Time not available</Text>
+          )}
+        </Text>
 
-          <Text fontSize="12px" color="yellow.200">
-            {eventDetails.street_number} {eventDetails.street_name}
-          </Text>
-          <Flex>
-            {userRole === "Manager" && (
-              <>
-                <Link to={`/edit-event/${eventID}`}>
-                  <Button size="xs" m="3">
-                    Edit
-                  </Button>
-                </Link>
-                <DeleteEvent token={token} eventID={eventID} />
-              </>
-            )}
-            {userRole === "Client" && (
-              <ClientSignUp token={token} eventID={eventID} />
-            )}
-          </Flex>
+        <Text fontSize="12px" color="yellow.200">
+          {eventDetails.street_number} {eventDetails.street_name}
+        </Text>
+        <Flex>
+          {userRole === "Manager" && (
+            <>
+              <Link to={`/edit-event/${eventID}`}>
+                <Button size="xs" m="3">
+                  Edit
+                </Button>
+              </Link>
+              <DeleteEvent token={token} eventID={eventID} />
+            </>
+          )}
+          {userRole === "Client" && (
+            <ClientSignUp token={token} eventID={eventID} />
+          )}
         </Flex>
-        <Flex justifyContent="center">
-          <Center>
-            <MapBox
-              token={token}
-              username={username}
-              eventAddress={eventAddress}
-              eventStNumber={eventStNumber}
-              eventStreet={eventStreet}
-            />
-          </Center>
-        </Flex>
-        <EventRoster token={token} progress={progress} userRole={userRole} />
-      </Container>
+      </Flex>
+      <Flex justifyContent="center">
+        <Center>
+          <MapBox
+            token={token}
+            username={username}
+            eventAddress={eventAddress}
+            eventStNumber={eventStNumber}
+            eventStreet={eventStreet}
+          />
+        </Center>
+      </Flex>
+      <EventRoster token={token} progress={progress} userRole={userRole} />
     </Flex>
   );
 };

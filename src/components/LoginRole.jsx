@@ -31,7 +31,7 @@ const LoginRole = ({ setUser }) => {
     console.log(password);
     axios
       .post(`${baseURL}auth/token/login`, {
-        username: username.toLowerCase(),
+        username: username,
         password: password,
       })
       .then((res) => {
@@ -57,7 +57,7 @@ const LoginRole = ({ setUser }) => {
 
   return (
     <>
-      <Container w="90%" mt="45vh">
+      <Container w="90%" h="100vh" mt="45vh">
         <Stack as={Box} textAlign={"center"} spacing={{ base: 2, md: 2 }}>
           <Center>
             <Box>

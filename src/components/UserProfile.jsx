@@ -49,14 +49,10 @@ const UserProfile = ({ token, username, userRole, orgDetails }) => {
   return (
     <>
       <SimpleGrid
-        // backgroundColor="yellow.200"
-        mt="20"
-        h="75%"
-        w="80%"
+        h="100vh"
+        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
         rows={2}
         spacing={4}
-        borderRadius="20px"
-        alignItems="center"
         // maxChildHeight="100px"
       >
         <Box
@@ -64,6 +60,7 @@ const UserProfile = ({ token, username, userRole, orgDetails }) => {
           borderRadius="20px"
           overflow="auto"
           p="4"
+          mt="25vh"
         >
           <Center>
             <Avatar

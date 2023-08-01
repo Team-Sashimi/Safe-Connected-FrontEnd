@@ -5,6 +5,8 @@ import {
   Flex,
   Text,
   SimpleGrid,
+  Box,
+  Container,
   Spacer,
   TableContainer,
   Table,
@@ -16,8 +18,18 @@ import {
   Tfoot,
   Heading,
   Avatar,
+  Button,
+  Tabs,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Center,
 } from "@chakra-ui/react";
 import { FiCalendar } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import SideBar from "./SideBar";
+import dayjs from "dayjs";
 
 const Main = ({ username, token, userRole, language }) => {
   const baseURL = "https://safe-connected.onrender.com/";
@@ -25,6 +37,7 @@ const Main = ({ username, token, userRole, language }) => {
   const [members, setMembers] = useState([]);
   const [eventID, setEventID] = useState("");
   const [memberID, setMemberID] = useState("");
+  const [clientEvents, setClientEvents] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,6 +67,21 @@ const Main = ({ username, token, userRole, language }) => {
       });
   }, [token]);
 
+  useEffect(() => {
+    axios
+      .get(`${baseURL}event/client/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        setClientEvents(res.data);
+      })
+      .catch((error) => {
+        console.log("Error fetching manager events:", error);
+      });
+  }, [token]);
+
   const handleEventDetails = (eventID) => {
     console.log(`hi this is the event id: ${eventID}`);
     navigate(`/event/${eventID}`);
@@ -66,112 +94,425 @@ const Main = ({ username, token, userRole, language }) => {
     setEventID(eventID);
   };
 
+  const formatToRegularTime = (militaryTime) => {
+    const [hours, minutes] = militaryTime.split(":");
+    return new Date(0, 0, 0, hours, minutes).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
   console.log(members);
 
   return (
-    <Flex
-      w="300px"
-      flexDirection="column"
-      h="100%"
-      pt={{ base: "100px", md: "75px" }}
-    >
-      <SimpleGrid columns={{ sm: 1, md: 2, xl: 4 }} spacing="10px">
-        {/* MiniStatistics Card */}
-        <Flex
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          // bg="blue.500"
-          boxShadow="md"
-          borderRadius="lg"
-          p="1px"
-        >
-          <Text
-            fontSize="md"
-            color="yellow.200"
-            fontWeight="bold"
-            mb="3"
-            pb="2px"
-          >
-            Welcome! {username}
-          </Text>
-          <Text fontSize="xs" color="#fff">
-            Create Events | Manage Clients | Built in Translation
-          </Text>
-        </Flex>
-        <Flex
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          bg="blue.500"
-          boxShadow="md"
-          borderRadius="lg"
-        ></Flex>
-        <Spacer></Spacer>
-        <Spacer></Spacer>
-        <TableContainer>
-          <Table size="sm">
-            <Thead>
-              <Tr>
-                <Th color="yellow.200">My Events</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {managerEvents.map((event) => (
-                <Tr key={event.id} onClick={() => handleEventDetails(event.id)}>
-                  <Td color="gray.400" fontSize="12px" fontWeight="bold">
-                    {event.event_title}
-                  </Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-        <Spacer></Spacer>
-        <Spacer></Spacer>
-        <TableContainer>
-          <Table size="sm">
-            <Thead>
-              <Tr>
-                <Th color="yellow.200">Organization Members</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {members.map((member) => (
-                <Tr
-                  key={member.id}
-                  onClick={() => handleMemberProfile(member.member)}
-                >
-                  <Td
-                    _hover={{ color: "yellow" }} // Apply the hover effect using _hover prop
-                    color="gray.400"
-                    fontSize="12px"
-                    fontWeight="bold"
-                  >
-                    <Flex align="center">
-                      {" "}
-                      {/* Wrap Avatar and name inside Flex */}
-                      <Avatar
-                        size="sm"
-                        src={member.user_avatar}
-                        name={member.member_full_name}
-                        mr="2"
-                      />
-                      <span>{member.member_full_name}</span>
-                    </Flex>
-                  </Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </SimpleGrid>
-    </Flex>
+    <>
+      {" "}
+      <Flex
+        flexDirection="column"
+        h="100vh"
+        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+        pt="90px"
+      >
+        <Tabs isFitted variant="enclosed" size="sm">
+          <TabList>
+            <Tab fontSize="xs" color="whiteAlpha.600">
+              Events
+            </Tab>
+            <Tab fontSize="xs" color="whiteAlpha.600">
+              Members
+            </Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <Center>
+                <TableContainer w="40vh">
+                  <Table size="sm">
+                    <Thead>
+                      <Tr>
+                        <Th color="yellow.200" fontSize="14px">
+                          My Events
+                        </Th>
+                        <Th color="yellow.200" fontSize="14px">
+                          Date
+                        </Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {managerEvents.map((event) => (
+                        <Tr
+                          key={event.id}
+                          onClick={() => handleEventDetails(event.id)}
+                        >
+                          <Td
+                            color="gray.400"
+                            fontSize="12px"
+                            fontWeight="bold"
+                          >
+                            {event.event_title}
+                          </Td>
+                          <Td color="gray.400" fontSize="12px">
+                            {dayjs(event.event_date).format("MM/DD/YY")}
+                          </Td>
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+              </Center>
+            </TabPanel>
+            <TabPanel>
+              <Center>
+                <TableContainer w="35vh">
+                  <Table size="sm">
+                    <Thead>
+                      <Tr>
+                        <Th color="yellow.200" fontSize="14">
+                          Organization Members
+                        </Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {members.map((member) => (
+                        <Tr
+                          key={member.id}
+                          onClick={() => handleMemberProfile(member.member)}
+                        >
+                          <Td
+                            _hover={{ color: "yellow" }} // Apply the hover effect using _hover prop
+                            color="gray.400"
+                            fontSize="12px"
+                            fontWeight="bold"
+                          >
+                            <Flex align="center">
+                              {" "}
+                              {/* Wrap Avatar and name inside Flex */}
+                              <Avatar
+                                size="sm"
+                                src={member.user_avatar}
+                                name={member.member_full_name}
+                                mr="2"
+                              />
+                              <span>{member.member_full_name}</span>
+                              {/* <span>{member.member}</span> */}
+                            </Flex>
+                          </Td>
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+              </Center>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Flex>
+    </>
   );
 };
 
 export default Main;
 
+//   return (
+//     <Flex
+//       flexDirection="column"
+//       bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+//       h="100vh"
+//       pt="60px"
+//     >
+//       <SimpleGrid columns={{ sm: 1, md: 2, xl: 4 }} m="5" spacing="10px">
+//         {/* MiniStatistics Card */}
+//         <Flex
+//           flexDirection="column"
+//           alignItems="center"
+//           justifyContent="center"
+//           // bg="blue.500"
+//           boxShadow="md"
+//           borderRadius="lg"
+//           p="1px"
+//         >
+//           <Text
+//             fontSize="md"
+//             color="yellow.200"
+//             fontWeight="bold"
+//             mb="3"
+//             pb="2px"
+//           >
+//             Welcome! {username}
+//           </Text>
+//         </Flex>
+//         <Flex
+//           flexDirection="column"
+//           alignItems="flex-start"
+//           justifyContent="center"
+//           // bg="blue.500"
+//           boxShadow="md"
+//           borderRadius="lg"
+//           ml="20px"
+//         >
+//           <Spacer></Spacer>
+//           <Spacer></Spacer>
+//           {userRole === "Manager" && (
+//             <TableContainer w="30vh">
+//               <Table size="sm">
+//                 <Thead>
+//                   <Tr>
+//                     <Th color="yellow.200" fontSize="14px">
+//                       My Events
+//                     </Th>
+//                   </Tr>
+//                 </Thead>
+//                 <Tbody>
+//                   {managerEvents.map((event) => (
+//                     <Tr
+//                       key={event.id}
+//                       onClick={() => handleEventDetails(event.id)}
+//                     >
+//                       <Td color="gray.400" fontSize="12px" fontWeight="bold">
+//                         {event.event_title}
+//                       </Td>
+//                     </Tr>
+//                   ))}
+//                 </Tbody>
+//               </Table>
+//             </TableContainer>
+//           )}
+
+//           {userRole === "Client" && (
+//             <TableContainer>
+//               <Table size="sm">
+//                 <Thead>
+//                   <Tr>
+//                     <Th color="yellow.200" fontSize="14px">
+//                       Events I'm Signed Up For:
+//                     </Th>
+//                   </Tr>
+//                 </Thead>
+//                 <Tbody>
+//                   {clientEvents.map((event) => (
+//                     <Tr
+//                       key={event.id}
+//                       onClick={() => handleEventDetails(event.id)}
+//                     >
+//                       <Td color="gray.400" fontSize="12px" fontWeight="bold">
+//                         {event.event_title}
+//                       </Td>
+//                     </Tr>
+//                   ))}
+//                 </Tbody>
+//               </Table>
+//             </TableContainer>
+//           )}
+//           <Spacer></Spacer>
+//           <Spacer></Spacer>
+
+//           {userRole === "Manager" && (
+//             <TableContainer w="35vh" mt="10">
+//               <Table size="sm">
+//                 <Thead>
+//                   <Tr>
+//                     <Th color="yellow.200" fontSize="14">
+//                       Organization Members
+//                     </Th>
+//                   </Tr>
+//                 </Thead>
+//                 <Tbody>
+//                   {members.map((member) => (
+//                     <Tr
+//                       key={member.id}
+//                       onClick={() => handleMemberProfile(member.member)}
+//                     >
+//                       <Td
+//                         _hover={{ color: "yellow" }} // Apply the hover effect using _hover prop
+//                         color="gray.400"
+//                         fontSize="12px"
+//                         fontWeight="bold"
+//                       >
+//                         <Flex align="center">
+//                           {" "}
+//                           {/* Wrap Avatar and name inside Flex */}
+//                           <Avatar
+//                             size="sm"
+//                             src={member.user_avatar}
+//                             name={member.member_full_name}
+//                             mr="2"
+//                           />
+//                           <span>{member.member_full_name}</span>
+//                           {/* <span>{member.member}</span> */}
+//                         </Flex>
+//                       </Td>
+//                     </Tr>
+//                   ))}
+//                 </Tbody>
+//               </Table>
+//             </TableContainer>
+//           )}
+//         </Flex>
+//       </SimpleGrid>
+//     </Flex>
+//   );
+// };
+
+// export default Main;
+
+// client view
+// events they have signed up for.
+// list of events there organization is offering.
+
+// manager view
+// bring browse events to home page
+// filter by my events (i created), organization events,
+// published events, draft (unpublished) events.
+
+//
+
+// DEMO MAIN
+// return (
+//   <Flex
+//     w="300px"
+//     flexDirection="column"
+//     h="100%"
+//     pt={{ base: "100px", md: "75px" }}
+//   >
+//     <SimpleGrid columns={{ sm: 1, md: 2, xl: 4 }} spacing="10px">
+//       {/* MiniStatistics Card */}
+//       <Flex
+//         flexDirection="column"
+//         alignItems="center"
+//         justifyContent="center"
+//         // bg="blue.500"
+//         boxShadow="md"
+//         borderRadius="lg"
+//         p="1px"
+//       >
+//         <Text
+//           fontSize="md"
+//           color="yellow.200"
+//           fontWeight="bold"
+//           mb="3"
+//           pb="2px"
+//         >
+//           Welcome! {username}
+//         </Text>
+//         <Text fontSize="xs" color="#fff">
+//           Create Events | Manage Clients | Built in Translation
+//         </Text>
+//       </Flex>
+//       <Flex
+//         flexDirection="column"
+//         alignItems="center"
+//         justifyContent="center"
+//         bg="blue.500"
+//         boxShadow="md"
+//         borderRadius="lg"
+//       ></Flex>
+//       <Spacer></Spacer>
+//       <Spacer></Spacer>
+//       {userRole === "Manager" && (
+//         <TableContainer>
+//           <Table size="sm">
+//             <Thead>
+//               <Tr>
+//                 <Th color="yellow.200" fontSize="14px">
+//                   My Events
+//                 </Th>
+//               </Tr>
+//             </Thead>
+//             <Tbody>
+//               {managerEvents.map((event) => (
+//                 <Tr
+//                   key={event.id}
+//                   onClick={() => handleEventDetails(event.id)}
+//                 >
+//                   <Td color="gray.400" fontSize="12px" fontWeight="bold">
+//                     {event.event_title}
+//                   </Td>
+//                 </Tr>
+//               ))}
+//             </Tbody>
+//           </Table>
+//         </TableContainer>
+//       )}
+
+//       {userRole === "Client" && (
+//         <TableContainer>
+//           <Table size="sm">
+//             <Thead>
+//               <Tr>
+//                 <Th color="yellow.200" fontSize="14px">
+//                   Events I'm Signed Up For:
+//                 </Th>
+//               </Tr>
+//             </Thead>
+//             <Tbody>
+//               {clientEvents.map((event) => (
+//                 <Tr
+//                   key={event.id}
+//                   onClick={() => handleEventDetails(event.id)}
+//                 >
+//                   <Td color="gray.400" fontSize="12px" fontWeight="bold">
+//                     {event.event_title}
+//                   </Td>
+//                 </Tr>
+//               ))}
+//             </Tbody>
+//           </Table>
+//         </TableContainer>
+//       )}
+//       <Spacer></Spacer>
+//       <Spacer></Spacer>
+//       {userRole === "Manager" && (
+//         <TableContainer>
+//           <Table size="sm">
+//             <Thead>
+//               <Tr>
+//                 <Th color="yellow.200" fontSize="10">
+//                   Organization Members
+//                 </Th>
+//               </Tr>
+//             </Thead>
+//             <Tbody>
+//               {members.map((member) => (
+//                 <Tr
+//                   key={member.id}
+//                   onClick={() => handleMemberProfile(member.member)}
+//                 >
+//                   <Td
+//                     _hover={{ color: "yellow" }} // Apply the hover effect using _hover prop
+//                     color="gray.400"
+//                     fontSize="12px"
+//                     fontWeight="bold"
+//                   >
+//                     <Flex align="center">
+//                       {" "}
+//                       {/* Wrap Avatar and name inside Flex */}
+//                       <Avatar
+//                         size="sm"
+//                         src={member.user_avatar}
+//                         name={member.member_full_name}
+//                         mr="2"
+//                       />
+//                       <span>{member.member_full_name}</span>
+//                       {/* <span>{member.member}</span> */}
+//                     </Flex>
+//                   </Td>
+//                 </Tr>
+//               ))}
+//             </Tbody>
+//           </Table>
+//         </TableContainer>
+//       )}
+//     </SimpleGrid>
+//     <Link to="/register-client">
+//       <Button>Add New</Button>
+//     </Link>
+//   </Flex>
+// );
+// };
+
+// export default Main;
+//
+//
+//
 // useEffect(() => {
 //   axios
 //     .get(`${baseURL}${language}/event/organizer/list/`, {
@@ -447,3 +788,49 @@ export default Main;
 //    />
 //  </Flex>
 // </Flex>
+
+//////////////////////
+// return (
+//   <>
+//     <SimpleGrid
+//       h="100vh"
+//       alignContent="center"
+//       bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+//       columns={2}
+//       rows={2}
+//       spacing={3}
+//     >
+//       <Box ml="4" height="120px">
+//         <Link to="/your-events">
+//           <Flex alignItems="center" justifyContent="center" h="100%">
+//             <Button size="sm">MY EVENTS</Button>
+//           </Flex>
+//         </Link>
+//       </Box>
+//       <Box mr="4" height="120px">
+//         <Flex alignItems="center" justifyContent="center" h="100%">
+//           <Link to="/members">
+//             <Button size="sm">MY MEMBERS</Button>
+//           </Link>
+//         </Flex>
+//       </Box>
+//       <Box ml="4" height="120px">
+//         <Link to="/register-client">
+//           <Flex alignItems="center" justifyContent="center" h="100%">
+//             <Button size="sm">REGISTER CLIENT</Button>
+//           </Flex>
+//         </Link>
+//       </Box>
+//       <Box mr="4" height="120px">
+//         <Link to="/create">
+//           <Flex alignItems="center" justifyContent="center" h="100%">
+//             <Button size="sm">CREATE EVENT</Button>
+//           </Flex>
+//         </Link>
+//       </Box>
+//     </SimpleGrid>
+//   </>
+// );
+// };
+
+// export default Main;

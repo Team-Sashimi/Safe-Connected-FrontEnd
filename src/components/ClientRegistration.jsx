@@ -15,19 +15,42 @@ import {
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
-import UploadFile from "./UploadFile";
 
-const ClientRegistration = ({ token, username }) => {
+const ClientRegistration = ({ token }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
+  const [username, setUsername] = useState("");
+  const [language, setLanguage] = useState("");
+  const [newClient, setNewClient] = useState([]);
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    axios
+      .post(`${baseURL}auth/users/`, {
+        first_name: firstName,
+        last_name: lastName,
+        username: username,
+        email: email,
+        password: password,
+        language: language,
+        // user_avatar: avatar,
+        role: role,
+      })
+      .then((res) => {
+        setNewClient(res.data);
+        console.log("hi");
+      });
+  };
 
   return (
     <>
       <Center bgColor="gray.800" h="100vh">
         <Container className="login">
-          <UploadFile token={token} username={username} />
+          <Heading color="yellow.200">Register a client</Heading>
           <form>
             <FormControl>
               <div>
@@ -70,21 +93,62 @@ const ClientRegistration = ({ token, username }) => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
+                <FormLabel mt="4" color="yellow.200" htmlFor="password">
+                  Username
+                </FormLabel>
+                <Input
+                  type="text"
+                  name="email"
+                  id="email"
+                  color="whiteAlpha.600"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+                <FormLabel mt="4" color="yellow.200" htmlFor="password">
+                  Password
+                </FormLabel>
+                <Input
+                  type="password"
+                  name="email"
+                  id="email"
+                  color="whiteAlpha.600"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
                 <FormLabel color="yellow.200" mt="4">
                   Select Language
                 </FormLabel>
                 <Select
                   color="whiteAlpha.600"
                   placeholder="Languages"
-                  onChange={(e) => handleChange("language", e)}
+                  onChange={(e) => setLanguage(e.target.value)}
                 >
-                  <option value="1">English</option>
-                  <option value="2">Spanish</option>
-                  <option value="3">French</option>
+                  <option value="en">English</option>
+                  <option value="es">Spanish</option>
+                  <option value="fr">French</option>
+                  <option value="sw">Swahili</option>
+                </Select>
+                <FormLabel color="yellow.200" mt="4">
+                  Select Role
+                </FormLabel>
+                <Select
+                  color="whiteAlpha.600"
+                  placeholder="Role"
+                  onChange={(e) => setRole(e.target.value)}
+                >
+                  <option value="Client">Client</option>
+                  <option value="Manager">Manager</option>
                 </Select>
               </div>
               <div>
-                <Button mt="20" type="submit" value="Update Profile">
+                <Button
+                  onClick={handleRegister}
+                  mt="20"
+                  type="submit"
+                  value="Update Profile"
+                >
                   Register
                 </Button>
               </div>

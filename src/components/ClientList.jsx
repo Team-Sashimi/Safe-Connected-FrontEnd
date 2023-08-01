@@ -36,7 +36,7 @@ const ClientList = ({ token, username, orgDetails }) => {
 
   const handleUserID = (userID) => {
     console.log(`hi this client has an id: ${userID}`);
-    navigate(`/clients/${userID}`);
+    navigate(`/member/${userID}`);
   };
   return (
     <>
@@ -70,14 +70,14 @@ const ClientList = ({ token, username, orgDetails }) => {
                     m="10"
                   >
                     <Flex direction="column" alignItems="center" ml="4">
-                      <Avatar size="xl" mb="3" src={user.member} />
+                      <Avatar size="xl" mb="3" src={user.user_avatar} />
                       <Heading
                         color="yellow.200"
                         as="h4"
                         size="md"
                         onClick={() => handleUserID(user.member)}
                       >
-                        <Link color="yellow.200"> {user.member}</Link>
+                        <Link color="yellow.200"> {user.member_full_name}</Link>
                       </Heading>
                     </Flex>
                   </Box>

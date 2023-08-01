@@ -44,8 +44,9 @@ const SideBar = ({ username, token, userRole }) => {
         alignItems={navSize === "small" ? "center" : "flex-start"} // Use === instead of ==
         as="nav"
       >
-        {/* <IconButton
+        <IconButton
           background="none"
+          color="yellow.200"
           mt={5}
           _hover={{ background: "none" }}
           icon={<FiMenu />}
@@ -54,12 +55,13 @@ const SideBar = ({ username, token, userRole }) => {
               changeNavSize("large"); // Use === instead of ==
             else changeNavSize("small"); // Use === instead of ==
           }}
-        /> */}
+        />
         <Link to="/">
           <NavItem
             navSize={navSize}
             icon={FiHome}
             title="Home"
+            color="yellow.200"
             description="This is the description for the dashboard."
           />
         </Link>
@@ -73,32 +75,6 @@ const SideBar = ({ username, token, userRole }) => {
         </Link>
 
         <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
-      </Flex>
-
-      <Flex
-        p="5%"
-        flexDir="column"
-        w="100%"
-        alignItems={navSize === "small" ? "center" : "flex-start"} // Use === instead of ==
-        mb={4}
-      >
-        <Divider display={navSize === "small" ? "none" : "flex"} />{" "}
-        {/* Use === instead of == */}
-        <Flex mt={4} align="center">
-          <Link to="/account">
-            <Avatar size="sm" src={userRole} />
-          </Link>
-          <Flex
-            flexDir="column"
-            ml={4}
-            display={navSize === "small" ? "none" : "flex"} // Use === instead of ==
-          >
-            <Heading as="h3" size="sm">
-              {userRole}{" "}
-            </Heading>
-            <Text color="gray">Admin</Text>
-          </Flex>
-        </Flex>
       </Flex>
     </Flex>
   );
