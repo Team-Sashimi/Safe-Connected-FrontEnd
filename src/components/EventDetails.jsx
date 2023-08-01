@@ -70,11 +70,11 @@ const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
         mt="24"
         direction="column" // Display the elements beneath each other
         w="300px"
-        h="200px"
+        h="250px"
         borderRadius={15}
         // border="solid"
         // borderColor="yellow.200"
-        mb="5"
+        mb="4"
         align="center"
         justify="center"
         overflow="auto"
@@ -91,8 +91,8 @@ const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
         <Text fontSize="12px" color="yellow.200">
           {eventDetails.start_time && eventDetails.end_time ? (
             <Text color="yellow.200">
-              {formatToRegularTime(eventDetails.end_time)} -{" "}
-              {formatToRegularTime(eventDetails.start_time)}
+              {formatToRegularTime(eventDetails.start_time)} -{" "}
+              {formatToRegularTime(eventDetails.end_time)}
             </Text>
           ) : (
             <Text color="yellow.200">Time not available</Text>
