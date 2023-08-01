@@ -103,6 +103,115 @@ export default ClientSignUp;
 //   AlertDialogContent,
 //   AlertDialogOverlay,
 //   Tooltip,
+//   useToast,
+// } from "@chakra-ui/react";
+// import useLocalStorageState from "use-local-storage-state";
+// import axios from "axios";
+// import { useParams, useNavigate } from "react-router-dom";
+
+// const ClientSignUp = ({ token, eventID }) => {
+//   const baseURL = "https://safe-connected.onrender.com/";
+//   const [isButtonClicked, setIsButtonClicked] = useState(
+//     () => localStorage.getItem("isButtonClicked") === "true"
+//   );
+//   const [isAlertOpen, setIsAlertOpen] = useState(false);
+//   const toast = useToast();
+
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     localStorage.setItem("isButtonClicked", isButtonClicked);
+//   }, [isButtonClicked]);
+
+//   const handleSignUp = () => {
+//     axios
+//       .patch(
+//         `${baseURL}event/roster/${eventID}/signup/`,
+//         {},
+//         {
+//           headers: {
+//             Authorization: `Token ${token}`,
+//           },
+//         }
+//       )
+//       .then((res) => {
+//         console.log("you signed up!");
+//         setIsButtonClicked(true); // Set the button click state to true after successful sign-up
+//         setIsAlertOpen(true); // Show the alert after successful sign-up
+//         showToast();
+//       })
+//       .catch((error) => {
+//         console.log("error");
+//       });
+//   };
+
+//   const handleCancel = () => {
+//     axios
+//       .patch(
+//         `${baseURL}event/roster/${eventID}/signup/`,
+//         {},
+//         {
+//           headers: {
+//             Authorization: `Token ${token}`,
+//           },
+//         }
+//       )
+//       .then((res) => {
+//         console.log("you canceled your sign-up!");
+//         setIsButtonClicked(false); // Set the button click state to false after successful cancellation
+//         setIsAlertOpen(false); // Hide the alert after successful cancellation
+//         showToastCancel();
+//       })
+//       .catch((error) => {
+//         console.log("error");
+//       });
+//   };
+
+//   const showToast = () => {
+//     toast({
+//       title: "Thanks for signing up!",
+//       description: "You will be getting an email soon.",
+//       status: "success",
+//       duration: 3000, // Duration in milliseconds (3 seconds in this example)
+//       isClosable: true,
+//     });
+//   };
+
+//   return (
+//     <>
+//       <Button my="2" onClick={isButtonClicked ? handleCancel : handleSignUp}>
+//         {isButtonClicked ? "Cancel" : "Sign Up"}
+//       </Button>
+//     </>
+//   );
+// };
+
+// export default ClientSignUp;
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// import React, { useState, useEffect } from "react";
+// import {
+//   Button,
+//   AlertDialog,
+//   AlertDialogBody,
+//   AlertDialogFooter,
+//   AlertDialogHeader,
+//   AlertDialogContent,
+//   AlertDialogOverlay,
+//   Tooltip,
 // } from "@chakra-ui/react";
 // import useLocalStorageState from "use-local-storage-state";
 // import axios from "axios";

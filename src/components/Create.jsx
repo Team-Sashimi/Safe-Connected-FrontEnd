@@ -185,7 +185,6 @@ const CreateEvent = ({ token, username }) => {
               Event Date
             </FormLabel>
             <Input
-              // style={{ filter: "invert(1)", color: "white" }}
               placeholder="Pick a date"
               type="date"
               mt="-20px"
@@ -203,6 +202,7 @@ const CreateEvent = ({ token, username }) => {
                 placeholder="Choose below"
                 size="xs"
                 bg="white"
+                value={eventType}
                 onChange={(e) => handleChange("eventType", e)}
               >
                 <option value="1">Health</option>

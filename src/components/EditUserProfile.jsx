@@ -176,6 +176,7 @@ const EditUserProfile = ({ token, username, userRole, setUserLanguage }) => {
                 <option value="en">English</option>
                 <option value="es">Spanish</option>
                 <option value="fr">French</option>
+                <option value="sw">Swahili</option>
               </Select>
               <FormLabel color="yellow.200" fontSize="10px" mt="2" mb="1">
                 Email

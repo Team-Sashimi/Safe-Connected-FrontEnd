@@ -59,7 +59,7 @@ const AllEvents = ({ username, token, userRole, language }) => {
         <Box textAlign="center">
           {userRole === "Client" && (
             <Heading color="white" as="h1" size="md">
-              Your Organization Events
+              Browse All Connected Events
             </Heading>
           )}
           {userRole === "Manager" && (
