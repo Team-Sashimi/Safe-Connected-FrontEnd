@@ -25,8 +25,8 @@ import dayjs from "dayjs";
 const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
   const [allEvents, setAllEvents] = useState([]);
   const [allStreets, setAllStreets] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const eventsPerPage = 5; // Reduce the number of events per page for smaller screens
+  const [eventTypeFilter, setEventTypeFilter] = useState(null);
+  const [publishedFilter, setPublishedFilter] = useState(null);
 
   const navigate = useNavigate();
 
@@ -46,34 +46,13 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
       });
   }, [token]);
 
-  // /?event_title=<searchtext>
-
   const handleEventDetails = (eventID) => {
     console.log(`hi this is the event id: ${eventID}`);
     navigate(`/event/${eventID}`);
   };
 
-  const formatToRegularTime = (militaryTime) => {
-    const [hours, minutes] = militaryTime.split(":");
-    return new Date(0, 0, 0, hours, minutes).toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
-  const itemsPerPage = 7; // Number of items to show per page, adjusted to 5
-  const totalPages = Math.ceil(allEvents.length / itemsPerPage);
-
-  // Calculate the start and end index of the items to display on the current page
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
-  // Get the events for the current page
-  const eventsForPage = allEvents.slice(startIndex, endIndex);
-
-  // Function to handle pagination
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
+  const handleShowAllEvents = () => {
+    setShowAllEvents(true);
   };
 
   console.log(allEvents);
@@ -111,6 +90,7 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
           fontSize="10px"
           w="100px"
           mx={2}
+          onChange={(e) => setEventTypeFilter(e.target.value)}
         >
           <option value="1">Health</option>
           <option value="2">Finance</option>
@@ -124,38 +104,64 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
           fontSize="10px"
           w="100px"
           mx={2}
+          onChange={(e) => setPublishedFilter(e.target.value)}
         >
           <option value="True">Published for all</option>
           <option value="False">Save for later</option>
         </Select>
+        <Button
+          mx={2}
+          variant="none"
+          borderRadius="lg"
+          color="yellow.200"
+          fontSize="10px"
+          size="sm"
+          colorScheme="blue"
+          onClick={handleShowAllEvents}
+        >
+          Show All
+        </Button>
       </Flex>
       <Box mt="3" overflow="auto" maxHeight="410px">
         <Flex direction="column" justifyContent="center" alignItems="center">
-          {allEvents.map((event) => (
-            <Box
-              key={event.id}
-              cursor="pointer"
-              p={4}
-              mb="2"
-              bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
-              color="whiteAlpha.800"
-              height="80px"
-              w="300px"
-              boxShadow="md"
-              rounded="md"
-              overflow="auto"
-              onClick={() => handleEventDetails(event.id)}
-            >
-              <Heading fontSize="14px" mb="2">
-                {event.event_title} |{" "}
-                {dayjs(event.event_date).format("MMMM D, YYYY")}{" "}
-              </Heading>
+          {allEvents
+            .filter((event) => {
+              if (eventTypeFilter) {
+                return event.event_type === parseInt(eventTypeFilter);
+              }
+              return true;
+            })
+            .filter((event) => {
+              if (publishedFilter !== null) {
+                return event.privacy === (publishedFilter === "True");
+              }
+              return true;
+            })
+            .map((event) => (
+              <Box
+                key={event.id}
+                cursor="pointer"
+                p={4}
+                mb="2"
+                bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+                color="whiteAlpha.800"
+                height="80px"
+                w="300px"
+                boxShadow="md"
+                rounded="md"
+                overflow="auto"
+                onClick={() => handleEventDetails(event.id)}
+              >
+                <Heading fontSize="14px" mb="2">
+                  {event.event_title} |{" "}
+                  {dayjs(event.event_date).format("MMMM D, YYYY")}{" "}
+                </Heading>
 
-              <Text fontWeight="bold" fontSize="10px">
-                {event.general_notes}
-              </Text>
-            </Box>
-          ))}
+                <Text fontWeight="bold" fontSize="10px">
+                  {event.general_notes}
+                </Text>
+              </Box>
+            ))}
           <Box></Box>
           <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
           <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
@@ -169,6 +175,8 @@ const SearchEvents = ({ token, username, userRole, orgDetails, language }) => {
 };
 
 export default SearchEvents;
+
+// /?event_title=<searchtext>
 
 // demo code
 // return (
@@ -294,3 +302,22 @@ export default SearchEvents;
 //     </Box>
 //   ));
 // }
+
+// const itemsPerPage = 7; // Number of items to show per page, adjusted to 5
+// const totalPages = Math.ceil(allEvents.length / itemsPerPage);
+
+// // Calculate the start and end index of the items to display on the current page
+// const startIndex = (currentPage - 1) * itemsPerPage;
+// const endIndex = startIndex + itemsPerPage;
+
+// // Get the events for the current page
+// const eventsForPage = allEvents.slice(startIndex, endIndex);
+
+// // Function to handle pagination
+// const handlePageChange = (page) => {
+//   setCurrentPage(page);
+// };
+
+// const [allStreets, setAllStreets] = useState([]);
+// const [currentPage, setCurrentPage] = useState(1);
+// const eventsPerPage = 5; // Reduce the number of events per page for smaller screens

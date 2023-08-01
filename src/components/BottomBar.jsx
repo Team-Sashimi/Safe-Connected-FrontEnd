@@ -8,11 +8,11 @@ const BottomBar = ({ username, token, userRole }) => {
 
   return (
     <Box
-      position="fixed"
+      position="absolute"
       bottom="0"
       w="100%"
-      height="8%"
-      // bgGradient="linear-gradient(159.02deg, #faf189 14.25%, #faf17e 56.45%, #faf189 86.14%)"
+      height="7%"
+      bgGradient="linear-gradient(159.02deg, #faf189 14.25%, #faf17e 56.45%, #faf189 86.14%)"
       boxShadow="lg"
       borderTopRadius="xl"
       p="1"
@@ -22,11 +22,11 @@ const BottomBar = ({ username, token, userRole }) => {
           <Flex flexDirection="column" align="center">
             <Icon
               as={FiHome}
-              color={location.pathname === "/" ? "white" : "yellow.200"}
+              color={location.pathname === "/" ? "grey.600" : "green.500"}
               boxSize="5"
             />
             <Text
-              color={location.pathname === "/" ? "white" : "yellow.200"}
+              color={location.pathname === "/" ? "grey.600" : "green.500"}
               fontSize="10px"
             >
               Home
@@ -38,13 +38,17 @@ const BottomBar = ({ username, token, userRole }) => {
             <Icon
               as={FiList}
               color={
-                location.pathname === "/search-events" ? "white" : "yellow.200"
+                location.pathname === "/search-events"
+                  ? "grey.600"
+                  : "green.500"
               }
               boxSize="5"
             />
             <Text
               color={
-                location.pathname === "/search-events" ? "white" : "yellow.200"
+                location.pathname === "/search-events"
+                  ? "grey.600"
+                  : "green.500"
               }
               fontSize="10px"
             >
@@ -56,11 +60,15 @@ const BottomBar = ({ username, token, userRole }) => {
           <Flex flexDirection="column" align="center">
             <Icon
               as={FiUser}
-              color={location.pathname === "/account" ? "white" : "yellow.200"}
+              color={
+                location.pathname === "/account" ? "grey.600" : "green.500"
+              }
               boxSize="5"
             />
             <Text
-              color={location.pathname === "/account" ? "white" : "yellow.200"}
+              color={
+                location.pathname === "/account" ? "grey.600" : "green.500"
+              }
               fontSize="10px"
             >
               Profile

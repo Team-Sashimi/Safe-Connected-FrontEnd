@@ -76,6 +76,7 @@ const ClientRegistration = ({ token }) => {
       .then((res) => {
         setNewClient(res.data);
         onOpenAlert();
+        onCloseAlert(navigate("/view-events-clients"));
         console.log("hi");
       })
       .catch((error) => {
