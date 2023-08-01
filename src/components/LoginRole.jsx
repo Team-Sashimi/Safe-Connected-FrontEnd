@@ -15,6 +15,8 @@ import {
   Flex,
   SimpleGrid,
   Select,
+  Spinner,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import cnctr_yellow from "../assets/cnctr_yellow.svg";
@@ -22,11 +24,16 @@ import cnctr_yellow from "../assets/cnctr_yellow.svg";
 const LoginRole = ({ setUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const baseURL = "https://safe-connected.onrender.com/";
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
     console.log(username);
     console.log(password);
     axios
@@ -49,9 +56,18 @@ const LoginRole = ({ setUser }) => {
             console.log(`hi my role is ${role} my language is ${language}`);
             navigate("/");
           })
-          .catch((error) => {
-            console.error(error);
+          .catch((e) => {
+            setLoading(false);
+            setError(e.message);
           });
+      })
+      .catch((e) => {
+        if (e.response && e.response.data) {
+          setError(e.response.data);
+        } else {
+          setError({ submit: e.message });
+        }
+        setLoading(false);
       });
   };
 
@@ -92,7 +108,7 @@ const LoginRole = ({ setUser }) => {
             </Box>
           </Flex>
           <SimpleGrid mt="5" columns={1} spacing={4}>
-            <FormControl>
+            <FormControl isInvalid={error.username ? true : false}>
               <FormLabel color="yellow.200" fontSize="12px" mb="1">
                 Username
               </FormLabel>
@@ -104,6 +120,14 @@ const LoginRole = ({ setUser }) => {
                 color="whiteAlpha.800"
                 onChange={(e) => setUsername(e.target.value)}
               />
+              <FormErrorMessage>{error.username}</FormErrorMessage>
+            </FormControl>
+
+            <FormControl
+              isInvalid={
+                error.password || error.non_field_errors ? true : false
+              }
+            >
               <FormLabel color="yellow.200" fontSize="12px" mt="5" mb="1">
                 Password
               </FormLabel>
@@ -114,8 +138,10 @@ const LoginRole = ({ setUser }) => {
                 size="sm"
                 color="whiteAlpha.800"
                 onChange={(e) => setPassword(e.target.value)}
-                required={true}
               />
+              <FormErrorMessage>
+                {error.password || error.non_field_errors}
+              </FormErrorMessage>
             </FormControl>
           </SimpleGrid>
           <FormControl>
@@ -126,8 +152,9 @@ const LoginRole = ({ setUser }) => {
                 type="submit"
                 onClick={handleSubmit}
                 cursor="pointer"
+                disabled={loading} // Disable the button while loading
               >
-                Login{" "}
+                {loading ? <Spinner size="sm" /> : "Login"}
               </Button>
             </Center>
           </FormControl>
