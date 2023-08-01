@@ -17,6 +17,7 @@
     "axios": "^1.4.0",
     "dayjs": "^1.11.9",
     "framer-motion": "^10.12.22",
+    "libphonenumber-js": "^1.10.38",
     "mapbox-gl": "^2.14.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",

@@ -28,6 +28,7 @@ const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
         },
       })
       .then((res) => {
+        console.log(res.data);
         setEventRoster(res.data.event_attendees);
         setSignUpCount(res.data.event_attendees.length);
       });
@@ -65,7 +66,7 @@ const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
                 colorScheme="yellow"
                 size="lg"
                 height="32px"
-                width={{ base: "90%", sm: "70%", md: "50%", lg: "600px" }}
+                width={{ base: "100%", sm: "70%", md: "50%", lg: "600px" }}
               />
               <Center>
                 <Text fontSize="10px" mt={2} color="white">

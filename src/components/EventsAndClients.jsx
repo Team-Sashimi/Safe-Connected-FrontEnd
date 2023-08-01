@@ -35,36 +35,61 @@ import {
 import { Link } from "react-router-dom";
 import SideBar from "./SideBar";
 import dayjs from "dayjs";
-const EventsAndClients = ({ token, username, userRole, language }) => {
+const EventsAndClients = ({
+  token,
+  username,
+  userRole,
+  language,
+  orgDetails,
+}) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [managerEvents, setManagerEvents] = useState([]);
   const [members, setMembers] = useState([]);
   const [eventID, setEventID] = useState("");
-  const [memberID, setMemberID] = useState("");
+  const [orgID, setOrgID] = useState("");
   const [clientEvents, setClientEvents] = useState([]);
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios
-      .get(`${baseURL}${language}/event/organizer/list/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        setManagerEvents(res.data);
+  {
+    userRole === "Manager" &&
+      useEffect(() => {
         axios
-          .get(`${baseURL}org/1/clients/`, {
+          .get(`${baseURL}${language}/event/organizer/list/`, {
             headers: {
               Authorization: `Token ${token}`,
             },
           })
           .then((res) => {
-            setMembers(res.data);
+            setManagerEvents(res.data);
+            axios
+              .get(`${baseURL}org/1/clients/`, {
+                headers: {
+                  Authorization: `Token ${token}`,
+                },
+              })
+              .then((res) => {
+                setMembers(res.data);
+              })
+              .catch((error) => {
+                console.log("Error fetching clients data:", error);
+              });
           })
           .catch((error) => {
-            console.log("Error fetching clients data:", error);
+            console.log("Error fetching manager events:", error);
           });
+      }, [token]);
+  }
+
+  useEffect(() => {
+    axios
+      .get(`${baseURL}event/client/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        setClientEvents(res.data);
       })
       .catch((error) => {
         console.log("Error fetching manager events:", error);
@@ -82,6 +107,14 @@ const EventsAndClients = ({ token, username, userRole, language }) => {
     navigate(`/member/${memberID}`);
     setEventID(eventID);
   };
+
+  const handleOrgProfile = (orgID) => {
+    console.log(`hi this is org has an id of: ${orgID}`);
+    navigate(`/org/${orgID}`);
+    setOrgID(orgID);
+  };
+
+  console.log(orgDetails);
 
   return (
     <Flex
@@ -101,15 +134,28 @@ const EventsAndClients = ({ token, username, userRole, language }) => {
           borderRadius="lg"
           p="1px"
         >
-          <Text
-            fontSize="md"
-            color="whiteAlpha.800"
-            fontWeight="bold"
-            mb="3"
-            pb="2px"
-          >
-            Your Events, Your Members.
-          </Text>
+          {userRole === "Manager" && (
+            <Text
+              fontSize="md"
+              color="whiteAlpha.800"
+              fontWeight="bold"
+              mb="3"
+              pb="2px"
+            >
+              Your Events, Your Members.
+            </Text>
+          )}
+          {userRole === "Client" && (
+            <Text
+              fontSize="md"
+              color="whiteAlpha.800"
+              fontWeight="bold"
+              mb="3"
+              pb="2px"
+            >
+              Your Events, Your Organizations.
+            </Text>
+          )}
         </Flex>
         <Flex
           flexDirection="column"
@@ -149,11 +195,11 @@ const EventsAndClients = ({ token, username, userRole, language }) => {
           )}
 
           {userRole === "Client" && (
-            <TableContainer>
+            <TableContainer minW="300px">
               <Table size="sm">
                 <Thead>
                   <Tr>
-                    <Th color="yellow.200" fontSize="14px">
+                    <Th fontSize="14px" color="yellow.200">
                       Events I'm Signed Up For:
                     </Th>
                   </Tr>
@@ -164,8 +210,17 @@ const EventsAndClients = ({ token, username, userRole, language }) => {
                       key={event.id}
                       onClick={() => handleEventDetails(event.id)}
                     >
-                      <Td color="gray.400" fontSize="12px" fontWeight="bold">
+                      <Td
+                        fontSize="12px"
+                        fontWeight="bold"
+                        p={2}
+                        color="gray.400"
+                      >
                         {event.event_title}
+                        <br />
+                        <span style={{ fontSize: "10px" }}>
+                          {event.event_date}
+                        </span>
                       </Td>
                     </Tr>
                   ))}
@@ -173,6 +228,46 @@ const EventsAndClients = ({ token, username, userRole, language }) => {
               </Table>
             </TableContainer>
           )}
+
+          {userRole === "Client" && (
+            <TableContainer minW="300px" mt="10">
+              <Table size="sm">
+                <Thead>
+                  <Tr>
+                    <Th color="yellow.200" fontSize="14">
+                      My Organizations
+                    </Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr
+                    key={orgDetails.id}
+                    onClick={() => handleOrgProfile(orgDetails.id)}
+                  >
+                    <Td
+                      _hover={{ color: "yellow" }} // Apply the hover effect using _hover prop
+                      color="gray.400"
+                      fontSize="12px"
+                      fontWeight="bold"
+                    >
+                      <Flex align="center">
+                        {" "}
+                        {/* Wrap Avatar and name inside Flex */}
+                        <Avatar
+                          size="sm"
+                          src={orgDetails.org_avatar}
+                          name={orgDetails.member_full_name}
+                          mr="2"
+                        />
+                        <span>{orgDetails.org_name}</span>
+                      </Flex>
+                    </Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+            </TableContainer>
+          )}
+
           <Spacer></Spacer>
           <Spacer></Spacer>
 

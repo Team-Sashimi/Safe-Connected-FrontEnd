@@ -37,17 +37,17 @@ const ManagerEvents = ({ token, username, userRole, orgDetails }) => {
       });
   }, [token]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${baseURL}client/event/list/`, {
-  //       headers: {
-  //         Authorization: `Token ${token}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setClientEvents(res.data);
-  //     });
-  // }, [token]);
+  useEffect(() => {
+    axios
+      .get(`${baseURL}client/event/list/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        setClientEvents(res.data);
+      });
+  }, [token]);
 
   const handleEventDetails = (eventID) => {
     console.log(`hi this is the event id: ${eventID}`);

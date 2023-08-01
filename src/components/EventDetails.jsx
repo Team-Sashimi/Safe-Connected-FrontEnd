@@ -67,7 +67,7 @@ const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
       alignItems="center"
     >
       <Flex
-        mt="20"
+        mt="24"
         direction="column" // Display the elements beneath each other
         w="300px"
         h="200px"
@@ -79,12 +79,14 @@ const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
         justify="center"
         overflow="auto"
       >
-        <Heading color="yellow.200" as="h4" size="md" mt="10">
+        <Heading color="yellow.200" as="h4" size="md">
           {eventDetails.event_title}
         </Heading>
-        <Text fontSize="10px" mb="5" color="yellow.200">
-          {eventDetails.general_notes}
-        </Text>
+        <Center>
+          <Text mt="2" fontSize="14" align="center" mb="5" color="yellow.200">
+            {eventDetails.general_notes}
+          </Text>
+        </Center>
 
         <Text fontSize="12px" color="yellow.200">
           {eventDetails.start_time && eventDetails.end_time ? (

@@ -93,62 +93,121 @@ const Main = ({ username, token, userRole, language }) => {
       >
         <Box ml="2" overflow="auto" maxHeight="500px">
           <SimpleGrid columns={1} spacing={1}>
-            <Card bgColor="none" h="200px" w="200px" overflow="hidden">
-              <CardHeader>
-                <Heading color="white" size="sm" fontSize="16px" mt="1">
-                  {" "}
-                  Add Events
-                </Heading>
-              </CardHeader>
-              <CardBody>
-                <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
-                  Create events for your organization.
-                </Text>
-                <Link to="/create">
-                  <Button mt="10" size="sm">
-                    Create
-                  </Button>
-                </Link>
-              </CardBody>
-            </Card>
+            {userRole === "Manager" && (
+              <Card bgColor="none" h="200px" w="200px" overflow="hidden">
+                <CardHeader>
+                  <Heading color="white" size="sm" fontSize="16px" mt="1">
+                    {" "}
+                    Add Events
+                  </Heading>
+                </CardHeader>
+                <CardBody>
+                  <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
+                    Create events for your organization.
+                  </Text>
+                  <Link to="/create">
+                    <Button mt="10" size="sm">
+                      Create
+                    </Button>
+                  </Link>
+                </CardBody>
+              </Card>
+            )}
 
-            <Card bgColor="none" h="200px" w="200px" overflow="hidden">
-              <CardHeader>
-                <Heading color="white" size="sm" fontSize="16px" mt="1">
-                  {" "}
-                  Register Clients
-                </Heading>
-              </CardHeader>
-              <CardBody>
-                <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
-                  Safely register your clients to view and sign up for your
-                  events.
-                </Text>
-                <Link to="/register-client">
-                  <Button mt="7" size="sm">
-                    Register
-                  </Button>
-                </Link>
-              </CardBody>
-            </Card>
+            {userRole === "Manager" && (
+              <Card bgColor="none" h="200px" w="200px" overflow="hidden">
+                <CardHeader>
+                  <Heading color="white" size="sm" fontSize="16px" mt="1">
+                    {" "}
+                    Register Clients
+                  </Heading>
+                </CardHeader>
+                <CardBody>
+                  <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
+                    Safely register your clients to view and sign up for your
+                    events.
+                  </Text>
+                  <Link to="/register-client">
+                    <Button mt="7" size="sm">
+                      Register
+                    </Button>
+                  </Link>
+                </CardBody>
+              </Card>
+            )}
 
-            <Card bgColor="none" h="200px" w="200px" overflow="hidden">
-              <CardHeader>
-                <Heading color="white" size="sm" fontSize="16px" mt="1">
-                  View your events and clients.
-                </Heading>
-              </CardHeader>
-              <CardBody>
-                <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
-                  Edit your events or update client information here.
-                </Text>
-                <Link to="/view-events-clients">
-                  <Button mt="7" size="sm">
-                    View here
-                  </Button>
-                </Link>
-              </CardBody>
-            </Card>
+            {userRole === "Manager" && (
+              <Card bgColor="none" h="200px" w="200px" overflow="hidden">
+                <CardHeader>
+                  <Heading color="white" size="sm" fontSize="16px" mt="1">
+                    View your events and clients.
+                  </Heading>
+                </CardHeader>
+                <CardBody>
+                  <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
+                    Edit your events or update client information here.
+                  </Text>
+                  <Link to="/view-events-clients">
+                    <Button mt="7" size="sm">
+                      View here
+                    </Button>
+                  </Link>
+                </CardBody>
+              </Card>
+            )}
+
+            {userRole === "Client" && (
+              <Card
+                mt="15px"
+                bgColor="none"
+                h="200px"
+                w="200px"
+                overflow="hidden"
+              >
+                <CardHeader>
+                  <Heading color="white" size="sm" fontSize="16px" mt="1">
+                    View events you've signed up for!
+                  </Heading>
+                </CardHeader>
+                <CardBody>
+                  <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
+                    Check details, cancel your sign up, or contact the
+                    organization!
+                  </Text>
+                  <Link to="/view-events-clients">
+                    <Button mt="7" size="sm">
+                      Your Events
+                    </Button>
+                  </Link>
+                </CardBody>
+              </Card>
+            )}
+
+            {userRole === "Client" && (
+              <Card
+                mt="15"
+                bgColor="none"
+                h="200px"
+                w="200px"
+                overflow="hidden"
+              >
+                <CardHeader>
+                  <Heading color="white" size="sm" fontSize="16px" mt="1">
+                    Check out events offered by your organization.
+                  </Heading>
+                </CardHeader>
+                <CardBody>
+                  <Text color="whiteAlpha.600" fontSize="12px" mt="-4">
+                    A full list of events, from education to finance.
+                  </Text>
+                  <Link to="/view-events-clients">
+                    <Button mt="5" size="sm">
+                      Browse Now
+                    </Button>
+                  </Link>
+                </CardBody>
+              </Card>
+            )}
           </SimpleGrid>
         </Box>
         <Box
@@ -158,6 +217,7 @@ const Main = ({ username, token, userRole, language }) => {
           ml="20px"
           position="absolute"
           right="0"
+          mt="15"
         >
           <Flex
             direction="column"

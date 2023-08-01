@@ -25,6 +25,7 @@ import ClientRegistration from "./components/ClientRegistration";
 
 import { Container } from "@chakra-ui/react";
 import EventsAndClients from "./components/EventsAndClients";
+import OrgProfile from "./components/OrgProfile";
 
 function App() {
   const [token, setToken] = useLocalStorageState("userToken", "");
@@ -58,17 +59,17 @@ function App() {
       });
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${baseURL}organization/1/`, {
-  //       headers: {
-  //         Authorization: `Token ${token}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setOrgDetails(res.data);
-  //     });
-  // }, [token]);
+  useEffect(() => {
+    axios
+      .get(`${baseURL}organization/1/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        setOrgDetails(res.data);
+      });
+  }, [token]);
 
   console.log(language);
 
@@ -215,6 +216,19 @@ function App() {
                     token={token}
                     userRole={userRole}
                     language={language}
+                    orgDetails={orgDetails}
+                  />
+                }
+              />
+              <Route
+                path="/org/:orgID"
+                element={
+                  <OrgProfile
+                    username={username}
+                    token={token}
+                    userRole={userRole}
+                    language={language}
+                    orgDetails={orgDetails}
                   />
                 }
               />
