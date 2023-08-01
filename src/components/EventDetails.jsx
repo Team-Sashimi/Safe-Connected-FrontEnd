@@ -91,8 +91,8 @@ const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
         <Text fontSize="12px" color="yellow.200">
           {eventDetails.start_time && eventDetails.end_time ? (
             <Text color="yellow.200">
-              {formatToRegularTime(eventDetails.start_time)} -{" "}
-              {formatToRegularTime(eventDetails.end_time)}
+              {formatToRegularTime(eventDetails.end_time)} -{" "}
+              {formatToRegularTime(eventDetails.start_time)}
             </Text>
           ) : (
             <Text color="yellow.200">Time not available</Text>
