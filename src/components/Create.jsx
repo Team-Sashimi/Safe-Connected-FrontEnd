@@ -170,7 +170,7 @@ const CreateEvent = ({ token, username }) => {
         </Flex>
         <SimpleGrid columns={2} spacing={4}>
           <FormControl>
-            <FormLabel isRequired color="yellow.200" fontSize="10px" mb="1">
+            <FormLabel color="yellow.200" fontSize="10px" mb="1">
               Event Title
             </FormLabel>
             <Input
