@@ -30,14 +30,14 @@ const CreateEvent = ({ token, username }) => {
   const [streetName, setStreetName] = useState("");
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
-  const [privacy, setPrivacy] = useState("");
+  const [privacy, setPrivacy] = useState(false);
   const [language, setLanguage] = useState("");
   const [capacity, setCapacity] = useState("");
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
   const { eventID } = useParams();
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(null);
   const [isDraftSaving, setIsDraftSaving] = useState(true);
-  const [eventType, setEventType] = useState("");
+  const [eventType, setEventType] = useState(0);
 
   const navigate = useNavigate();
   const baseURL = "https://safe-connected.onrender.com/";
@@ -58,7 +58,7 @@ const CreateEvent = ({ token, username }) => {
           street_name: selectedSuggestion.text,
           city: selectedSuggestion.context[2].text,
           zipcode: selectedSuggestion.context[1].text,
-          privacy: privacyValue,
+          privacy: true,
           event_language: language,
           max_attendees: capacity,
           event_type: eventType,
@@ -170,7 +170,7 @@ const CreateEvent = ({ token, username }) => {
         </Flex>
         <SimpleGrid columns={2} spacing={4}>
           <FormControl>
-            <FormLabel color="yellow.200" fontSize="10px" mb="1">
+            <FormLabel isRequired color="yellow.200" fontSize="10px" mb="1">
               Event Title
             </FormLabel>
             <Input
@@ -273,7 +273,7 @@ const CreateEvent = ({ token, username }) => {
             >
               Create Event
             </Button>
-            <Button
+            {/* <Button
               mt="4"
               ml="2"
               size="xs"
@@ -282,7 +282,7 @@ const CreateEvent = ({ token, username }) => {
               cursor="pointer"
             >
               Save to draft
-            </Button>
+            </Button> */}
           </Center>
         </FormControl>
       </Container>

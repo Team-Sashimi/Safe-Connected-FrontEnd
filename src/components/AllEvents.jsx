@@ -23,6 +23,7 @@ const AllEvents = ({ username, token, userRole, language }) => {
   const [allEvents, setAllEvents] = useState([]);
   const [eventTypeFilter, setEventTypeFilter] = useState(null);
   const [publishedFilter, setPublishedFilter] = useState(null);
+  const navigate = useNavigate();
 
   const baseURL = "https://safe-connected.onrender.com/";
   useEffect(() => {
@@ -36,6 +37,11 @@ const AllEvents = ({ username, token, userRole, language }) => {
         setAllEvents(res.data);
       });
   }, [token]);
+
+  const handleEventDetails = (eventID) => {
+    console.log(`hi this is the event id: ${eventID}`);
+    navigate(`/event/${eventID}`);
+  };
 
   console.log(allEvents);
   return (
@@ -153,7 +159,7 @@ const AllEvents = ({ username, token, userRole, language }) => {
                 >
                   <Heading fontSize="14px" mb="2">
                     {event.event_title} |{" "}
-                    {dayjs(event.event_date).format("MMMM D, YYYY")}{" "}
+                    {dayjs(event.event_date).format("MM/DD/YYYY")}{" "}
                   </Heading>
 
                   <Text fontWeight="bold" fontSize="10px">
