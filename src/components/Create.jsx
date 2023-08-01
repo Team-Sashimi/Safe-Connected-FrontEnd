@@ -16,6 +16,15 @@ import {
   Textarea,
   Select,
   SimpleGrid,
+  Alert,
+  AlertIcon,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Spinner,
 } from "@chakra-ui/react";
 
 import SearchMapBox from "./SearchMapBox";
@@ -38,12 +47,15 @@ const CreateEvent = ({ token, username }) => {
   const [currentPage, setCurrentPage] = useState(null);
   const [isDraftSaving, setIsDraftSaving] = useState(true);
   const [eventType, setEventType] = useState(0);
-
+  const [errorText, setErrorText] = useState("");
   const navigate = useNavigate();
   const baseURL = "https://safe-connected.onrender.com/";
+  const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     const privacyValue = isDraftSaving ? false : true;
     axios
       .post(
@@ -84,18 +96,14 @@ const CreateEvent = ({ token, username }) => {
         setLanguage("");
         setCapacity("");
         setEventType("");
-        navigate("/");
+        navigate("/view-events-clients");
       })
+
       .catch((error) => {
         console.error(error);
+        setIsErrorDialogOpen(true);
+        setLoading(false);
       });
-  };
-
-  const handleSaveToDraft = (e) => {
-    e.preventDefault();
-    setIsDraftSaving(false); // Set the state to true when the "Save to draft" button is clicked
-    handleSubmit(e); // Call the existing handleSubmit function to make the POST request
-    setIsDraftSaving(true); // Reset the state to false after the draft is saved
   };
 
   const handleChange = (userInput, e) => {
@@ -143,6 +151,9 @@ const CreateEvent = ({ token, username }) => {
     }
   };
 
+  const handleCloseErrorDialog = () => {
+    setIsErrorDialogOpen(false);
+  };
   // console.log(selectedSuggestion);
   // console.log(selectedSuggestion.text);
   // console.log(selectedSuggestion.address);
@@ -202,7 +213,6 @@ const CreateEvent = ({ token, username }) => {
                 placeholder="Choose below"
                 size="xs"
                 bg="white"
-                value={eventType}
                 onChange={(e) => handleChange("eventType", e)}
               >
                 <option value="1">Health</option>
@@ -271,19 +281,28 @@ const CreateEvent = ({ token, username }) => {
               onClick={handleSubmit}
               cursor="pointer"
             >
-              Create Event
+              {loading ? <Spinner size="sm" /> : "Create Event"}
             </Button>
-            {/* <Button
-              mt="4"
-              ml="2"
-              size="xs"
-              type="submit"
-              onClick={handleSaveToDraft}
-              cursor="pointer"
-            >
-              Save to draft
-            </Button> */}
           </Center>
+          <AlertDialog
+            isOpen={isErrorDialogOpen}
+            leastDestructiveRef={null}
+            onClose={handleCloseErrorDialog}
+          >
+            <AlertDialogOverlay>
+              <AlertDialogContent>
+                <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                  Please fill out all of the fields.
+                </AlertDialogHeader>
+                <AlertDialogBody>{errorText}</AlertDialogBody>
+                <AlertDialogFooter>
+                  <Button ref={null} onClick={handleCloseErrorDialog}>
+                    OK
+                  </Button>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialogOverlay>
+          </AlertDialog>
         </FormControl>
       </Container>
     </Flex>

@@ -41,8 +41,8 @@ const ClientSignUp = ({ token, eventID }) => {
       )
       .then((res) => {
         console.log("you signed up!");
-        setIsButtonClicked(true); // Set the button click state to true after successful sign-up
-        setIsAlertOpen(true); // Show the alert after successful sign-up
+        setIsButtonClicked(true);
+        setIsAlertOpen(true);
         showToast();
       })
       .catch((error) => {
@@ -63,8 +63,8 @@ const ClientSignUp = ({ token, eventID }) => {
       )
       .then((res) => {
         console.log("you canceled your sign-up!");
-        setIsButtonClicked(false); // Set the button click state to false after successful cancellation
-        setIsAlertOpen(false); // Hide the alert after successful cancellation
+        setIsButtonClicked(false);
+        setIsAlertOpen(false);
         showToastCancel();
       })
       .catch((error) => {
@@ -77,14 +77,30 @@ const ClientSignUp = ({ token, eventID }) => {
       title: "Thanks for signing up!",
       description: "You will be getting an email soon.",
       status: "success",
-      duration: 3000, // Duration in milliseconds (3 seconds in this example)
+      position: "top",
+      duration: 3000,
+      isClosable: true,
+      onClose: () => window.location.reload(),
+    });
+  };
+
+  const showToastCancel = () => {
+    toast({
+      title: "Sorry you had to cancel!",
+      description: "You will be getting an email soon.",
+      status: "info",
+      duration: 3000,
       isClosable: true,
     });
   };
 
   return (
     <>
-      <Button my="2" onClick={isButtonClicked ? handleCancel : handleSignUp}>
+      <Button
+        my="2"
+        onClick={isButtonClicked ? handleCancel : handleSignUp}
+        colorScheme={isButtonClicked ? "red" : "green"}
+      >
         {isButtonClicked ? "Cancel" : "Sign Up"}
       </Button>
     </>

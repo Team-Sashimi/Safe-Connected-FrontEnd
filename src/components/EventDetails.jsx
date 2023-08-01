@@ -100,7 +100,11 @@ const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
         </Text>
 
         <Text fontSize="12px" color="yellow.200">
-          {eventDetails.street_number} {eventDetails.street_name}
+          {eventDetails.street_number} {eventDetails.street_name}{" "}
+        </Text>
+
+        <Text fontSize="12px" color="yellow.200">
+          {eventDetails.city}, {eventDetails.state} {eventDetails.zipcode}
         </Text>
         <Flex>
           {userRole === "Manager" && (

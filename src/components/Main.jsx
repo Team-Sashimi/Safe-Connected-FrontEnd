@@ -215,8 +215,8 @@ const Main = ({ username, token, userRole, language }) => {
           // bg="yellow"
           h="600px"
           w="150px"
-          mr="20px"
-          position="absolute"
+          // mr="20px"
+          position="fixed"
           right="0"
           mt="5"
           backgroundImage={`url(${landing_04})`}

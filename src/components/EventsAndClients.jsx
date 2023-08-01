@@ -147,6 +147,7 @@ const EventsAndClients = ({
               fontWeight="bold"
               mb="3"
               pb="2px"
+              mt="4"
             >
               Your Events, Your Members.
             </Text>
@@ -175,7 +176,7 @@ const EventsAndClients = ({
           <Spacer></Spacer>
           <Spacer></Spacer>
           {userRole === "Manager" && (
-            <TableContainer w="30vh">
+            <TableContainer w="35vh">
               <Table size="sm">
                 <Thead>
                   <Tr>
