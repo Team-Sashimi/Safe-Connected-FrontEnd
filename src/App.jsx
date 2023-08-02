@@ -22,6 +22,7 @@ import UserProfile from "./components/UserProfile";
 import EditUserProfile from "./components/EditUserProfile";
 import ClientProfile from "./components/ClientProfile";
 import ClientRegistration from "./components/ClientRegistration";
+import ClientLanding from "./components/ClientLanding";
 
 import { Container } from "@chakra-ui/react";
 import EventsAndClients from "./components/EventsAndClients";
@@ -76,15 +77,15 @@ function App() {
 
   return (
     <>
-      <Navbar handleLogout={handleLogout} />
       <Box
         h="100vh"
-        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+        // bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
       >
+        <Navbar handleLogout={handleLogout} />
         {token ? (
           <>
             <Routes>
-              <Route
+              {/* <Route
                 path="/"
                 element={
                   <Main
@@ -92,7 +93,18 @@ function App() {
                     token={token}
                     userRole={userRole}
                     language={language}
-                    handleLogout={handleLogout}
+                  />
+                }
+              /> */}
+              <Route
+                path="/"
+                element={
+                  <ClientLanding
+                    username={username}
+                    token={token}
+                    userRole={userRole}
+                    language={language}
+                    orgDetails={orgDetails}
                   />
                 }
               />
@@ -252,8 +264,9 @@ function App() {
             </Routes>
           </>
         )}
+        <BottomBar userRole={userRole} />
       </Box>
-      <BottomBar userRole={userRole} />
+
       {/* </Center> */}
       {/* </Flex>
       </Flex> */}

@@ -80,7 +80,6 @@ const ClientSignUp = ({ token, eventID }) => {
       position: "top",
       duration: 3000,
       isClosable: true,
-      onClose: () => window.location.reload(),
     });
   };
 

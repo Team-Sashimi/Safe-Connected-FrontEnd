@@ -16,34 +16,41 @@ import {
   Textarea,
   Select,
   SimpleGrid,
+  Avatar,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 
-const AllEvents = ({ username, token, userRole, language }) => {
+//sign ups
+
+const AllEvents = ({ username, token, userRole, language, orgDetails }) => {
   const [allEvents, setAllEvents] = useState([]);
+  const [signUps, setSignUps] = useState([]);
   const [eventTypeFilter, setEventTypeFilter] = useState(null);
   const [publishedFilter, setPublishedFilter] = useState(null);
   const navigate = useNavigate();
-
   const baseURL = "https://safe-connected.onrender.com/";
+
   useEffect(() => {
     axios
-      .get(`${baseURL}${language}/event/search/`, {
+      .get(`${baseURL}${language}/event/client/`, {
         headers: {
           Authorization: `Token ${token}`,
         },
       })
       .then((res) => {
-        setAllEvents(res.data);
+        setSignUps(res.data);
+      })
+      .catch((error) => {
+        console.log("Error fetching client signed up events:", error);
       });
   }, [token]);
 
   const handleEventDetails = (eventID) => {
     console.log(`hi this is the event id: ${eventID}`);
     navigate(`/event/${eventID}`);
+    setEventID(eventID);
   };
-
-  console.log(allEvents);
+  console.log(signUps);
   return (
     <>
       <SimpleGrid
@@ -51,85 +58,18 @@ const AllEvents = ({ username, token, userRole, language }) => {
         alignContent="center"
         bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #1E2065 56.45%, #020515 86.14%)"
         columns={1}
-        rows={5} // Changed rows to 5 to accommodate headline and 3 Select inputs
+        rows={4}
         spacing={1}
       >
-        <Box height="10px" />
-
         <Box textAlign="center">
-          {userRole === "Client" && (
-            <Heading color="white" as="h1" size="md">
-              Browse All Connected Events
-            </Heading>
-          )}
-          {userRole === "Manager" && (
-            <Heading color="white" as="h1" size="md">
-              Browse, Sort & Manage Events
-            </Heading>
-          )}
+          <Heading color="white" as="h1" size="sm">
+            You Signed Up For These Events
+          </Heading>
         </Box>
 
-        <Flex mt="4" justifyContent="center" alignItems="center">
-          <Select
-            size="sm"
-            borderRadius="lg"
-            placeholder="Event Type"
-            color="yellow.200"
-            fontSize="10px"
-            w="100px"
-            mx={2}
-            onChange={(e) => setEventTypeFilter(e.target.value)}
-          >
-            <option value="1">Health</option>
-            <option value="2">Finance</option>
-            <option value="3">Education</option>
-          </Select>
-          {userRole === "Manager" && (
-            <Select
-              size="sm"
-              borderRadius="lg"
-              placeholder="Published"
-              color="yellow.200"
-              fontSize="10px"
-              w="100px"
-              mx={2}
-              onChange={(e) => setPublishedFilter(e.target.value)}
-            >
-              <option value="True">Published for all</option>
-              <option value="False">Save for later</option>
-            </Select>
-          )}
-          {/* {userRole === "Client" && (
-          <Select
-            size="sm"
-            borderRadius="lg"
-            placeholder="Signed Up"
-            color="yellow.200"
-            fontSize="10px"
-            w="100px"
-            mx={2}
-            onChange={(e) => setPublishedFilter(e.target.value)}
-          >
-            <option value="True">Attending</option>
-            <option value="False">Not Attending</option>
-          </Select>
-        )} */}
-          {/* <Button
-            mx={2}
-            variant="none"
-            borderRadius="lg"
-            color="yellow.200"
-            fontSize="10px"
-            size="sm"
-            colorScheme="blue"
-            onClick={handleShowAllEvents}
-          >
-            Show All
-          </Button> */}
-        </Flex>
         <Box mt="3" overflow="auto" maxHeight="410px">
           <Flex direction="column" justifyContent="center" alignItems="center">
-            {allEvents
+            {signUps
               .filter((event) => {
                 if (eventTypeFilter) {
                   return event.event_type === parseInt(eventTypeFilter);
@@ -151,25 +91,17 @@ const AllEvents = ({ username, token, userRole, language }) => {
                   bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
                   color="whiteAlpha.800"
                   height="80px"
-                  w="300px"
+                  w="200px"
                   boxShadow="md"
                   rounded="md"
-                  overflow="auto"
                   onClick={() => handleEventDetails(event.id)}
                 >
                   <Heading fontSize="14px">{event.event_title}</Heading>
                   <Text fontWeight="bold" fontSize="10px">
                     {dayjs(event.event_date).format("MM/DD/YYYY")}{" "}
                   </Text>
-                  <Text fontSize="10px">{event.general_notes}</Text>
                 </Box>
               ))}
-            <Box></Box>
-            {/* <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
-            <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
-            <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
-            <Box mb="2" bg="tomato" height="80px" w="300px"></Box>
-            <Box mb="2" bg="tomato" height="80px" w="300px"></Box> */}
           </Flex>
         </Box>
       </SimpleGrid>
@@ -178,3 +110,21 @@ const AllEvents = ({ username, token, userRole, language }) => {
 };
 
 export default AllEvents;
+
+{
+  /* <Box mt="5" textAlign="center">
+<Heading color="white" as="h1" size="xs">
+  Reach out to {orgDetails.org_name}
+</Heading>
+</Box>
+<Flex align="center">
+
+<Avatar
+  size="sm"
+  src={orgDetails.org_avatar}
+  name={orgDetails.member_full_name}
+  mr="2"
+/>
+<span>{orgDetails.org_name}</span>
+</Flex> */
+}

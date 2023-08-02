@@ -1,11 +1,18 @@
 import React from "react";
 import { Box, Flex, Icon, Text } from "@chakra-ui/react";
-import { FiHome, FiList, FiUser, FiPlus, FiCalendar } from "react-icons/fi";
+import {
+  FiHome,
+  FiList,
+  FiUser,
+  FiPlus,
+  FiCalendar,
+  FiInfo,
+} from "react-icons/fi";
+
 import { Link, useLocation } from "react-router-dom";
 
 const BottomBar = ({ username, token, userRole }) => {
   const location = useLocation();
-
   return (
     <Box
       position="absolute"
@@ -22,11 +29,11 @@ const BottomBar = ({ username, token, userRole }) => {
           <Flex flexDirection="column" align="center">
             <Icon
               as={FiHome}
-              color={location.pathname === "/" ? "grey.600" : "green.500"}
+              color={location.pathname === "/" ? "grey.200" : "#050e76"}
               boxSize="5"
             />
             <Text
-              color={location.pathname === "/" ? "grey.600" : "green.500"}
+              color={location.pathname === "/" ? "grey.200" : "#050e76"}
               fontSize="10px"
             >
               Home
@@ -41,7 +48,7 @@ const BottomBar = ({ username, token, userRole }) => {
                 color={
                   location.pathname === "/search-events"
                     ? "grey.600"
-                    : "green.500"
+                    : "#050e76"
                 }
                 boxSize="5"
               />
@@ -49,15 +56,47 @@ const BottomBar = ({ username, token, userRole }) => {
                 color={
                   location.pathname === "/search-events"
                     ? "grey.600"
-                    : "green.500"
+                    : "#050e76"
+                }
+                fontWeight={
+                  location.pathname === "/search-events" ? "bold" : "none"
                 }
                 fontSize="10px"
               >
-                Events
+                Sign Ups
               </Text>
             </Flex>
           </Link>
         )}
+        {userRole === "Client" && (
+          <Link to="/org/:orgID">
+            <Flex flexDirection="column" align="center">
+              <Icon
+                as={FiInfo}
+                color={
+                  location.pathname === "/search-events"
+                    ? "grey.600"
+                    : "#050e76"
+                }
+                boxSize="5"
+              />
+              <Text
+                color={
+                  location.pathname === "/search-events"
+                    ? "grey.600"
+                    : "#050e76"
+                }
+                fontWeight={
+                  location.pathname === "/search-events" ? "bold" : "none"
+                }
+                fontSize="10px"
+              >
+                Org Details
+              </Text>
+            </Flex>
+          </Link>
+        )}
+
         {userRole === "Manager" && (
           <Link to="/search-events">
             <Flex flexDirection="column" align="center">

@@ -52,7 +52,7 @@ const MapBox = ({
   // console.log(eventStNumber);
   // console.log(eventStreet);
 
-  // console.log(tempurl);
+  console.log(tempurl);
 
   return (
     <>
