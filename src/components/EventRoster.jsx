@@ -34,9 +34,9 @@ const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
       });
   }, [token]);
 
-  console.log(progress);
-  console.log(userRole);
-  console.log(eventRoster);
+  // console.log(progress);
+  // console.log(userRole);
+  // console.log(eventRoster);
 
   return (
     <>

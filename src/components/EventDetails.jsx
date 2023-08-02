@@ -57,8 +57,6 @@ const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
     });
   };
 
-  console.log(eventDetails);
-
   return (
     <Flex
       bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"

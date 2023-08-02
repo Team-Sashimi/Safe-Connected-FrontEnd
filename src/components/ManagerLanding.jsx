@@ -50,7 +50,6 @@ const ManagerLanding = ({
   const handleEventDetails = (eventID) => {
     console.log(`hi this is the event id: ${eventID}`);
     navigate(`/event/${eventID}`);
-    setEventID(eventID);
   };
 
   console.log(clientEvents);

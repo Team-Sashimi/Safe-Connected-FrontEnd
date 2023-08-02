@@ -163,7 +163,7 @@ const CreateEvent = ({ token, username }) => {
     >
       <Container h="30vh" w="90%" mt="13vh">
         {loading ? (
-          <Skeleton height="200px" my="2" />
+          <Skeleton height="150px" my="2" />
         ) : (
           <Flex
             direction="column"
@@ -250,7 +250,10 @@ const CreateEvent = ({ token, username }) => {
               Capacity
             </FormLabel>
             <Input
-              placeholder="Choose below"
+              placeholder="Choose a number"
+              type="number"
+              min="0"
+              step="1"
               size="xs"
               bg="white"
               color="blackAlpha.800"

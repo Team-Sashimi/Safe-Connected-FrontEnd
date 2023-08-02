@@ -21,6 +21,9 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   SimpleGrid,
+  Spinner,
+  Skeleton,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -51,6 +54,8 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
   const [eventStreet, setEventStreet] = useState("");
   const { eventID } = useParams();
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
   const baseURL = "https://safe-connected.onrender.com/";
@@ -79,6 +84,7 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     axios
       .patch(
         `${baseURL}event/${eventID}/details/`,
@@ -116,17 +122,18 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
         setLanguage("");
         setCapacity("");
         setIsAlertOpen(true);
+        setLoading(false);
         window.location.reload();
       })
       .catch((error) => {
         console.error(error);
+        setLoading(false);
       });
   };
 
   const handleCloseAlert = () => {
     setIsAlertOpen(false);
     navigate("/");
-    // You can also perform any other necessary actions after the AlertDialog is closed.
   };
 
   const handleChange = (userInput, e) => {
@@ -169,32 +176,34 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
       setCapacity(e.target.value);
     }
   };
-
-  console.log(selectedSuggestion);
-
+  // console.log(selectedSuggestion.place_name);
   return (
     <Flex
       h="100vh"
       bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
     >
       <Container h="30vh" mt="13vh">
-        <Flex
-          direction="column"
-          w="100%"
-          h="100%"
-          borderRadius="15"
-          // border="solid"
-          // borderColor="yellow.200"
-        >
-          <MapBoxEdit
-            token={token}
-            username={username}
-            setSelectedSuggestion={setSelectedSuggestion}
-            eventAddress={eventAddress}
-            eventStNumber={eventStNumber}
-            eventStreet={eventStreet}
-          />
-        </Flex>
+        {loading ? (
+          <Skeleton height="150px" my="2" />
+        ) : (
+          <Flex
+            direction="column"
+            w="100%"
+            h="100%"
+            borderRadius="15"
+            // border="solid"
+            // borderColor="yellow.200"
+          >
+            <MapBoxEdit
+              token={token}
+              username={username}
+              setSelectedSuggestion={setSelectedSuggestion}
+              eventAddress={eventAddress}
+              eventStNumber={eventStNumber}
+              eventStreet={eventStreet}
+            />
+          </Flex>
+        )}
         <SimpleGrid columns={2} spacing={4}>
           <FormControl>
             <FormLabel color="yellow.200" fontSize="10px" mb="1">
@@ -301,8 +310,9 @@ const EditEventDetails = ({ token, username, userRole, orgDetails }) => {
               colorScheme="green"
               onClick={handleSubmit}
               cursor="pointer"
+              disabled={loading}
             >
-              Update
+              {loading ? <Spinner size="sm" /> : "Update"}
             </Button>
           </Center>
         </FormControl>
