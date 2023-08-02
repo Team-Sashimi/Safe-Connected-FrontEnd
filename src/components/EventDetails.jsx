@@ -231,3 +231,4 @@ export default EventDetails;
 
 //         <Box></Box>
 //       </Center>
+
