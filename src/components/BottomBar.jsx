@@ -7,6 +7,7 @@ import {
   FiPlus,
   FiCalendar,
   FiInfo,
+  FiUsers,
 } from "react-icons/fi";
 
 import { Link, useLocation } from "react-router-dom";
@@ -85,30 +86,43 @@ const BottomBar = ({ username, token, userRole }) => {
         )}
 
         {userRole === "Manager" && (
-          <Link to="/search-events">
+          <Link to="/create">
             <Flex flexDirection="column" align="center">
               <Icon
-                as={FiList}
-                color={
-                  location.pathname === "/search-events"
-                    ? "grey.600"
-                    : "green.500"
-                }
+                as={FiPlus}
+                color={location.pathname === "/create" ? "#050e76" : "#050e76"}
                 boxSize="5"
               />
               <Text
-                color={
-                  location.pathname === "/search-events"
-                    ? "grey.600"
-                    : "green.500"
-                }
+                color={location.pathname === "/org" ? "#050e76" : "#050e76"}
+                fontWeight={location.pathname === "/org" ? "bold" : "light"}
                 fontSize="10px"
               >
-                Events
+                Create
               </Text>
             </Flex>
           </Link>
         )}
+
+        {userRole === "Manager" && (
+          <Link to="/members">
+            <Flex flexDirection="column" align="center">
+              <Icon
+                as={FiUsers}
+                color={location.pathname === "/members" ? "#050e76" : "#050e76"}
+                boxSize="5"
+              />
+              <Text
+                color={location.pathname === "/members" ? "#050e76" : "#050e76"}
+                fontWeight={location.pathname === "/members" ? "bold" : "light"}
+                fontSize="10px"
+              >
+                Members
+              </Text>
+            </Flex>
+          </Link>
+        )}
+
         <Link to="/account">
           <Flex flexDirection="column" align="center">
             <Icon
@@ -132,14 +146,28 @@ const BottomBar = ({ username, token, userRole }) => {
 
 export default BottomBar;
 
-{
-  /* {userRole === "Manager" && (
-          <Link to="/create">
-            <Icon
-              as={FiPlus}
-              color={location.pathname === "/create" ? "blue.500" : "gray.800"}
-              boxSize="5"
-            />
-          </Link>
-        )} */
-}
+// {userRole === "Manager" && (
+//   <Link to="/search-events">
+//     <Flex flexDirection="column" align="center">
+//       <Icon
+//         as={FiList}
+//         color={
+//           location.pathname === "/search-events"
+//             ? "grey.600"
+//             : "green.500"
+//         }
+//         boxSize="5"
+//       />
+//       <Text
+//         color={
+//           location.pathname === "/search-events"
+//             ? "grey.600"
+//             : "green.500"
+//         }
+//         fontSize="10px"
+//       >
+//         Events
+//       </Text>
+//     </Flex>
+//   </Link>
+// )}

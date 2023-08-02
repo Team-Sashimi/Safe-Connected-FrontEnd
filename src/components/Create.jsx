@@ -147,18 +147,12 @@ const CreateEvent = ({ token, username }) => {
     }
     if (userInput === "eventType") {
       setEventType(e.target.value);
-      console.log(eventType);
     }
   };
 
   const handleCloseErrorDialog = () => {
     setIsErrorDialogOpen(false);
   };
-  // console.log(selectedSuggestion);
-  // console.log(selectedSuggestion.text);
-  // console.log(selectedSuggestion.address);
-  // console.log(selectedSuggestion.context[1].text);
-  // console.log(selectedSuggestion.context[2].text);
 
   return (
     <Flex
@@ -310,6 +304,12 @@ const CreateEvent = ({ token, username }) => {
 };
 
 export default CreateEvent;
+
+// console.log(selectedSuggestion);
+// console.log(selectedSuggestion.text);
+// console.log(selectedSuggestion.address);
+// console.log(selectedSuggestion.context[1].text);
+// console.log(selectedSuggestion.context[2].text);
 
 // {/* <Flex my="8" maxWidth="800px">
 // {/* First Column */}
