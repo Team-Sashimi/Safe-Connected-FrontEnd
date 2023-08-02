@@ -17,6 +17,7 @@ import {
   Select,
   SimpleGrid,
   Avatar,
+  Skeleton,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 
@@ -68,42 +69,56 @@ const AllEvents = ({ username, token, userRole, language, orgDetails }) => {
         </Box>
 
         <Box mt="3" overflow="auto" maxHeight="410px">
-          <Flex direction="column" justifyContent="center" alignItems="center">
-            {signUps
-              .filter((event) => {
-                if (eventTypeFilter) {
-                  return event.event_type === parseInt(eventTypeFilter);
-                }
-                return true;
-              })
-              .filter((event) => {
-                if (publishedFilter !== null) {
-                  return event.privacy === (publishedFilter === "True");
-                }
-                return true;
-              })
-              .map((event) => (
-                <Box
-                  key={event.id}
-                  cursor="pointer"
-                  p={3}
-                  mb="2"
-                  bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
-                  color="whiteAlpha.800"
-                  height="80px"
-                  w="200px"
-                  boxShadow="md"
-                  rounded="md"
-                  display="inline-table"
-                  onClick={() => handleEventDetails(event.id)}
-                >
-                  <Heading fontSize="14px">{event.event_title}</Heading>
-                  <Text fontWeight="bold" fontSize="10px">
-                    {dayjs(event.event_date).format("MM/DD/YYYY")}{" "}
-                  </Text>
-                </Box>
-              ))}
-          </Flex>
+          {signUps.length === 0 ? (
+            <>
+              <Center flexDirection="column">
+                <Skeleton height="80px" width="200px" mb="2" />
+                <Skeleton height="80px" width="200px" mb="2" />
+                <Skeleton height="80px" width="200px" mb="2" />
+              </Center>
+            </>
+          ) : (
+            <Flex
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              {signUps
+                .filter((event) => {
+                  if (eventTypeFilter) {
+                    return event.event_type === parseInt(eventTypeFilter);
+                  }
+                  return true;
+                })
+                .filter((event) => {
+                  if (publishedFilter !== null) {
+                    return event.privacy === (publishedFilter === "True");
+                  }
+                  return true;
+                })
+                .map((event) => (
+                  <Box
+                    key={event.id}
+                    cursor="pointer"
+                    p={3}
+                    mb="2"
+                    bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+                    color="whiteAlpha.800"
+                    height="80px"
+                    w="200px"
+                    boxShadow="md"
+                    rounded="md"
+                    display="inline-table"
+                    onClick={() => handleEventDetails(event.id)}
+                  >
+                    <Heading fontSize="14px">{event.event_title}</Heading>
+                    <Text fontWeight="bold" fontSize="10px">
+                      {dayjs(event.event_date).format("MM/DD/YYYY")}{" "}
+                    </Text>
+                  </Box>
+                ))}
+            </Flex>
+          )}
         </Box>
       </SimpleGrid>
     </>

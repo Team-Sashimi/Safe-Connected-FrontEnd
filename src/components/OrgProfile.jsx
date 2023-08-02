@@ -29,6 +29,7 @@ import {
   CardBody,
   CardFooter,
   Image,
+  Skeleton,
 } from "@chakra-ui/react";
 
 // import { Link } from "react-router-dom";
@@ -67,53 +68,65 @@ const OrgProfile = ({ token, username, userRole, language, orgDetails }) => {
           p="4"
           mt="20vh"
         >
-          <Center>
-            <Avatar
-              size="xl"
-              name={username}
-              mb="5"
-              src={orgDetails.org_avatar}
-            />
-          </Center>
-          <Center>
-            <Flex direction="column" align="center">
-              <Heading mt="4" size="xl" color="yellow.200">
-                {orgDetails.org_name}
-              </Heading>
-              <Box fontWeight="bold" display="inline-block">
-                <Link
-                  href={formattedPhone}
-                  mt="4"
-                  size="lg"
-                  fontStyle="bold"
-                  color="yellow.200"
-                  _hover={{ color: "blue.200" }}
-                >
-                  {formattedPhone}
-                </Link>
-              </Box>
+          {!orgDetails ? (
+            <>
+              <Center flexDirection="column">
+                <Skeleton height="100px" width="100px" mb="5" />
+                <Skeleton height="20px" width="80%" mb="2" />
+                <Skeleton height="16px" width="60%" />
+              </Center>
+            </>
+          ) : (
+            <>
+              <Center>
+                <Avatar
+                  size="xl"
+                  name={username}
+                  mb="5"
+                  src={orgDetails.org_avatar}
+                />
+              </Center>
+              <Center>
+                <Flex direction="column" align="center">
+                  <Heading mt="4" size="xl" color="yellow.200">
+                    {orgDetails.org_name}
+                  </Heading>
+                  <Box fontWeight="bold" display="inline-block">
+                    <Link
+                      href={formattedPhone}
+                      mt="4"
+                      size="lg"
+                      fontStyle="bold"
+                      color="yellow.200"
+                      _hover={{ color: "blue.200" }}
+                    >
+                      {formattedPhone}
+                    </Link>
+                  </Box>
 
-              <Text fontSize="14px" mt="1" color="whiteAlpha.600">
-                {orgDetails.street_number} {orgDetails.street_name}
-              </Text>
-              <Text fontSize="14px" mt="-1" color="whiteAlpha.600">
-                {orgDetails.city}, {orgDetails.state} {orgDetails.zipcode}
-              </Text>
-              <Box w="250px" mt="2" align="center">
-                <Text mt="1" fontSize="12px" color="whiteAlpha.600">
-                  {orgDetails.org_notes}
-                </Text>
-              </Box>
+                  <Text fontSize="14px" mt="1" color="whiteAlpha.600">
+                    {orgDetails.street_number} {orgDetails.street_name}
+                  </Text>
+                  <Text fontSize="14px" mt="-1" color="whiteAlpha.600">
+                    {orgDetails.city}, {orgDetails.state} {orgDetails.zipcode}
+                  </Text>
+                  <Box w="250px" mt="2" align="center">
+                    <Text mt="1" fontSize="12px" color="whiteAlpha.600">
+                      {orgDetails.org_notes}
+                    </Text>
+                  </Box>
 
-              {userRole === "Manager" && (
-                <Link to="/edit-account">
-                  <Button size="xs" backgroundColor="yellow.200" m="4">
-                    Edit Info
-                  </Button>
-                </Link>
-              )}
-            </Flex>
-          </Center>
+                  {userRole === "Manager" && (
+                    <Link to="/edit-account">
+                      <Button size="xs" backgroundColor="yellow.200" m="4">
+                        Edit Info
+                      </Button>
+                    </Link>
+                  )}
+                </Flex>
+              </Center>
+            </>
+          )}
         </Box>
       </SimpleGrid>
     </>
