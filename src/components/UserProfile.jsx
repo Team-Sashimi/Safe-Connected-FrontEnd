@@ -37,7 +37,7 @@ const UserProfile = ({ token, username, userRole, orgDetails }) => {
     <>
       <SimpleGrid
         h="100vh"
-        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #1E2065 56.45%, #020515 86.14%)"
         rows={2}
         spacing={4}
         // maxChildHeight="100px"
@@ -64,9 +64,6 @@ const UserProfile = ({ token, username, userRole, orgDetails }) => {
               </Heading>
               <Heading mt="1" size="sm" color="gray.400">
                 {userDetails.email}
-              </Heading>
-              <Heading mt="4" size="sm" color="yellow.200">
-                {userRole}
               </Heading>
 
               <Link to="/edit-account">

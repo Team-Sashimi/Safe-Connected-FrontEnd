@@ -12,6 +12,7 @@ import {
   Tr,
   Th,
   Tbody,
+  Link,
   Td,
   Tfoot,
   Heading,
@@ -30,7 +31,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import SideBar from "./SideBar";
 import dayjs from "dayjs";
 
@@ -49,11 +50,12 @@ const OrgProfile = ({ token, username, userRole, language, orgDetails }) => {
     ? formatPhoneNumber(orgDetails.phone)
     : "";
 
+  console.log(orgDetails);
   return (
     <>
       <SimpleGrid
         h="100vh"
-        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #1E2065 56.45%, #020515 86.14%)"
         rows={2}
         spacing={4}
         // maxChildHeight="100px"
@@ -63,7 +65,7 @@ const OrgProfile = ({ token, username, userRole, language, orgDetails }) => {
           borderRadius="20px"
           overflow="auto"
           p="4"
-          mt="25vh"
+          mt="20vh"
         >
           <Center>
             <Avatar
@@ -78,18 +80,30 @@ const OrgProfile = ({ token, username, userRole, language, orgDetails }) => {
               <Heading mt="4" size="xl" color="yellow.200">
                 {orgDetails.org_name}
               </Heading>
-              <Heading mt="4" size="lg" color="whiteAlpha.600">
-                {formattedPhone}
-              </Heading>
-              <Heading mt="1" size="sm" color="whiteAlpha.600">
-                {orgDetails.email}
-              </Heading>
-              <Text fontSize="14px" color="whiteAlpha.600">
+              <Box fontWeight="bold" display="inline-block">
+                <Link
+                  href={formattedPhone}
+                  mt="4"
+                  size="lg"
+                  fontStyle="bold"
+                  color="yellow.200"
+                  _hover={{ color: "blue.200" }}
+                >
+                  {formattedPhone}
+                </Link>
+              </Box>
+
+              <Text fontSize="14px" mt="1" color="whiteAlpha.600">
                 {orgDetails.street_number} {orgDetails.street_name}
               </Text>
-              <Text fontSize="14px" color="whiteAlpha.600">
+              <Text fontSize="14px" mt="-1" color="whiteAlpha.600">
                 {orgDetails.city}, {orgDetails.state} {orgDetails.zipcode}
               </Text>
+              <Box w="250px" mt="2" align="center">
+                <Text mt="1" fontSize="12px" color="whiteAlpha.600">
+                  {orgDetails.org_notes}
+                </Text>
+              </Box>
 
               {userRole === "Manager" && (
                 <Link to="/edit-account">
