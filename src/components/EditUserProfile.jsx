@@ -100,6 +100,7 @@ const EditUserProfile = ({ token, username, userRole, setUserLanguage }) => {
         setLanguage("");
         setEmail("");
         setAvatar("");
+        navigate("/account");
       })
       .catch((e) => {
         setLoading(false);
@@ -188,8 +189,7 @@ const EditUserProfile = ({ token, username, userRole, setUserLanguage }) => {
               color=""
             >
               {loading ? <Spinner size="sm" /> : "Change Avatar"}
-            </Button>{" "}
-            {/* Text component now appears below the Avatar, Input Group, and Icon */}
+            </Button>
           </Flex>
           <SimpleGrid columns={1} spacing={4}>
             <FormControl>

@@ -40,6 +40,8 @@ const ClientRegistration = ({ token }) => {
   const [newClient, setNewClient] = useState([]);
   const [avatar, setAvatar] = useState(null);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [avatarPreview, setAvatarPreview] = useState(null);
+
   const navigate = useNavigate();
 
   const onCloseAlert = () => {
@@ -76,7 +78,7 @@ const ClientRegistration = ({ token }) => {
       .then((res) => {
         setNewClient(res.data);
         onOpenAlert();
-        onCloseAlert(navigate("/view-events-clients"));
+        onCloseAlert(navigate("/"));
         console.log("hi");
       })
       .catch((error) => {
@@ -87,6 +89,14 @@ const ClientRegistration = ({ token }) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setAvatar(file);
+
+    // Optionally, you can also use FileReader to preview the selected image
+    // before uploading it to the server.
+    const reader = new FileReader();
+    reader.onload = () => {
+      setAvatarPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
   };
 
   console.log(avatar);
@@ -94,7 +104,7 @@ const ClientRegistration = ({ token }) => {
   return (
     <Flex
       h="100vh"
-      bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+      bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #1E2065 56.45%, #020515 86.14%)"
     >
       <Container h="30vh" w="75%" mt="12vh">
         <Flex
@@ -107,7 +117,7 @@ const ClientRegistration = ({ token }) => {
         >
           <Center>
             <Flex direction="">
-              <Avatar size="xl" name={username} src={avatar} />
+              <Avatar size="xl" name={username} src={avatarPreview} />
 
               <label>
                 <InputGroup display="none">
@@ -269,6 +279,12 @@ const ClientRegistration = ({ token }) => {
 };
 
 export default ClientRegistration;
+
+// const handleFileChange = (e) => {
+//   const file = e.target.files[0];
+//   setAvatar(file);
+
+// };
 
 //            Post request to endpoint to register a client to an organization
 

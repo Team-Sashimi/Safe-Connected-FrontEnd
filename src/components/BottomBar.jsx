@@ -94,8 +94,8 @@ const BottomBar = ({ username, token, userRole }) => {
                 boxSize="5"
               />
               <Text
-                color={location.pathname === "/org" ? "#050e76" : "#050e76"}
-                fontWeight={location.pathname === "/org" ? "bold" : "light"}
+                color={location.pathname === "/create" ? "#050e76" : "#050e76"}
+                fontWeight={location.pathname === "/create" ? "bold" : "light"}
                 fontSize="10px"
               >
                 Create

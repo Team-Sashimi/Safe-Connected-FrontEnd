@@ -54,9 +54,11 @@ const ClientList = ({ token, username, orgDetails }) => {
         <Heading color="whiteAlpha.800" as="h1" fontSize="24px">
           {orgDetails.org_name} Members
         </Heading>
-        <Button mt="5" size="md" colorScheme="yellow" fontWeight="bold">
-          Register
-        </Button>
+        <Link to="/register-client">
+          <Button mt="5" size="md" colorScheme="yellow" fontWeight="bold">
+            Register
+          </Button>
+        </Link>
       </Flex>
 
       <Flex
@@ -73,7 +75,6 @@ const ClientList = ({ token, username, orgDetails }) => {
             alignItems="center"
             display="grid"
             gridTemplateColumns="repeat(2, 1fr)"
-            // Set the gap between grid cells (optional)
             gap={3}
           >
             {userList.map((user) => (
@@ -88,6 +89,7 @@ const ClientList = ({ token, username, orgDetails }) => {
                 w="150px"
                 boxShadow="md"
                 rounded="md"
+                onClick={() => handleUserID(user.member)}
               >
                 <Flex direction="column" alignItems="center">
                   <Avatar size="lg" mb="3" src={user.user_avatar} />
@@ -97,7 +99,21 @@ const ClientList = ({ token, username, orgDetails }) => {
             ))}
           </Flex>
         ) : (
-          <Text color="white">No clients.</Text>
+          <>
+            <Flex
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              display="grid"
+              gridTemplateColumns="repeat(2, 1fr)"
+              gap={3}
+            >
+              <Skeleton height="125px" width="125px" mb="2" />
+              <Skeleton height="125px" width="125px" mb="2" />
+              <Skeleton height="125px" width="125px" mb="2" />
+              <Skeleton height="125px" width="125px" mb="2" />
+            </Flex>
+          </>
         )}
       </Flex>
     </Flex>

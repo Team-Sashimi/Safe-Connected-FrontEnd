@@ -42,7 +42,7 @@ const Registration = ({ setUserRole }) => {
         >
           <Center>
             <Flex direction="">
-              <Avatar size="xl" name={username} src={avatar} />
+              <Avatar size="xl" src={avatar} />
 
               {/* Hidden file input */}
               <label>
