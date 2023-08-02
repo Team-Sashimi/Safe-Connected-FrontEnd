@@ -30,7 +30,12 @@ export const Navbar = ({ handleLogout }) => {
           <img src={connected_yellow} alt="Logo" width="120px" height="60px" />
         </Link>
         <Link to="/">
-          <Button size="xs" onClick={handleLogout}>
+          <Button
+            backgroundColor="whiteAlpha.800"
+            color="050e76"
+            size="xs"
+            onClick={handleLogout}
+          >
             Log Out
           </Button>
         </Link>

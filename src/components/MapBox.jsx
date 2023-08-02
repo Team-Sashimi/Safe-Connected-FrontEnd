@@ -15,18 +15,25 @@ const MapBox = ({
   const map = useRef(null);
   const [lng, setLng] = useState(-78.64);
   const [lat, setLat] = useState(35.77);
-  const [zoom, setZoom] = useState(10);
+  const [zoom, setZoom] = useState(14);
+
+  // const tempurl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+  //   eventStNumber
+  // )}/${encodeURIComponent(eventStreet)}.json?access_token=${
+  //   mapboxgl.accessToken
+  // }`;
+
   const tempurl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-    eventStNumber
-  )}/${encodeURIComponent(eventStreet)}.json?access_token=${
-    mapboxgl.accessToken
-  }`;
+    eventAddress
+  )}/.json?access_token=${mapboxgl.accessToken}`;
 
   useEffect(() => {
     if (map.current) return;
     axios
       .get(tempurl)
       .then((response) => {
+        console.log("Response data:", response.data);
+
         const [longitude, latitude] = response.data.features[0].center;
 
         setLng(longitude);
@@ -51,8 +58,9 @@ const MapBox = ({
   // console.log(encodeURIComponent(eventStreet));
   // console.log(eventStNumber);
   // console.log(eventStreet);
-
   // console.log(tempurl);
+
+  console.log(eventAddress);
 
   return (
     <>

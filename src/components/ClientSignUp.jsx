@@ -80,7 +80,6 @@ const ClientSignUp = ({ token, eventID }) => {
       position: "top",
       duration: 3000,
       isClosable: true,
-      onClose: () => window.location.reload(),
     });
   };
 
@@ -98,6 +97,7 @@ const ClientSignUp = ({ token, eventID }) => {
     <>
       <Button
         my="2"
+        size="sm"
         onClick={isButtonClicked ? handleCancel : handleSignUp}
         colorScheme={isButtonClicked ? "red" : "green"}
       >

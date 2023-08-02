@@ -11,13 +11,14 @@ import {
   Avatar,
   Container,
   SimpleGrid,
+  Skeleton,
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
 
 const UserProfile = ({ token, username, userRole, orgDetails }) => {
   const baseURL = "https://safe-connected.onrender.com/";
-  const [userDetails, setUserDetails] = useState([]);
+  const [userDetails, setUserDetails] = useState(null);
   const [avatar, setAvatar] = useState([]);
 
   useEffect(() => {
@@ -37,10 +38,9 @@ const UserProfile = ({ token, username, userRole, orgDetails }) => {
     <>
       <SimpleGrid
         h="100vh"
-        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #1E2065 56.45%, #020515 86.14%)"
         rows={2}
         spacing={4}
-        // maxChildHeight="100px"
       >
         <Box
           // backgroundColor="gray.200"
@@ -49,33 +49,42 @@ const UserProfile = ({ token, username, userRole, orgDetails }) => {
           p="4"
           mt="25vh"
         >
-          <Center>
-            <Avatar
-              size="xl"
-              name={username}
-              mb="5"
-              src={userDetails.user_avatar}
-            />
-          </Center>
-          <Center>
-            <Flex direction="column" align="center">
-              <Heading mt="4" size="lg" color="yellow.200">
-                {userDetails.first_name} {userDetails.last_name}
-              </Heading>
-              <Heading mt="1" size="sm" color="gray.400">
-                {userDetails.email}
-              </Heading>
-              <Heading mt="4" size="sm" color="yellow.200">
-                {userRole}
-              </Heading>
+          {!userDetails ? (
+            <>
+              <Center flexDirection="column">
+                <Skeleton height="100px" width="100px" mb="5" />
+                <Skeleton height="20px" width="80%" mb="2" />
+                <Skeleton height="16px" width="60%" />
+              </Center>
+            </>
+          ) : (
+            <>
+              <Center>
+                <Avatar
+                  size="xl"
+                  name={username}
+                  mb="5"
+                  src={userDetails.user_avatar}
+                />
+              </Center>
+              <Center>
+                <Flex direction="column" align="center">
+                  <Heading mt="4" size="lg" color="yellow.200">
+                    {userDetails.first_name} {userDetails.last_name}
+                  </Heading>
+                  <Heading mt="1" size="sm" color="gray.400">
+                    {userDetails.email}
+                  </Heading>
 
-              <Link to="/edit-account">
-                <Button size="xs" backgroundColor="yellow.200" m="4">
-                  Edit Info
-                </Button>
-              </Link>
-            </Flex>
-          </Center>
+                  <Link to="/edit-account">
+                    <Button size="xs" backgroundColor="yellow.200" m="4">
+                      Edit Info
+                    </Button>
+                  </Link>
+                </Flex>
+              </Center>
+            </>
+          )}
         </Box>
       </SimpleGrid>
     </>

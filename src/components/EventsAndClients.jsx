@@ -80,7 +80,7 @@ const EventsAndClients = ({
           });
       }, [token]);
   }
-
+  // client signed up events
   useEffect(() => {
     axios
       .get(`${baseURL}event/client/`, {
@@ -92,7 +92,7 @@ const EventsAndClients = ({
         setClientEvents(res.data);
       })
       .catch((error) => {
-        console.log("Error fetching manager events:", error);
+        console.log("Error fetching client signed up events:", error);
       });
   }, [token]);
 

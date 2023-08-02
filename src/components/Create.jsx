@@ -25,6 +25,8 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Spinner,
+  FormErrorMessage,
+  Skeleton,
 } from "@chakra-ui/react";
 
 import SearchMapBox from "./SearchMapBox";
@@ -52,11 +54,11 @@ const CreateEvent = ({ token, username }) => {
   const baseURL = "https://safe-connected.onrender.com/";
   const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    const privacyValue = isDraftSaving ? false : true;
     axios
       .post(
         `${baseURL}event/create/`,
@@ -96,7 +98,7 @@ const CreateEvent = ({ token, username }) => {
         setLanguage("");
         setCapacity("");
         setEventType("");
-        navigate("/view-events-clients");
+        navigate("/");
       })
 
       .catch((error) => {
@@ -147,38 +149,36 @@ const CreateEvent = ({ token, username }) => {
     }
     if (userInput === "eventType") {
       setEventType(e.target.value);
-      console.log(eventType);
     }
   };
 
   const handleCloseErrorDialog = () => {
     setIsErrorDialogOpen(false);
   };
-  // console.log(selectedSuggestion);
-  // console.log(selectedSuggestion.text);
-  // console.log(selectedSuggestion.address);
-  // console.log(selectedSuggestion.context[1].text);
-  // console.log(selectedSuggestion.context[2].text);
 
   return (
     <Flex
       h="100vh"
-      bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+      bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #1E2065 56.45%, #020515 86.14%)"
     >
       <Container h="30vh" w="90%" mt="13vh">
-        <Flex
-          direction="column"
-          w="100%"
-          h="100%"
-          borderRadius="20"
-          // border="solid"
-          // borderColor="none"
-        >
-          <SearchMapBox
-            token={token}
-            setSelectedSuggestion={setSelectedSuggestion}
-          />
-        </Flex>
+        {loading ? (
+          <Skeleton height="150px" my="2" />
+        ) : (
+          <Flex
+            direction="column"
+            w="100%"
+            h="100%"
+            borderRadius="20"
+            // border="solid"
+            // borderColor="none"
+          >
+            <SearchMapBox
+              token={token}
+              setSelectedSuggestion={setSelectedSuggestion}
+            />
+          </Flex>
+        )}
         <SimpleGrid columns={2} spacing={4}>
           <FormControl>
             <FormLabel color="yellow.200" fontSize="10px" mb="1">
@@ -250,7 +250,10 @@ const CreateEvent = ({ token, username }) => {
               Capacity
             </FormLabel>
             <Input
-              placeholder="Choose below"
+              placeholder="Choose a number"
+              type="number"
+              min="0"
+              step="1"
               size="xs"
               bg="white"
               color="blackAlpha.800"
@@ -310,6 +313,12 @@ const CreateEvent = ({ token, username }) => {
 };
 
 export default CreateEvent;
+
+// console.log(selectedSuggestion);
+// console.log(selectedSuggestion.text);
+// console.log(selectedSuggestion.address);
+// console.log(selectedSuggestion.context[1].text);
+// console.log(selectedSuggestion.context[2].text);
 
 // {/* <Flex my="8" maxWidth="800px">
 // {/* First Column */}

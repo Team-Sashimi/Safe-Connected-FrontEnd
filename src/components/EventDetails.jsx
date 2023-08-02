@@ -11,6 +11,7 @@ import {
   Avatar,
   InputGroup,
   Container,
+  Skeleton,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import ClientSignUp from "./ClientSignUp";
@@ -19,11 +20,10 @@ import DeleteEvent from "./DeleteEvent";
 import MapBox from "./MapBox";
 import EventRoster from "./EventRoster";
 import moment from "moment";
-
 import { Link } from "react-router-dom";
 
 const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
-  const [eventDetails, setEventDetails] = useState([]);
+  const [eventDetails, setEventDetails] = useState(null);
   const [eventRoster, setEventRoster] = useState([]);
   const [eventAddress, setEventAddress] = useState("");
   const [eventStNumber, setEventStNumber] = useState("");
@@ -57,83 +57,107 @@ const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
     });
   };
 
-  console.log(eventDetails);
-
   return (
     <Flex
       bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
       direction="column"
       h="100vh"
       alignItems="center"
+      overflow="auto"
+      justifyContent="center"
     >
       <Flex
-        mt="24"
-        direction="column" // Display the elements beneath each other
-        w="300px"
-        h="250px"
+        mt="50px"
+        direction="column"
+        w="320px"
+        maxH="600px"
         borderRadius={15}
-        // border="solid"
-        // borderColor="yellow.200"
-        mb="4"
+        mb="5"
         align="center"
         justify="center"
         overflow="auto"
       >
-        <Heading color="yellow.200" as="h4" size="md">
-          {eventDetails.event_title}
-        </Heading>
-        <Center>
-          <Text mt="2" fontSize="14" align="center" mb="5" color="yellow.200">
-            {eventDetails.general_notes}
-          </Text>
-        </Center>
+        {!eventDetails ? (
+          <>
+            <Skeleton height="20px" width="80%" mb="10px" />
+            <Skeleton height="80px" width="80%" mb="10px" />
+            <Skeleton height="15px" width="50%" mb="10px" />
+            <Skeleton height="15px" width="70%" mb="10px" />
+            <Skeleton height="15px" width="60%" mb="10px" />
+          </>
+        ) : (
+          <>
+            <Heading align="center" color="yellow.200" as="h4" size="md">
+              {eventDetails.event_title}
+            </Heading>
+            <Center>
+              <Text
+                mt="2"
+                fontSize="14"
+                lineHeight="17px"
+                align="center"
+                mb="2"
+                color="whiteAlpha.800"
+              >
+                {eventDetails.general_notes}
+              </Text>
+            </Center>
 
-        <Text fontSize="12px" color="yellow.200">
-          {eventDetails.start_time && eventDetails.end_time ? (
-            <Text color="yellow.200">
-              {formatToRegularTime(eventDetails.start_time)} -{" "}
-              {formatToRegularTime(eventDetails.end_time)}
+            <Text fontSize="14px" fontWeight="bold" color="yellow.200">
+              {dayjs(eventDetails.event_date).format("MM/DD/YYYY")}{" "}
             </Text>
-          ) : (
-            <Text color="yellow.200">Time not available</Text>
-          )}
-        </Text>
+            <Text fontSize="12px" fontStyle="bold" color="yellow.200">
+              {eventDetails.start_time && eventDetails.end_time ? (
+                <Text fontStyle="bold" color="yellow.200">
+                  {formatToRegularTime(eventDetails.start_time)} -{" "}
+                  {formatToRegularTime(eventDetails.end_time)}
+                </Text>
+              ) : (
+                <Text color="yellow.200">Time not available</Text>
+              )}
+            </Text>
 
-        <Text fontSize="12px" color="yellow.200">
-          {eventDetails.street_number} {eventDetails.street_name}{" "}
-        </Text>
+            <Text fontSize="12px" color="yellow.200"></Text>
+            <Flex>
+              {userRole === "Manager" && (
+                <>
+                  <Link to={`/edit-event/${eventID}`}>
+                    <Button size="xs" m="3">
+                      Edit
+                    </Button>
+                  </Link>
+                  <DeleteEvent token={token} eventID={eventID} />
+                </>
+              )}
+              {userRole === "Client" && (
+                <ClientSignUp token={token} eventID={eventID} />
+              )}
+            </Flex>
 
-        <Text fontSize="12px" color="yellow.200">
-          {eventDetails.city}, {eventDetails.state} {eventDetails.zipcode}
-        </Text>
-        <Flex>
-          {userRole === "Manager" && (
-            <>
-              <Link to={`/edit-event/${eventID}`}>
-                <Button size="xs" m="3">
-                  Edit
-                </Button>
-              </Link>
-              <DeleteEvent token={token} eventID={eventID} />
-            </>
-          )}
-          {userRole === "Client" && (
-            <ClientSignUp token={token} eventID={eventID} />
-          )}
-        </Flex>
+            <Flex justifyContent="center" mt="1">
+              <Center flexDirection="column">
+                <MapBox
+                  token={token}
+                  username={username}
+                  eventAddress={eventAddress}
+                  eventStNumber={eventStNumber}
+                  eventStreet={eventStreet}
+                />
+                <Text mt="2" fontSize="12px" color="whiteAlpha.800">
+                  {eventDetails.street_number} {eventDetails.street_name}{" "}
+                  {eventDetails.city}, {eventDetails.state}{" "}
+                  {eventDetails.zipcode}
+                </Text>
+              </Center>
+            </Flex>
+            <EventRoster
+              token={token}
+              progress={progress}
+              userRole={userRole}
+            />
+          </>
+        )}
       </Flex>
-      <Flex justifyContent="center">
-        <Center>
-          <MapBox
-            token={token}
-            username={username}
-            eventAddress={eventAddress}
-            eventStNumber={eventStNumber}
-            eventStreet={eventStreet}
-          />
-        </Center>
-      </Flex>
-      <EventRoster token={token} progress={progress} userRole={userRole} />
     </Flex>
   );
 };
@@ -207,3 +231,4 @@ export default EventDetails;
 
 //         <Box></Box>
 //       </Center>
+

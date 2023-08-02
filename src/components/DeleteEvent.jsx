@@ -42,7 +42,7 @@ const DeleteEvent = ({ token }) => {
       .then((res) => {
         setIsButtonClicked(true);
         setEvent(res.data);
-        navigate("/search-events");
+        navigate("/");
       })
       .catch((error) => {
         console.error("Error deleting event:", error);
