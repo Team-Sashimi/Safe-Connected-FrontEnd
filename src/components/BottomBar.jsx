@@ -29,12 +29,13 @@ const BottomBar = ({ username, token, userRole }) => {
           <Flex flexDirection="column" align="center">
             <Icon
               as={FiHome}
-              color={location.pathname === "/" ? "grey.200" : "#050e76"}
+              color={location.pathname === "/" ? "#050e76" : "#050e76"}
               boxSize="5"
             />
             <Text
-              color={location.pathname === "/" ? "grey.200" : "#050e76"}
+              color={location.pathname === "/" ? "#050e76" : "#050e76"}
               fontSize="10px"
+              fontWeight={location.pathname === "/" ? "bold" : "light"}
             >
               Home
             </Text>
@@ -46,20 +47,16 @@ const BottomBar = ({ username, token, userRole }) => {
               <Icon
                 as={FiList}
                 color={
-                  location.pathname === "/search-events"
-                    ? "grey.600"
-                    : "#050e76"
+                  location.pathname === "/all-events" ? "#050e76" : "#050e76"
                 }
                 boxSize="5"
               />
               <Text
                 color={
-                  location.pathname === "/search-events"
-                    ? "grey.600"
-                    : "#050e76"
+                  location.pathname === "/all-events" ? "#050e76" : "#050e76"
                 }
                 fontWeight={
-                  location.pathname === "/search-events" ? "bold" : "none"
+                  location.pathname === "/all-events" ? "bold" : "light"
                 }
                 fontSize="10px"
               >
@@ -69,26 +66,16 @@ const BottomBar = ({ username, token, userRole }) => {
           </Link>
         )}
         {userRole === "Client" && (
-          <Link to="/org/:orgID">
+          <Link to="/org">
             <Flex flexDirection="column" align="center">
               <Icon
                 as={FiInfo}
-                color={
-                  location.pathname === "/search-events"
-                    ? "grey.600"
-                    : "#050e76"
-                }
+                color={location.pathname === "/org" ? "#050e76" : "#050e76"}
                 boxSize="5"
               />
               <Text
-                color={
-                  location.pathname === "/search-events"
-                    ? "grey.600"
-                    : "#050e76"
-                }
-                fontWeight={
-                  location.pathname === "/search-events" ? "bold" : "none"
-                }
+                color={location.pathname === "/org" ? "#050e76" : "#050e76"}
+                fontWeight={location.pathname === "/org" ? "bold" : "light"}
                 fontSize="10px"
               >
                 Org Details
@@ -126,15 +113,11 @@ const BottomBar = ({ username, token, userRole }) => {
           <Flex flexDirection="column" align="center">
             <Icon
               as={FiUser}
-              color={
-                location.pathname === "/account" ? "grey.600" : "green.500"
-              }
+              color={location.pathname === "/account" ? "#050e76" : "#050e76"}
               boxSize="5"
             />
             <Text
-              color={
-                location.pathname === "/account" ? "grey.600" : "green.500"
-              }
+              color={location.pathname === "/account" ? "#050e76" : "#050e76"}
               fontSize="10px"
             >
               Profile

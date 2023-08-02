@@ -244,7 +244,7 @@ function App() {
                 }
               />
               <Route
-                path="/org/:orgID"
+                path="/org"
                 element={
                   <OrgProfile
                     username={username}

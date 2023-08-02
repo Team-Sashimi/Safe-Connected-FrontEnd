@@ -91,6 +91,8 @@ const ClientLanding = ({ username, token, userRole, language, orgDetails }) => {
                   <Skeleton height="80px" width="200px" mb="2" />
                   <Skeleton height="80px" width="200px" mb="2" />
                   <Skeleton height="80px" width="200px" mb="2" />
+                  <Skeleton height="80px" width="200px" mb="2" />
+                  <Skeleton height="80px" width="200px" mb="2" />
                 </>
               ) : (
                 <>
