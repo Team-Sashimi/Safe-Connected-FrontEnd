@@ -77,43 +77,43 @@ const EventRoster = ({ token, username, userRole, orgDetails, progress }) => {
             </Box>
           )}
           {userRole === "Manager" && (
-            <Box>
-              {/* The grid */}
-              <SimpleGrid
-                columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
-                spacing="5"
+            <Flex>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                flexWrap="nowrap"
               >
-                <Center>
-                  {eventRoster.length > 0 ? (
-                    eventRoster.map((event_attendees, index) => (
-                      <Box
-                        key={index}
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                      >
-                        <Flex direction="column" alignItems="center">
-                          <Avatar
-                            size="sm"
-                            name={event_attendees}
-                            mt="4"
-                            mb="1"
-                          />
+                {eventRoster.length > 0 ? (
+                  eventRoster.map((event_attendees, index) => (
+                    <Box
+                      key={index}
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      mx="8px"
+                    >
+                      <Flex direction="column" alignItems="center">
+                        <Avatar
+                          size="sm"
+                          name={event_attendees}
+                          mt="4"
+                          mb="1"
+                        />
 
-                          <Text color="whiteAlpha.800" as="h4" fontSize="10px">
-                            {event_attendees}
-                          </Text>
-                        </Flex>
-                      </Box>
-                    ))
-                  ) : (
-                    <Text fontSize="xs" color="white" mt="2">
-                      No one has signed up yet
-                    </Text>
-                  )}
-                </Center>
-              </SimpleGrid>
-            </Box>
+                        <Text color="whiteAlpha.800" as="h4" fontSize="10px">
+                          {event_attendees}
+                        </Text>
+                      </Flex>
+                    </Box>
+                  ))
+                ) : (
+                  <Text fontSize="xs" color="white" mt="2">
+                    No one has signed up yet
+                  </Text>
+                )}
+              </Box>
+            </Flex>
           )}
         </Box>
       </Flex>

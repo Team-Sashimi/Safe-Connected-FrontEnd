@@ -24,6 +24,8 @@ import ClientProfile from "./components/ClientProfile";
 import ClientRegistration from "./components/ClientRegistration";
 import ClientLanding from "./components/ClientLanding";
 
+import ManagerLanding from "./components/ManagerLanding";
+
 import { Container } from "@chakra-ui/react";
 import EventsAndClients from "./components/EventsAndClients";
 import OrgProfile from "./components/OrgProfile";
@@ -79,45 +81,53 @@ function App() {
     <>
       <Box
         h="100vh"
-        // bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
       >
         <Navbar handleLogout={handleLogout} />
         {token ? (
           <>
             <Routes>
-              {/* <Route
-                path="/"
-                element={
-                  <Main
-                    username={username}
-                    token={token}
-                    userRole={userRole}
-                    language={language}
+              {userRole === "Client" && (
+                <Route
+                  path="/"
+                  element={
+                    <ClientLanding
+                      username={username}
+                      token={token}
+                      userRole={userRole}
+                      language={language}
+                      orgDetails={orgDetails}
+                    />
+                  }
+                />
+              )}
+              {userRole === "Manager" && (
+                <>
+                  <Route
+                    path="/"
+                    element={
+                      <ManagerLanding
+                        username={username}
+                        token={token}
+                        userRole={userRole}
+                        language={language}
+                        orgDetails={orgDetails}
+                      />
+                    }
                   />
-                }
-              /> */}
-              <Route
-                path="/"
-                element={
-                  <ClientLanding
-                    username={username}
-                    token={token}
-                    userRole={userRole}
-                    language={language}
-                    orgDetails={orgDetails}
+
+                  <Route
+                    path="/create/"
+                    element={
+                      <Create
+                        username={username}
+                        token={token}
+                        userRole={userRole}
+                      />
+                    }
                   />
-                }
-              />
-              <Route
-                path="/create/"
-                element={
-                  <Create
-                    username={username}
-                    token={token}
-                    userRole={userRole}
-                  />
-                }
-              />
+                </>
+              )}
               <Route
                 path="/search-events"
                 element={

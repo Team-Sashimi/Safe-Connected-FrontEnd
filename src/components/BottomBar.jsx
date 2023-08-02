@@ -119,6 +119,7 @@ const BottomBar = ({ username, token, userRole }) => {
             <Text
               color={location.pathname === "/account" ? "#050e76" : "#050e76"}
               fontSize="10px"
+              fontWeight={location.pathname === "/account" ? "bold" : "light"}
             >
               Profile
             </Text>
