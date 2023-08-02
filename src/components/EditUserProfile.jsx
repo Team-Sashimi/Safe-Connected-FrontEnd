@@ -15,6 +15,9 @@ import {
   InputGroup,
   Icon,
   Text,
+  Tooltip,
+  Box,
+  Spinner,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { FiImage } from "react-icons/fi";
@@ -24,16 +27,19 @@ const EditUserProfile = ({ token, username, userRole, setUserLanguage }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [language, setLanguage] = useState("en", "es", "fr");
-  const [avatar, setAvatar] = useState(null);
+  const [language, setLanguage] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [userDetails, setUserDetails] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleEditAccount = (e) => {
     e.preventDefault();
-
+    setLoading(true);
     axios
       .patch(
         `${baseURL}auth/users/me/`,
@@ -42,6 +48,41 @@ const EditUserProfile = ({ token, username, userRole, setUserLanguage }) => {
           last_name: lastName,
           email: email,
           language: language,
+          // user_avatar: avatar,
+        },
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((res) => {
+        console.log("you edited your profile");
+        setUserLanguage(language);
+        setFirstName("");
+        setLastName("");
+        setLanguage("");
+        setEmail("");
+        setAvatar("");
+        navigate("/account");
+      })
+      .catch((e) => {
+        setLoading(false);
+        setError(e.message);
+      })
+      .catch((error) => {
+        console.log("error");
+      });
+  };
+
+  const handleAvatar = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    axios
+      .patch(
+        `${baseURL}auth/users/me/`,
+        {
           user_avatar: avatar,
         },
         {
@@ -58,8 +99,11 @@ const EditUserProfile = ({ token, username, userRole, setUserLanguage }) => {
         setLastName("");
         setLanguage("");
         setEmail("");
-        setAvatar(avatar);
-        navigate("/account");
+        setAvatar("");
+      })
+      .catch((e) => {
+        setLoading(false);
+        setError(e.message);
       })
       .catch((error) => {
         console.log("error");
@@ -69,6 +113,14 @@ const EditUserProfile = ({ token, username, userRole, setUserLanguage }) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setAvatar(file);
+  };
+
+  const handleUploadComplete = () => {
+    setShowTooltip(true);
+
+    setTimeout(() => {
+      setShowTooltip(false);
+    }, 3000);
   };
 
   useEffect(() => {
@@ -83,18 +135,16 @@ const EditUserProfile = ({ token, username, userRole, setUserLanguage }) => {
         setLastName(res.data.last_name);
         setLanguage(res.data.language);
         setEmail(res.data.email);
-        setAvatar(res.data);
+        setAvatar(res.data.user_avatar);
         setUserDetails(res.data);
       });
   }, [token]);
-
-  console.log(userDetails);
 
   return (
     <>
       <Flex
         h="100vh"
-        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #1E2065 56.45%, #020515 86.14%)"
       >
         <Container h="30vh" w="75%" mt="13vh">
           <Flex
@@ -102,14 +152,14 @@ const EditUserProfile = ({ token, username, userRole, setUserLanguage }) => {
             h="100%"
             borderRadius="15"
             justifyContent="center"
-            flexDirection="column" // Use flexDirection to stack elements vertically
-            alignItems="center" // Use alignItems to center elements horizontally
+            flexDirection="column"
+            alignItems="center"
           >
             <Center>
               <Flex direction="">
+                {/* Display the Avatar */}
                 <Avatar size="xl" name={username} src={avatar} />
 
-                {/* Hidden file input */}
                 <label>
                   <InputGroup display="none">
                     <Input
@@ -129,9 +179,16 @@ const EditUserProfile = ({ token, username, userRole, setUserLanguage }) => {
                 </label>
               </Flex>
             </Center>
-            <Text fontSize="12px" mt="2" color="yellow.200">
-              Update your avatar
-            </Text>{" "}
+            <Button
+              onClick={handleAvatar}
+              cursor="pointer"
+              fontSize="10px"
+              size="xs"
+              mt="2"
+              color=""
+            >
+              {loading ? <Spinner size="sm" /> : "Change Avatar"}
+            </Button>{" "}
             {/* Text component now appears below the Avatar, Input Group, and Icon */}
           </Flex>
           <SimpleGrid columns={1} spacing={4}>
@@ -200,8 +257,9 @@ const EditUserProfile = ({ token, username, userRole, setUserLanguage }) => {
                 colorScheme="green"
                 onClick={handleEditAccount}
                 cursor="pointer"
+                disabled={loading}
               >
-                Update Profile
+                {loading ? <Spinner size="sm" /> : "Update Profile"}
               </Button>
             </Center>
           </FormControl>

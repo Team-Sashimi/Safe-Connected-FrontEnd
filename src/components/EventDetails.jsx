@@ -65,12 +65,13 @@ const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
       direction="column"
       h="100vh"
       alignItems="center"
+      overflow="auto"
     >
       <Flex
-        mt="24"
+        mt="45px"
         direction="column" // Display the elements beneath each other
-        w="300px"
-        h="200px"
+        w="320px"
+        h="600px"
         borderRadius={15}
         // border="solid"
         // borderColor="yellow.200"
@@ -83,16 +84,22 @@ const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
           {eventDetails.event_title}
         </Heading>
         <Center>
-          <Text mt="2" fontSize="14" align="center" mb="5" color="yellow.200">
+          <Text
+            mt="2"
+            fontSize="14"
+            align="center"
+            mb="2"
+            color="whiteAlpha.800"
+          >
             {eventDetails.general_notes}
           </Text>
         </Center>
 
-        <Text fontSize="12px" color="yellow.200">
+        <Text fontSize="12px" fontStyle="bold" color="yellow.200">
           {eventDetails.start_time && eventDetails.end_time ? (
-            <Text color="yellow.200">
-              {formatToRegularTime(eventDetails.end_time)} -{" "}
-              {formatToRegularTime(eventDetails.start_time)}
+            <Text fontStyle="bold" color="yellow.200">
+              {formatToRegularTime(eventDetails.start_time)} -{" "}
+              {formatToRegularTime(eventDetails.end_time)}
             </Text>
           ) : (
             <Text color="yellow.200">Time not available</Text>
@@ -121,19 +128,20 @@ const EventDetails = ({ token, username, userRole, orgDetails, language }) => {
             <ClientSignUp token={token} eventID={eventID} />
           )}
         </Flex>
+
+        <Flex justifyContent="center" mt="1">
+          <Center>
+            <MapBox
+              token={token}
+              username={username}
+              eventAddress={eventAddress}
+              eventStNumber={eventStNumber}
+              eventStreet={eventStreet}
+            />
+          </Center>
+        </Flex>
+        <EventRoster token={token} progress={progress} userRole={userRole} />
       </Flex>
-      <Flex justifyContent="center">
-        <Center>
-          <MapBox
-            token={token}
-            username={username}
-            eventAddress={eventAddress}
-            eventStNumber={eventStNumber}
-            eventStreet={eventStreet}
-          />
-        </Center>
-      </Flex>
-      <EventRoster token={token} progress={progress} userRole={userRole} />
     </Flex>
   );
 };

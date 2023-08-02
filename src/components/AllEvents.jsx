@@ -86,7 +86,7 @@ const AllEvents = ({ username, token, userRole, language, orgDetails }) => {
                 <Box
                   key={event.id}
                   cursor="pointer"
-                  p={4}
+                  p={3}
                   mb="2"
                   bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
                   color="whiteAlpha.800"
@@ -94,6 +94,7 @@ const AllEvents = ({ username, token, userRole, language, orgDetails }) => {
                   w="200px"
                   boxShadow="md"
                   rounded="md"
+                  display="inline-table"
                   onClick={() => handleEventDetails(event.id)}
                 >
                   <Heading fontSize="14px">{event.event_title}</Heading>

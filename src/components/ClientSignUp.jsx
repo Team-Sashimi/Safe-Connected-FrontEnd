@@ -97,6 +97,7 @@ const ClientSignUp = ({ token, eventID }) => {
     <>
       <Button
         my="2"
+        size="sm"
         onClick={isButtonClicked ? handleCancel : handleSignUp}
         colorScheme={isButtonClicked ? "red" : "green"}
       >

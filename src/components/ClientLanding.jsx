@@ -109,7 +109,6 @@ const ClientLanding = ({ username, token, userRole, language, orgDetails }) => {
                     w="200px"
                     boxShadow="md"
                     rounded="md"
-                    // overflow="auto"
                     onClick={() => handleEventDetails(event.id)}
                   >
                     <Heading fontSize="14px" mb="1">
@@ -120,6 +119,28 @@ const ClientLanding = ({ username, token, userRole, language, orgDetails }) => {
                     </Text>
                   </Box>
                 ))}
+
+              {/* Display a message if no events found for the selected event type */}
+              {eventTypeFilter &&
+                clientEvents.filter(
+                  (event) => event.event_type === parseInt(eventTypeFilter)
+                ).length === 0 && (
+                  <Box
+                    cursor="default"
+                    p={4}
+                    mb="2"
+                    bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+                    color="whiteAlpha.800"
+                    height="80px"
+                    w="200px"
+                    boxShadow="md"
+                    rounded="md"
+                  >
+                    <Heading fontSize="14px" mb="1">
+                      Sorry, there are no events available right now.
+                    </Heading>
+                  </Box>
+                )}
             </Box>
           </Flex>
         </Flex>
