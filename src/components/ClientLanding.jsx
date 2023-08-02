@@ -13,6 +13,7 @@ import {
   Container,
   SimpleGrid,
   Select,
+  Skeleton,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import landing_04 from "../assets/landing_04-01.svg";
@@ -51,9 +52,10 @@ const ClientLanding = ({ username, token, userRole, language, orgDetails }) => {
   return (
     <SimpleGrid
       columns={2}
+      rows={2}
       bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #1E2065 56.45%, #020515 86.14%)"
       h="100vh"
-      overflow="auto"
+      overflow="overlay"
       spacing={3}
     >
       <Box w="250px">
@@ -70,7 +72,7 @@ const ClientLanding = ({ username, token, userRole, language, orgDetails }) => {
                 size="sm"
                 border="none"
                 placeholder="Event Type"
-                color="yellow.200"
+                color="whiteAlpha.700"
                 fontSize="12px"
                 w="120px"
                 onChange={(e) => setEventTypeFilter(e.target.value)}
@@ -84,68 +86,80 @@ const ClientLanding = ({ username, token, userRole, language, orgDetails }) => {
 
           <Flex justifyContent="center">
             <Box maxHeight="100vh" mt="20px">
-              {clientEvents
-                .filter((event) => {
-                  if (eventTypeFilter) {
-                    return event.event_type === parseInt(eventTypeFilter);
-                  }
-                  return true;
-                })
-                .filter((event) => {
-                  if (publishedFilter !== null) {
-                    return event.privacy === (publishedFilter === "True");
-                  }
-                  return true;
-                })
-                .map((event) => (
-                  <Box
-                    key={event.id}
-                    cursor="pointer"
-                    p={4}
-                    mb="2"
-                    bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
-                    color="whiteAlpha.800"
-                    height="80px"
-                    w="200px"
-                    boxShadow="md"
-                    rounded="md"
-                    onClick={() => handleEventDetails(event.id)}
-                  >
-                    <Heading fontSize="14px" mb="1">
-                      {event.event_title}
-                    </Heading>
-                    <Text fontWeight="bold" fontSize="10px">
-                      {dayjs(event.event_date).format("MM/DD/YYYY")}
-                    </Text>
-                  </Box>
-                ))}
+              {clientEvents.length === 0 ? (
+                <>
+                  <Skeleton height="80px" width="200px" mb="2" />
+                  <Skeleton height="80px" width="200px" mb="2" />
+                  <Skeleton height="80px" width="200px" mb="2" />
+                </>
+              ) : (
+                <>
+                  {clientEvents
+                    .filter((event) => {
+                      if (eventTypeFilter) {
+                        return event.event_type === parseInt(eventTypeFilter);
+                      }
+                      return true;
+                    })
+                    .filter((event) => {
+                      if (publishedFilter !== null) {
+                        return event.privacy === (publishedFilter === "True");
+                      }
+                      return true;
+                    })
+                    .map((event) => (
+                      <Box
+                        key={event.id}
+                        cursor="pointer"
+                        p={4}
+                        mb="2"
+                        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+                        color="whiteAlpha.800"
+                        height="80px"
+                        w="200px"
+                        boxShadow="md"
+                        rounded="md"
+                        onClick={() => handleEventDetails(event.id)}
+                      >
+                        <Heading fontSize="14px" mb="1">
+                          {event.event_title}
+                        </Heading>
+                        <Text
+                          fontWeight="bold"
+                          fontSize="10px"
+                          color="whiteAlpha.600"
+                        >
+                          {dayjs(event.event_date).format("MM/DD/YYYY")}
+                        </Text>
+                      </Box>
+                    ))}
 
-              {/* Display a message if no events found for the selected event type */}
-              {eventTypeFilter &&
-                clientEvents.filter(
-                  (event) => event.event_type === parseInt(eventTypeFilter)
-                ).length === 0 && (
-                  <Box
-                    cursor="default"
-                    p={4}
-                    mb="2"
-                    bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
-                    color="whiteAlpha.800"
-                    height="80px"
-                    w="200px"
-                    boxShadow="md"
-                    rounded="md"
-                  >
-                    <Heading fontSize="14px" mb="1">
-                      Sorry, there are no events available right now.
-                    </Heading>
-                  </Box>
-                )}
+                  {eventTypeFilter &&
+                    clientEvents.filter(
+                      (event) => event.event_type === parseInt(eventTypeFilter)
+                    ).length === 0 && (
+                      <Box
+                        cursor="default"
+                        p={4}
+                        mb="2"
+                        bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
+                        color="whiteAlpha.800"
+                        height="80px"
+                        w="200px"
+                        boxShadow="md"
+                        rounded="md"
+                      >
+                        <Heading fontSize="14px" mb="1">
+                          Sorry, there are no events available right now.
+                        </Heading>
+                      </Box>
+                    )}
+                </>
+              )}
             </Box>
           </Flex>
         </Flex>
       </Box>
-      {/* <Box color="tomato" w="200"></Box> */}
       <Box
         // bg="yellow"
         h="100vh"
