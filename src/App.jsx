@@ -83,7 +83,7 @@ function App() {
         h="100vh"
         bgGradient="linear-gradient(159.02deg, #0F123B 14.25%, #090D2E 56.45%, #020515 86.14%)"
       >
-        <Navbar handleLogout={handleLogout} />
+        <Navbar handleLogout={handleLogout} token={token} />
         {token ? (
           <>
             <Routes>

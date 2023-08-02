@@ -12,7 +12,7 @@ import { FiHome, FiLogOut, FiUser, FiPlus, FiCalendar } from "react-icons/fi";
 
 import connected_yellow from "../assets/connected_yellow.svg";
 
-export const Navbar = ({ handleLogout }) => {
+export const Navbar = ({ handleLogout, token }) => {
   return (
     <Box
       position="fixed"
@@ -29,16 +29,18 @@ export const Navbar = ({ handleLogout }) => {
         <Link href="/">
           <img src={connected_yellow} alt="Logo" width="120px" height="60px" />
         </Link>
-        <Link to="/">
-          <Button
-            backgroundColor="whiteAlpha.800"
-            color="050e76"
-            size="xs"
-            onClick={handleLogout}
-          >
-            Log Out
-          </Button>
-        </Link>
+        {token && (
+          <Link to="/">
+            <Button
+              backgroundColor="whiteAlpha.800"
+              color="050e76"
+              size="xs"
+              onClick={handleLogout}
+            >
+              Log Out
+            </Button>
+          </Link>
+        )}
       </Flex>
     </Box>
   );
