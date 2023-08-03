@@ -93,7 +93,7 @@ const OrgProfile = ({ token, username, userRole, language, orgDetails }) => {
                   </Heading>
                   <Box fontWeight="bold" display="inline-block">
                     <Link
-                      href={formattedPhone}
+                      href={`tel:${formattedPhone}`}
                       mt="4"
                       size="lg"
                       fontStyle="bold"
