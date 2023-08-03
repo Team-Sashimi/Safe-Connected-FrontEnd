@@ -122,23 +122,24 @@ const BottomBar = ({ username, token, userRole }) => {
             </Flex>
           </Link>
         )}
-
-        <Link to="/account">
-          <Flex flexDirection="column" align="center">
-            <Icon
-              as={FiUser}
-              color={location.pathname === "/account" ? "#050e76" : "#050e76"}
-              boxSize="5"
-            />
-            <Text
-              color={location.pathname === "/account" ? "#050e76" : "#050e76"}
-              fontSize="10px"
-              fontWeight={location.pathname === "/account" ? "bold" : "light"}
-            >
-              Profile
-            </Text>
-          </Flex>
-        </Link>
+        {token && (
+          <Link to="/account">
+            <Flex flexDirection="column" align="center">
+              <Icon
+                as={FiUser}
+                color={location.pathname === "/account" ? "#050e76" : "#050e76"}
+                boxSize="5"
+              />
+              <Text
+                color={location.pathname === "/account" ? "#050e76" : "#050e76"}
+                fontSize="10px"
+                fontWeight={location.pathname === "/account" ? "bold" : "light"}
+              >
+                Profile
+              </Text>
+            </Flex>
+          </Link>
+        )}
       </Flex>
     </Box>
   );

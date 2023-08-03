@@ -46,9 +46,9 @@ function App() {
     setLanguage(language);
   };
 
-  const handleLogout = () => {
-    axios
-      .post(
+  const handleLogout = async () => {
+    try {
+      await axios.post(
         `${baseURL}auth/token/logout/`,
         {},
         {
@@ -56,11 +56,13 @@ function App() {
             Authorization: `Token ${token}`,
           },
         }
-      )
-      .then(() => {
-        setUser("", null);
-        // navigate("/");
-      });
+      );
+
+      setUser("", null);
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   useEffect(() => {
@@ -271,10 +273,22 @@ function App() {
           <>
             <Routes>
               <Route path="/" element={<LoginRole setUser={setUser} />} />
+              <Route
+                path="/"
+                element={
+                  <ManagerLanding
+                    username={username}
+                    token={token}
+                    userRole={userRole}
+                    language={language}
+                    orgDetails={orgDetails}
+                  />
+                }
+              />
             </Routes>
           </>
         )}
-        <BottomBar userRole={userRole} />
+        <BottomBar userRole={userRole} token={token} />
       </Box>
 
       {/* </Center> */}
